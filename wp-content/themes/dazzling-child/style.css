@@ -1,0 +1,811 @@
+/*
+Theme Name: Dazzling Child
+Theme URI: http://colorlib.com/wp/themes/dazzling
+Description: This is a Child theme of Dazzling Theme.
+Author: Colorlib & Rodrigo de Mingo
+Author URI: http://colorlib.com/wp/
+Template: dazzling
+Version: 1.2.7
+Text Domain: dazzling-child
+*/
+
+@import url("../dazzling/style.css");
+
+/* Table of content
+-----------------------------------------------
+1. NAVBAR
+2. CAROUSEL
+3. CORE
+4. HIGHLIGHTS
+5. JUMBOTRON
+6. SUB PAGES
+7. FOOTER
+8 CONTACT US
+8.1 JOB CATEGORIES
+9. MOBILE
+10. LOGOS
+11. MEDIA QUERIES
+*/
+
+/*Avoid Scroll on Menubar XS size*/
+
+.navbar-collapse {
+    max-height: 100%;
+}
+.container {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.container > .navbar-header {
+    margin-right: 0;
+}
+/*Hide English button language*/
+
+#menu-item-307-en {
+    display: none;
+}
+/*Hide Arab button language*/
+
+#menu-item-311-ar {
+    display: none;
+}
+#content {
+    margin-bottom: 0;
+}
+.hentry {
+    margin: 0;
+}
+body.archive.category.category-jobs .entry-content p a, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, body.home .btn {
+    color: #fff;
+    font-family: "Raleway";
+    font-weight: 300;
+    font-size: 1em;
+}
+h1, .h1 {
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 1.6em;
+}
+h2, .h2 {
+    font-weight: bold;
+    font-size: 1.5em;
+}
+h3, .h3 {
+    color: #484848;
+    font-weight: bold;
+}
+.carousel-caption h4 {
+    display: none;
+    font-weight: normal;
+}
+#carousel-home.carousel ol.carousel-indicators {
+    display: none;
+}
+article#post-87.post-87 h5 {
+    text-align: justify;
+}
+body.home #page {
+    background-color: #1C2733;
+}
+/* 
+==========================================================================
+1.NAVBAR 
+==========================================================================
+*/
+
+body.home #content {
+    margin-top: 0;
+}
+body.home .entry-content {
+    margin: 0;
+}
+.navbar {
+    min-height: 0;
+}
+.navbar.navbar-default {
+    border-bottom: 0;
+    background: rgb(28, 39, 51);
+    /* Old browsers */
+    background: -moz-linear-gradient(45deg, rgba(28, 39, 51, 1) 25%, rgba(40, 58, 82, 1) 40%, rgba(40, 58, 82, 1) 50%, rgba(40, 58, 82, 1) 60%, rgba(28, 39, 51, 1) 75%);
+    /* FF3.6+ */
+    background: -webkit-gradient(linear, left bottom, right top, color-stop(25%, rgba(28, 39, 51, 1)), color-stop(40%, rgba(40, 58, 82, 1)), color-stop(50%, rgba(40, 58, 82, 1)), color-stop(60%, rgba(40, 58, 82, 1)), color-stop(75%, rgba(28, 39, 51, 1)));
+    /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(45deg, rgba(28, 39, 51, 1) 25%, rgba(40, 58, 82, 1) 40%, rgba(40, 58, 82, 1) 50%, rgba(40, 58, 82, 1) 60%, rgba(28, 39, 51, 1) 75%);
+    /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(45deg, rgba(28, 39, 51, 1) 25%, rgba(40, 58, 82, 1) 40%, rgba(40, 58, 82, 1) 50%, rgba(40, 58, 82, 1) 60%, rgba(28, 39, 51, 1) 75%);
+    /* Opera 11.10+ */
+    background: -ms-linear-gradient(45deg, rgba(28, 39, 51, 1) 25%, rgba(40, 58, 82, 1) 40%, rgba(40, 58, 82, 1) 50%, rgba(40, 58, 82, 1) 60%, rgba(28, 39, 51, 1) 75%);
+    /* IE10+ */
+    background: linear-gradient(45deg, rgba(28, 39, 51, 1) 25%, rgba(40, 58, 82, 1) 40%, rgba(40, 58, 82, 1) 50%, rgba(40, 58, 82, 1) 60%, rgba(28, 39, 51, 1) 75%);
+    /* W3C */
+    filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#1c2733', endColorstr='#1c2733', GradientType=1);
+    /* IE6-9 fallback on horizontal gradient */
+}
+#logo a img {
+    width: 150px;
+    margin: 13px 0 0 30px;
+}
+#content {
+    margin-top: 0;
+}
+.navbar-default .navbar-toggle, .navbar-default .navbar-collapse, .navbar-default .navbar-form {
+    border-color: #B49859;
+}
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: #B49859;
+}
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus, .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus, .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus, .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus, .dropdown-menu > .active > a:focus {
+    background-color: #B49859;
+    color: #fff !important;
+}
+.container > .navbar-collapse {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+.dropdown-menu > .active > a, .navbar-default .navbar-nav .open .dropdown-menu > .active > a {
+    background-color: #B49859;
+    color: #fff !important;
+}
+.navbar-nav .open .dropdown-menu > li > a {
+    line-height: 30px;
+}
+.btn-primary {
+    border: none;
+}
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open .dropdown-toggle.btn-primary {
+    background-color: #3276b1;
+    border-color: none;
+}
+/*
+==========================================================================
+2. CAROUSEL
+==========================================================================
+*/
+
+body.home .carousel-control.right, .carousel-control.left {
+    background: 0;
+}
+#carousel-home.carousel.slide div.carousel-inner {
+    background-color: #000;
+}
+body.home .carousel-inner img {
+    opacity: 0.5;
+}
+#carousel-home.carousel.slide div.carousel-inner, body.home .carousel-inner img {
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+#carousel-home > div.carousel-inner > div:nth-child(2) > img {
+    opacity: 0.7;
+}
+.btn-default, .label-default, body.archive.category.category-jobs .entry-content p a:hover, body.home .carousel-caption a:hover, button.btn.btn-default.btn-red:hover {
+    background-color: #3276b1;
+    border-color: none;
+}
+body.archive.category.category-jobs .entry-content p a, body.home .carousel-caption > a, button.btn.btn-default.btn-red {
+    background-color: #09394E;
+    padding: 10px 28px;
+}
+/*
+==========================================================================
+3. CORE
+==========================================================================
+*/
+
+.why_container, .mobile {
+    background-color: #fff;
+    font-family: "Lato";
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+.why_container .box:hover {
+    -moz-transform: scale(1.03);
+    -moz-transition: all 0.2s linear;
+    -ms-transform: scale(1.03);
+    -ms-transition: all 0.2s linear;
+    -o-transform: scale(1.03);
+    -o-transition: all 0.2s linear;
+    -webkit-transform: scale(1.03);
+    -webkit-transition: all 0.2s linear;
+    transform: scale(1.03);
+    transition: all 0.2s linear;
+}
+.why_container h2, h2.text-primary.text-center {
+    color: #323e48;
+}
+.why_container h4, .mobile h4 {
+    color: #000;
+    margin-bottom: 30px;
+}
+.why_container .image {
+    text-align: center;
+}
+.why_container .fa {
+    margin: 11px -3px;
+}
+.why_container .text {
+    border-bottom: 1px solid #dcdcdc;
+    border-top: 1px solid #dcdcdc;
+    font-size: 12px;
+    line-height: 14px;
+    margin: 20px 0;
+    color: #484848;
+}
+.box_container {
+    font-family: "Lato" !important;
+    font-weight: 300 !important;
+}
+.why_container p {
+    text-align: justify;
+}
+.why_container .box {
+    display: table;
+}
+.why_container .circles {
+    display: table-cell;
+    vertical-align: middle;
+}
+.why_container .circle {
+    border-radius: 50px;
+    border: 1px solid;
+    color: #fff;
+    height: 50px;
+    margin: 0 auto;
+    text-align: center;
+    width: 50px;
+}
+.why_container .image > img {
+    margin: 20px 0;
+}
+.why_container .number {
+    display: none;
+}
+.why_container .circle1 {
+    border-color: #f8d092;
+    background-color: #f8d092;
+}
+.why_container .text1 {
+    border-right: 5px solid #f8d092;
+}
+.why_container .circle2 {
+    border-color: #a07d6a;
+    background-color: #a07d6a;
+}
+.why_container .text2 {
+    border-right: 5px solid #a07d6a;
+}
+.why_container .circle3 {
+    border-color: #1b373b;
+    background-color: #1b373b;
+}
+.why_container .text3 {
+    border-right: 5px solid #1b373b;
+}
+.why_container i.fa.fa-car {
+    left: -4px;
+    position: relative;
+}
+.why_container i.fa-tachometer {
+    bottom: 2px;
+    position: relative;
+    right: 2px;
+}
+.why_container i.fa-pencil-square-o {
+    margin: 12px -3px;
+}
+.why_container .circle4 {
+    border-color: #e4ba8f;
+    background-color: #e4ba8f;
+}
+.why_container .text4 {
+    border-right: 5px solid #e4ba8f;
+}
+.why_container .circle5 {
+    border-color: #d7a480;
+    background-color: #d7a480;
+}
+.why_container .text5 {
+    border-right: 5px solid #d7a480;
+}
+.why_container .circle6 {
+    border-color: #726154;
+    background-color: #726154;
+}
+.why_container .text6 {
+    border-right: 5px solid #726154;
+}
+.why_container .circle7 {
+    border-color: #4c8087;
+    background-color: #4c8087;
+}
+.why_container .text7 {
+    border-right: 5px solid #4c8087;
+}
+/*
+==========================================================================
+4. HIGHLIGHTS
+==========================================================================
+*/
+
+.highlights {
+    background-color: #233140;
+    font-family: "Lato";
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+.highlights p.text-center {
+    font-size: 13px;
+    color: #fff;
+}
+.highlights h2.text-primary, .highlights h3.text-center {
+    color: #B49859;
+}
+.highlights_icons.one {
+    left: -2px;
+    top: -3px;
+    width: 15px;
+}
+.highlights .highlights_icons {
+    position: relative;
+    bottom: 1px;
+}
+.highlights h4 {
+    color: #fff;
+}
+.fa {
+    font-size: 28px;
+}
+.highlights .icon {
+    -moz-border-radius: 50px;
+    -moz-transition: all 0.2s linear;
+    -ms-transition: all 0.2s linear;
+    -o-transition: all 0.2s linear;
+    -webkit-border-radius: 50px;
+    -webkit-transition: all 0.2s linear;
+    border-radius: 50px;
+    border: 2px solid #b49859;
+    display: inline-block;
+    height: 60px;
+    margin: 10px 0 10px 0;
+    padding-top: 14px;
+    text-align: center;
+    transition: all 0.2s linear;
+    width: 60px;
+}
+.icon:hover {
+    -moz-transform: rotate(360deg);
+    -moz-transition: all 0.5s linear;
+    -ms-transform: rotate(360deg);
+    -ms-transition: all 0.5s linear;
+    -o-transform: rotate(360deg);
+    -o-transition: all 0.5s linear;
+    -webkit-transform: rotate(360deg);
+    -webkit-transition: all 0.5s linear;
+    background-color: #000;
+    transform: rotate(360deg);
+    transition: all 0.5s linear;
+}
+.block {
+    margin: 18px 0;
+    padding: 6px 20px 10px;
+    text-align: center;
+}
+.highlights .fa-mobile {
+    font-size: 40px;
+    position: relative;
+    bottom: 5px;
+}
+body.home .highlights i.fa {
+    color: #b49859;
+}
+/*
+==========================================================================
+5. JUMBOTRON
+==========================================================================
+*/
+
+.jumbotron {
+    background-color: #B64B46;
+    color: #fff;
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 0;
+}
+.jumbotron h1 {
+    font-size: 1.8em;
+}
+.container .jumbotron {
+    padding: 10px;
+    border-radius: 0;
+}
+.btn-lg, .wpcf7-submit {
+    background-color: #09394e;
+    border: none;
+    font-family: sans-serif;
+    font-size: 0.7em !important;
+    font-weight: bold;
+    margin-top: 20px;
+}
+/* 
+==========================================================================
+6. SUB PAGES
+==========================================================================
+*/
+
+.fa.fa-check {
+    color: #352C1A;
+    font-size: small;
+    margin-right: 10px;
+}
+.list-group-item, .panel-collapse {
+    background-color: #233140;
+    border: medium none;
+    color: #fff;
+}
+.box_container h5, .box_container {
+    color: #323e48;
+}
+.box_container h3 {
+    display: none;
+}
+.box_container h5 {
+    font-family: Lato;
+    line-height: 2em;
+    padding: 18px 0;
+    text-align: justify;
+}
+body.category-jobs h1.page-title, header.entry-header h1.entry-title, .category-job-opportunities h1.page-title {
+    color: #323e48;
+    margin-top: 30px;
+    font-size: 30px;
+}
+.list-group-item-info {
+    color: #323e48;
+    background-color: #B49859;
+}
+.panel-default > .panel-heading {
+    background-color: #dfdfdf;
+}
+.panel-title {
+    font-size: 14px !important;
+}
+.panel-heading h4.panel-title a i.fa {
+    font-size: 13px;
+    margin-right: 10px;
+}
+#secondary {
+    margin-top: 20px;
+}
+.panel-group .panel-heading + .panel-collapse .panel-body {
+    border: none;
+}
+.panel-body {
+    text-align: justify;
+}
+/* 
+==========================================================================
+7. FOOTER
+==========================================================================
+*/
+
+.sub-menu {
+    padding-left: 27px;
+}
+.footer-nav.nav > li {
+    text-align: left;
+    vertical-align: top;
+}
+#menu-menu_en-1 > li > a:nth-child(1) {
+    text-transform: uppercase;
+}
+/*
+==========================================================================
+8. CONTACT US
+==========================================================================
+*/
+
+.wpcf7-form-control.wpcf7-submit.btn.btn-default {
+    min-width: 94px;
+    padding: 10px 28px;
+}
+.wpcf7-form-control.wpcf7-submit.btn.btn-default:hover, .wpcf7-form-control.wpcf7-submit.btn.btn-default:focus {
+    background-color: #3276B1;
+    border-color: #3276B1;
+}
+/*
+==========================================================================
+8.1 JOB CATEGORIES
+==========================================================================
+*/
+
+body.category-jobs .nav-links, body.category-jobs .entry-meta, body.category-jobs .taxonomy-description, body.single-post nav.navigation.post-navigation, body.single-post footer.entry-meta {
+    display: none;
+}
+body.single-post article {
+    margin-bottom: 30px;
+}
+html body.archive.category.category-jobs p a i.fa {
+    font-size: 15px;
+    padding: 5px;
+}
+body.archive.category.category-jobs .entry-content p a {
+    border-color: #3276b1;
+    padding: 10px !important;
+}
+.h3title, body.archive.category.category-jobs h1.entry-title a {
+    font-size: 18px;
+    font-weight: 300;
+    text-transform: capitalize;
+}
+/*
+==========================================================================
+9. MOBILE
+==========================================================================
+*/
+
+.iphone {
+    display: block;
+    margin: 0 auto;
+    width: 80%;
+    padding-bottom: 20px;
+}
+.award_one.img-rounded {
+    display: block;
+    margin: 0 auto;
+    padding: 15px;
+}
+/*  
+==========================================================================
+10. LOGOS
+==========================================================================
+*/
+
+.logos {
+    margin: 40px 20px;
+    max-width: 60%;
+    text-align: center;
+}
+.logos.transad {
+    margin: 8px auto;
+}
+/* 
+==========================================================================
+11. PARTNERS & CLIENTS  
+==========================================================================
+*/
+
+.flip-container {
+    -webkit-perspective: 1000;
+    -moz-perspective: 1000;
+    -o-perspective: 1000;
+    perspective: 1000;
+    margin-bottom: 15px;
+}
+.flip-container:hover .flipper, .flip-container.hover .flipper {
+    -webkit-transform: rotateY(180deg);
+    -moz-transform: rotateY(180deg);
+    -o-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+}
+.flip-container, .front, .back {
+    width: 100%;
+    height: 150px;
+}
+.flipper {
+    -webkit-transition: 0.6s;
+    -webkit-transform-style: preserve-3d;
+    -moz-transition: 0.6s;
+    -moz-transform-style: preserve-3d;
+    -o-transition: 0.6s;
+    -o-transform-style: preserve-3d;
+    transition: 0.6s;
+    transform-style: preserve-3d;
+    position: relative;
+}
+.front, .back {
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -o-backface-visibility: hidden;
+    backface-visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.front {
+    z-index: 2;
+}
+.front2, .front3, .front4, .front5, .front6, .front7, .front8, .front9, .front10 {
+    margin: 0 auto;
+}
+.front1 {
+    background: url(/certtelematics/wp-content/uploads/2014/09/transad1.jpg) 50% no-repeat;
+}
+.front2 {
+    background: url(/certtelematics/wp-content/uploads/2014/09/mowasalat.jpg) 50% / 60% auto no-repeat;
+}
+.front3 {
+    background: url(/certtelematics/wp-content/uploads/2014/09/etihad.jpg) 50% / 60% auto no-repeat;
+}
+.front4 {
+    background: url(/certtelematics/wp-content/uploads/2014/09/iteris.jpg) 50% / 60% auto no-repeat;
+}
+.front5 {
+    background: url(/certtelematics/wp-content/uploads/2014/09/microsoft.jpg) 50% / 60% auto no-repeat;
+}
+.front6 {
+    background: url(/certtelematics/wp-content/uploads/2014/09/nokia.jpg) 50% / 60% auto no-repeat;
+}
+.front7 {
+    background: url(/certtelematics/wp-content/uploads/2014/09/digitax.jpg) 50% / 60% auto no-repeat;
+}
+.front8 {
+    background: url(/certtelematics/wp-content/uploads/2014/09/pointguard.jpg) 50% / 60% auto no-repeat;
+}
+.front9 {
+    background: url(/certtelematics/wp-content/uploads/2014/09/sygic.jpg) 50% / 60% auto no-repeat;
+}
+.front10 {
+    background: url(/certtelematics/wp-content/uploads/2014/09/hp.jpg) 50% / 60% auto no-repeat;
+}
+.back {
+    -webkit-transform: rotateY(180deg);
+    -moz-transform: rotateY(180deg);
+    -o-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+    background: #4D709E;
+    height: 148px;
+    width: 99.9%;
+}
+.back-title {
+    color: #ffffff;
+    font-family: Raleway;
+    font-size: 1em;
+    left: 0;
+    padding: 0 10px;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    text-transform: uppercase;
+    top: 20px;
+}
+.back p {
+    bottom: 30px;
+    color: #ffffff;
+    font-family: Lato;
+    font-size: 0.9em;
+    left: 0;
+    line-height: 1.1em;
+    padding: 0 20px;
+    position: absolute;
+    right: 0;
+    text-align: center;
+}
+/* 
+==========================================================================
+MEDIA QUERIES
+==========================================================================
+*/
+
+/* 
+==========================================================================
+Small devices (phones, 480px and up) 
+==========================================================================
+*/
+
+@media (min-width: 480px) {
+    h1, .h1 {
+        font-size: 3em;
+    }
+    h2, .h2 {
+        font-size: 2em;
+    }
+    h3, .h3 {
+        font-size: 1em;
+    }
+    h4, .h4 {
+        font-size: 1em;
+    }
+    .carousel-caption {
+        bottom: 30px;
+    }
+    .carousel-caption a.btn {
+        font-weight: lighter;
+        margin-top: 15px;
+    }
+    .carousel-caption h4 {
+        display: block;
+    }
+    #carousel-home.carousel ol.carousel-indicators {
+        display: block;
+    }
+    .iphone {
+        width: 40%;
+    }
+}
+/* 
+==========================================================================
+Medium devices (tablets, 768px and up)
+==========================================================================
+*/
+
+@media (min-width: 768px) {
+    h1, .h1 {
+        font-size: 3.8em;
+    }
+    h2, .h2 {
+        font-size: 2em;
+    }
+    h3, .h3 {
+        font-size: 1.2em;
+        font-weight: bold;
+    }
+    .carousel-caption {
+        bottom: 87px;
+        padding-top: 0;
+    }
+    .navbar-default .navbar-nav > li > a {
+        line-height: 30px;
+        padding-bottom: 18px;
+        padding-top: 18px;
+    }
+    .jumbotron h1 {
+        font-size: 2.8em;
+    }
+    .container .jumbotron {
+        padding: 20px;
+    }
+    #logo a img {
+        margin: 18px 0 0 15px;
+        width: 160px;
+    }
+}
+/* 
+==========================================================================
+Large devices (desktops, 992px and up) 
+==========================================================================
+*/
+
+@media (min-width: 992px) {
+    .carousel-caption {
+        bottom: 146px;
+    }
+    h1, .h1 {
+        font-size: 5em;
+    }
+    .why_container .image {
+        margin-top: 65px;
+    }
+    #logo a img {
+        margin: 18px 0 0 15px;
+        width: 190px;
+    }
+    .iphone {
+        position: relative;
+        top: -18px;
+        width: 55%;
+    }
+}
+/* 
+==========================================================================
+Extra Large devices (desktops, 1200px and up) 
+==========================================================================
+*/
+
+@media (min-width: 1200px) {
+    .carousel-caption {
+        bottom: 250px;
+        font-size: 1.1em;
+    }
+    h1, .h1 {
+        font-size: 5.5em;
+    }
+    .why_container .image {
+        margin-top: 10px;
+    }
+    .why_container .number {
+        display: none;
+    }
+    .why_container .number p {
+        line-height: 130px;
+    }
+}
