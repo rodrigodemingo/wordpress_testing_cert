@@ -61,6 +61,17 @@ Images
     http://pixabay.com/en/wristwatch-watch-time-fashion-407096/
 
 == Changelog ==
+Version 1.12
+* Section in Theme Option page rearranged to make it more user friendly.
+
+Version 1.11
+* Screenshot Change
+* Minor CSS changes
+* Sections in Home Page tab of the theme option panel arranged in the order as they appear in home page.
+
+Version 1.10
+* Woocommerce compatible
+
 Version 1.09
 * Slider Read More button design issue fixed.
 * Minor Changes in Admin Section

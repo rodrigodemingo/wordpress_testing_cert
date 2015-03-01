@@ -8,11 +8,7 @@
 function optionsframework_option_name() {
 
 	// This gets the theme name from the stylesheet
-	$themename = wp_get_theme();
-	$themename = preg_replace("/\W/", "_", strtolower($themename) );
-
-	$optionsframework_settings = get_option( 'optionsframework' );
-	$optionsframework_settings['id'] = $themename;
+	$optionsframework_settings['id'] = 'accesspress_parallax';
 	update_option( 'optionsframework', $optionsframework_settings );
 }
 

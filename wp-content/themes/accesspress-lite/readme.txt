@@ -60,6 +60,20 @@ Images
     http://pixabay.com/en/key-metal-home-security-wedding-96233/
 
 == Changelog ==
+Version 2.40
+* Changes in theme Option panel
+* Email removed due to unnecessary spam emails
+* Social Links Changed with icons
+
+Version 2.39
+* Support for header text added
+* Unwanted Images removed. 
+
+Version 2.36 
+* HTML bug Fixed in Theme Option Admin Panel 
+* Event date set to current date as a default value. 
+* Added Title Tags as WordPress v4.1 recommends 
+
 Version 2.35
 * Yet another new translation Language added(Portuguese)
 

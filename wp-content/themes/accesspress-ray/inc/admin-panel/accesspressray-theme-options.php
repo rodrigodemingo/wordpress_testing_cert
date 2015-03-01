@@ -239,7 +239,7 @@ function accesspress_ray_theme_options_page() {
 		<h3>Theme Options</h3>
 	</div>
 	<a id="options-group-1-tab" class="nav-tab nav-tab-active" href="#options-group-1"><?php _e('Basic Settings','accesspress_ray'); ?></a>
-    <a id="options-group-2-tab" class="nav-tab" href="#options-group-2"><?php _e('Home Page','accesspress_ray'); ?></a>
+    <a id="options-group-2-tab" class="nav-tab" href="#options-group-2"><?php _e('Home Page Set Up','accesspress_ray'); ?></a>
 	<a id="options-group-3-tab" class="nav-tab" href="#options-group-3"><?php _e('Slider Settings','accesspress_ray'); ?></a>
 	<a id="options-group-5-tab" class="nav-tab" href="#options-group-5"><?php _e('Social Links','accesspress_ray'); ?></a>
 	<a id="options-group-6-tab" class="nav-tab" href="#options-group-6"><?php _e('Tools','accesspress_ray'); ?></a>
@@ -345,33 +345,7 @@ function accesspress_ray_theme_options_page() {
 					</tr>
 					<tr><td colspan="2" class="seperator">&nbsp;</td></tr>
 
-					<tr><th scope="row"><label for="testimonial_cat"><?php _e('Select the category to display as Testimonials','accesspress_ray'); ?></label></th>
-					<td>
-					<select id="testimonial_cat" name="accesspress_ray_options[testimonial_cat]">
-					<?php
-					foreach ( $accesspress_ray_catlist as $single_cat ) :
-						$label = $single_cat['label']; ?>
-						<option value="<?php echo $single_cat['value'] ?>" <?php selected( $single_cat['value'], $settings['testimonial_cat'] ); ?>><?php echo $label; ?></option>
-					<?php 
-					endforeach;
-					?>
-					</select>
-					</td>
-					</tr>
-
-					<tr><th scope="row"><label for="blog_cat"><?php _e('Select the category to display as Blog','accesspress_ray'); ?></label></th>
-					<td>
-					<select id="blog_cat" name="accesspress_ray_options[blog_cat]">
-					<?php
-					foreach ( $accesspress_ray_catlist as $single_cat ) :
-						$label = $single_cat['label']; ?>
-						<option value="<?php echo $single_cat['value'] ?>" <?php selected( $single_cat['value'], $settings['blog_cat'] ); ?>><?php echo $label; ?></option>
-					<?php 
-					endforeach;
-					?>
-					</select>
-					</td>
-					</tr>
+					
 
 					<tr><th scope="row"><label for="portfolio_cat"><?php _e('Select the category to display as Portfolio/Products','accesspress_ray'); ?></label></th>
 					<td>
@@ -417,74 +391,11 @@ function accesspress_ray_theme_options_page() {
 			<div id="options-group-2" class="group" style="display: none;">
 			<h3><?php _e('Home Page Settings','accesspress_ray'); ?></h3> 
 				<table class="form-table">
-                    <!--<tr><th scope="row"><label for="home_page_layout"><?php _e('Home Page Layout','accesspress_ray'); ?></label></th>
-					<td>
-					<?php $accesspress_ray_home_page_layouts = array('Default','Layout1','Layout2'); ?>
-					<?php
-					foreach ( $accesspress_ray_home_page_layouts as $accesspress_ray_home_page_layout ) : ?>
-                    <div class="layout-img">
-						
-						<label for="<?php echo $accesspress_ray_home_page_layout; ?>">
-                        <img src="<?php echo get_template_directory_uri().'/images/demo/'.$accesspress_ray_home_page_layout.'.jpg'; ?>"/>
-                        <div class="">
-                        <input type="radio" id="<?php echo $accesspress_ray_home_page_layout; ?>" name="accesspress_ray_options[accesspress_ray_home_page_layout]" value="<?php echo $accesspress_ray_home_page_layout; ?>" <?php checked( $settings['accesspress_ray_home_page_layout'], $accesspress_ray_home_page_layout ); ?> />
-                        <?php echo $accesspress_ray_home_page_layout;?></div>
-                        </label>
-                    </div>
-					<?php endforeach; ?>
-					</td>
-					</tr>-->
-					<tr>
-						<th><label for="show_blog_number"><?php _e('No of Posts to display in Blog slider','accesspress_ray'); ?></label></th>
-						<td><input id="show_blog_number" type="text" name="accesspress_ray_options[show_blog_number]" value="<?php if (isset($settings['show_blog_number'])){ echo esc_attr($settings['show_blog_number'],'accesspress_ray'); } ?>"></td>
-					</tr>
-
-					<tr>
-						<th><label for="show_blogdate"><?php _e('Show Blog Posted Date?','accesspress_ray'); ?></th>
-						<td>
-							<input type="checkbox" id="show_blogdate" name="accesspress_ray_options[show_blogdate]" value="1" <?php checked( true, $settings['show_blogdate'] ); ?> />
-							<label for="show_blogdate"><?php _e('Check to enable','accesspress_ray'); ?></label>
-						</td>
-					</tr>
-
-					<!--<tr>
-						<td colspan="2"><em><?php _e('To replace the Event section in homepage, Go to', 'accesspress_ray'); ?> <a href="<?php echo admin_url('widgets.php'); ?>"><?php _e('widget','accesspress_ray'); ?></a> <?php _e('and drag widget item into the Event Sidebar Widget area.', 'accesspress_ray' ); ?></em></td>
-					</tr>-->
-
-					<tr><td colspan="2" class="seperator">&nbsp;</td></tr>
-
-					<tr><th scope="row"><label for="call_to_action_post"><?php _e('Call To Action Post','accesspress_ray'); ?></label></th>
-					<td>
-					<select id="call_to_action_post" name="accesspress_ray_options[call_to_action_post]">
-					<?php
-					foreach ( $accesspress_ray_postlist as $single_post ) :
-						$label = $single_post['label']; ?>
-						<option value="<?php echo $single_post['value'] ?>" <?php selected( $single_post['value'], $settings['call_to_action_post'] ); ?>><?php echo $label; ?></option>
-					<?php endforeach;
-					?>
-					</select>
+					<tr class="setting-title">
+					<td colspan="2">
+					<h4><?php _e('Featured Posts', 'accesspress_ray'); ?></h4>
 					</td>
 					</tr>
-
-					<tr>
-						<th><label for="full_content"><?php _e('Show Full Content?','accesspress_ray'); ?></th>
-						<td>
-							<input type="checkbox" id="full_content" name="accesspress_ray_options[call_to_action_post_content]" value="1" <?php checked( true, $settings['call_to_action_post_content'] ); ?> />
-							<label for="full_content"><?php _e('Check to enable','accesspress_ray'); ?></label><br />
-						</td>
-					</tr>
-
-					<tr>
-						<th><label for="call_to_action_post_char"><?php _e('Call To Action Post Excerpt Character','accesspress_ray'); ?></label></th>
-						<td><input id="call_to_action_post_char" type="text" name="accesspress_ray_options[call_to_action_post_char]" value="<?php if (isset($settings['call_to_action_post_char'])){ echo esc_attr($settings['call_to_action_post_char'],'accesspress_ray'); } ?>"> <?php _e('Characters','accesspress_ray'); ?></td>
-					</tr>
-
-					<tr>
-						<th><label for="call_to_action_post_readmore"><?php _e('Read More Text','accesspress_ray'); ?></label></th>
-						<td><input class="medium" id="call_to_action_post_readmore" type="text" name="accesspress_ray_options[call_to_action_post_readmore]" value="<?php if (isset($settings['call_to_action_post_readmore'])){ echo esc_attr($settings['call_to_action_post_readmore'],'accesspress_ray'); } ?>"><br /><em class="f13"><?php _e('Leave blank if you don\'t want to show read more','accesspress_ray'); ?></em></td>
-					</tr>
-
-					<tr><td colspan="2" class="seperator">&nbsp;</td></tr>
 					<tr>
 					<th scope="row"><label for="featured_title"><?php _e('Featured Title','accesspress_ray'); ?></label></th>
 					<td>
@@ -573,7 +484,48 @@ function accesspress_ray_theme_options_page() {
 						<td><input id="featured_post_readmore" type="text" name="accesspress_ray_options[featured_post_readmore]" value="<?php if ( isset($settings['featured_post_readmore'])){echo esc_attr($settings['featured_post_readmore'],'accesspress_ray'); } ?>"><br /><em class="f13"><?php _e('Leave blank if you don\'t want to show read more','accesspress_ray'); ?></em></td>
 					</tr>
 
-                    <tr><td colspan="2" class="seperator">&nbsp;</td></tr>
+					<tr class="setting-title">
+					<td colspan="2">
+					<h4><?php _e('Call To Action', 'accesspress_ray'); ?></h4>
+					</td>
+					</tr>
+
+					<tr><th scope="row"><label for="call_to_action_post"><?php _e('Call To Action Post','accesspress_ray'); ?></label></th>
+					<td>
+					<select id="call_to_action_post" name="accesspress_ray_options[call_to_action_post]">
+					<?php
+					foreach ( $accesspress_ray_postlist as $single_post ) :
+						$label = $single_post['label']; ?>
+						<option value="<?php echo $single_post['value'] ?>" <?php selected( $single_post['value'], $settings['call_to_action_post'] ); ?>><?php echo $label; ?></option>
+					<?php endforeach;
+					?>
+					</select>
+					</td>
+					</tr>
+
+					<tr>
+						<th><label for="full_content"><?php _e('Show Full Content?','accesspress_ray'); ?></th>
+						<td>
+							<input type="checkbox" id="full_content" name="accesspress_ray_options[call_to_action_post_content]" value="1" <?php checked( true, $settings['call_to_action_post_content'] ); ?> />
+							<label for="full_content"><?php _e('Check to enable','accesspress_ray'); ?></label><br />
+						</td>
+					</tr>
+
+					<tr>
+						<th><label for="call_to_action_post_char"><?php _e('Call To Action Post Excerpt Character','accesspress_ray'); ?></label></th>
+						<td><input id="call_to_action_post_char" type="text" name="accesspress_ray_options[call_to_action_post_char]" value="<?php if (isset($settings['call_to_action_post_char'])){ echo esc_attr($settings['call_to_action_post_char'],'accesspress_ray'); } ?>"> <?php _e('Characters','accesspress_ray'); ?></td>
+					</tr>
+
+					<tr>
+						<th><label for="call_to_action_post_readmore"><?php _e('Read More Text','accesspress_ray'); ?></label></th>
+						<td><input class="medium" id="call_to_action_post_readmore" type="text" name="accesspress_ray_options[call_to_action_post_readmore]" value="<?php if (isset($settings['call_to_action_post_readmore'])){ echo esc_attr($settings['call_to_action_post_readmore'],'accesspress_ray'); } ?>"><br /><em class="f13"><?php _e('Leave blank if you don\'t want to show read more','accesspress_ray'); ?></em></td>
+					</tr>
+
+					<tr class="setting-title">
+					<td colspan="2">
+					<h4><?php _e('Featured Widgets', 'accesspress_ray'); ?></h4>
+					</td>
+					</tr>
 
                     <tr>
 						<th><label for="featured_bar"><?php _e('Disable Featured Widget Bar','accesspress_ray'); ?></th>
@@ -583,15 +535,77 @@ function accesspress_ray_theme_options_page() {
 						</td>
 					</tr>
 
-					<tr><td colspan="2" class="seperator">&nbsp;</td></tr>
+					<tr>
+					<td colspan="2">
+						<em class="f13"><?php echo sprintf(__('To set up Widgets, Go to <a href="%s" target="_blank">widget page</a>', 'accesspress_ray'),esc_url(admin_url('widgets.php'))); ?></em>
+					</td>
+					</tr>
 
-					<tr><td colspan="2">
-					<?php _e('Google Map','accesspress_ray'); ?> -	
+					<tr class="setting-title">
+					<td colspan="2">
+					<h4><?php _e('Blog Slider', 'accesspress_ray'); ?></h4>
+					</td>
+					</tr>
 
-					<?php _e(sprintf('To get Values of Latitude and Longitude by Location name, click on <a href="%s">http://www.latlong.net</a>', 'http://www.latlong.net' ),'accesspress_ray'); ?>
-					</td></tr>
+					<tr><th scope="row"><label for="blog_cat"><?php _e('Select the category to display as Blog','accesspress_ray'); ?></label></th>
+					<td>
+					<select id="blog_cat" name="accesspress_ray_options[blog_cat]">
+					<?php
+					foreach ( $accesspress_ray_catlist as $single_cat ) :
+						$label = $single_cat['label']; ?>
+						<option value="<?php echo $single_cat['value'] ?>" <?php selected( $single_cat['value'], $settings['blog_cat'] ); ?>><?php echo $label; ?></option>
+					<?php 
+					endforeach;
+					?>
+					</select>
+					</td>
+					</tr>
 
-					<tr><td class="seperator" colspan="2"></td></tr>
+                    <tr>
+						<th><label for="show_blog_number"><?php _e('No of Posts to display in Blog slider','accesspress_ray'); ?></label></th>
+						<td><input id="show_blog_number" type="text" name="accesspress_ray_options[show_blog_number]" value="<?php if (isset($settings['show_blog_number'])){ echo esc_attr($settings['show_blog_number'],'accesspress_ray'); } ?>"></td>
+					</tr>
+
+					<tr>
+						<th><label for="show_blogdate"><?php _e('Show Blog Posted Date?','accesspress_ray'); ?></th>
+						<td>
+							<input type="checkbox" id="show_blogdate" name="accesspress_ray_options[show_blogdate]" value="1" <?php checked( true, $settings['show_blogdate'] ); ?> />
+							<label for="show_blogdate"><?php _e('Check to enable','accesspress_ray'); ?></label>
+						</td>
+					</tr>
+
+					<tr class="setting-title">
+					<td colspan="2">
+					<h4><?php _e('Testimonail Slider', 'accesspress_ray'); ?></h4>
+					</td>
+					</tr>
+
+					<tr><th scope="row"><label for="testimonial_cat"><?php _e('Select the category to display as Testimonials','accesspress_ray'); ?></label></th>
+					<td>
+					<select id="testimonial_cat" name="accesspress_ray_options[testimonial_cat]">
+					<?php
+					foreach ( $accesspress_ray_catlist as $single_cat ) :
+						$label = $single_cat['label']; ?>
+						<option value="<?php echo $single_cat['value'] ?>" <?php selected( $single_cat['value'], $settings['testimonial_cat'] ); ?>><?php echo $label; ?></option>
+					<?php 
+					endforeach;
+					?>
+					</select>
+					</td>
+					</tr>
+
+				
+					<tr class="setting-title">
+					<td colspan="2">
+					<h4><?php _e('Google Map', 'accesspress_ray'); ?></h4>
+					</td>
+					</tr>
+
+					<tr>
+					<td colspan="2">
+						<em class="13"><?php _e(sprintf('To get Values of Latitude and Longitude by Location name, click on <a href="%s" target="_blank">http://www.latlong.net</a>', 'http://www.latlong.net' ),'accesspress_ray'); ?></em>
+					</td>
+					</tr>
 
 					<tr><th scope="row"><label for="latitude"><?php _e('Enter the latitude','accesspress_ray'); ?></label></th>
 						<td>

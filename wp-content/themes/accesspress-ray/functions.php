@@ -48,6 +48,7 @@ function accesspress_ray_setup() {
 	 * @link http://codex.wordpress.org/Function_Reference/add_theme_support#Post_Thumbnails
 	 */
 	add_theme_support( 'post-thumbnails' );
+	add_theme_support( 'woocommerce' );
 
 	add_image_size( 'event-thumbnail', 135, 100, true); //Latest News Events Small Image
 	add_image_size( 'featured-thumbnail', 350, 245, true); //Featured Image

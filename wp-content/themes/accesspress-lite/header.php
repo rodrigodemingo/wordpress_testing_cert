@@ -11,7 +11,6 @@
 <head>
 <meta charset="<?php bloginfo( 'charset' ); ?>">
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalabe=no">
-<title><?php wp_title( '|', true, 'right' ); ?></title>
 <link rel="profile" href="http://gmpg.org/xfn/11">
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
 <!--[if lt IE 9]>
@@ -32,14 +31,15 @@ $accesspresslite_settings = get_option( 'accesspresslite_options', $accesspressl
     <div id="top-header">
 		<div class="ak-container">
 			<div class="site-branding">
-				
-				
+
+				<a href="<?php echo esc_url( home_url( '/' ) ); ?>">				
 				<?php if ( get_header_image() ) { ?>
-				<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
 					<img src="<?php header_image(); ?>" alt="<?php bloginfo('name') ?>">
+				<?php }else{ ?>
+					<h1><?php echo bloginfo('title'); ?></h1>
+					<div class="tagline"><?php echo bloginfo('description'); ?></div>
+				<?php } ?>		
 				</a>
-				<?php } ?>
-				
 				
 			</div><!-- .site-branding -->
         

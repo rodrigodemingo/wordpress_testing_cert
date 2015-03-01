@@ -116,6 +116,16 @@ function accesspress_ray_widgets_init() {
 	) );
 
 	register_sidebar( array(
+		'name'          => __( 'Shop Sidebar', 'accesspress_ray' ),
+		'id'            => 'shop-sidebar',
+		'description'   => __( 'Display items in the Right Sidebar of the inner pages for Woocommerce', 'accesspress_ray' ),
+		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+		'after_widget'  => '</aside>',
+		'before_title'  => '<h3 class="widget-title">',
+		'after_title'   => '</h3>',
+	) );
+
+	register_sidebar( array(
 		'name'          => __( 'Featured Left Widget', 'accesspress_ray' ),
 		'id'            => 'textblock-1',
 		'description'   => __( 'Display items in the left of Featured Bar', 'accesspress_ray' ),
