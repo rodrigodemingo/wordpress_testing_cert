@@ -20,5 +20,4 @@ if($post_class=='left-sidebar' || $post_class=='both-sidebar'){
     </div>
     <?php    
 }
-    
 ?>

@@ -5,7 +5,11 @@
  * @package AccessPress Ray
  */
 
-get_header(); ?>
+get_header(); 
+global $accesspress_ray_options;
+$accesspress_ray_settings = get_option( 'accesspress_ray_options', $accesspress_ray_options );
+$accesspress_ray_template_design = $accesspress_ray_settings['accesspress_ray_template_design'];
+?>
 <div class="ak-container">
 	<section id="primary" class="content-area">
 		<main id="main" class="site-main" role="main">
@@ -13,7 +17,7 @@ get_header(); ?>
 		<?php if ( have_posts() ) : ?>
 
 			<header class="page-header">
-				<h1 class="page-title"><?php printf( __( 'Search Results for: %s', 'accesspress_ray' ), '<span>' . get_search_query() . '</span>' ); ?></h1>
+				<h1 class="page-title"><?php printf( __( 'Search Results for: %s', 'accesspress-ray' ), '<span>' . get_search_query() . '</span>' ); ?></h1>
 			</header><!-- .page-header -->
 
 			<?php /* Start the Loop */ ?>
@@ -36,4 +40,10 @@ get_header(); ?>
 
 <?php get_sidebar('right'); ?>
 </div>
-<?php get_footer(); ?>
+<?php 
+	if( $accesspress_ray_template_design == 'style1_template' ) {
+		get_footer('two');
+	}else{
+		get_footer();
+	}
+?>

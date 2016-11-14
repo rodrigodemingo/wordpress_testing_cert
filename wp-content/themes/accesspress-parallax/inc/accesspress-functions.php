@@ -36,38 +36,6 @@ function accesspress_parallax_body_classes( $classes ) {
 add_filter( 'body_class', 'accesspress_parallax_body_classes' );
 
 /**
- * Filters wp_title to print a neat <title> tag based on what is being viewed.
- *
- * @param string $title Default title text for current view.
- * @param string $sep Optional separator.
- * @return string The filtered title.
- */
-function accesspress_parallax_wp_title( $title, $sep ) {
-	if ( is_feed() ) {
-		return $title;
-	}
-
-	global $page, $paged;
-
-	// Add the blog name
-	$title .= get_bloginfo( 'name', 'display' );
-
-	// Add the blog description for the home/front page.
-	$site_description = get_bloginfo( 'description', 'display' );
-	if ( $site_description && ( is_home() || is_front_page() ) ) {
-		$title .= " $sep $site_description";
-	}
-
-	// Add a page number if necessary:
-	if ( ( $paged >= 2 || $page >= 2 ) && ! is_404() ) {
-		$title .= " $sep " . sprintf( __( 'Page %s', 'accesspress_parallax' ), max( $paged, $page ) );
-	}
-
-	return $title;
-}
-add_filter( 'wp_title', 'accesspress_parallax_wp_title', 10, 2 );
-
-/**
  * Sets the authordata global when viewing an author archive.
  *
  * This provides backwards compatibility with
@@ -89,7 +57,7 @@ function accesspress_parallax_setup_author() {
 add_action( 'wp', 'accesspress_parallax_setup_author' );
 
 //bxSlider Callback for do action
-function accesspress_bxslidercb(){
+function accesspress_parallax_bxslidercb(){
 		global $post;
 		$accesspress_parallax = of_get_option('parallax_section');
 		if(!empty($accesspress_parallax)) :
@@ -115,7 +83,7 @@ function accesspress_bxslidercb(){
 		<div class="overlay"></div>
 
 		<?php if(!empty($accesspress_parallax_first_page) && $accesspress_enable_parallax == 1): ?>
-		<div class="next-page"><a href="<?php echo esc_url( home_url( '/' ) ); ?>#section-<?php echo $accesspress_parallax_first_page; ?>"></a></div>
+		<div class="next-page"><a href="<?php echo esc_url( home_url( '/' ) ); ?>#section-<?php echo esc_attr($accesspress_parallax_first_page); ?>"></a></div>
 		<?php endif; ?>
 
  		<script type="text/javascript">
@@ -125,9 +93,9 @@ function accesspress_bxslidercb(){
 					pager: <?php echo $accesspress_show_pager; ?>,
 					controls: <?php echo $accesspress_show_controls; ?>,
 					mode: '<?php echo $accesspress_slider_transition; ?>',
-					auto : '<?php echo $accesspress_auto_transition; ?>',
-					pause: '<?php echo $accesspress_slider_pause; ?>',
-					speed: '<?php echo $accesspress_slider_speed; ?>'
+					auto : <?php echo $accesspress_auto_transition; ?>,
+					pause: <?php echo $accesspress_slider_pause; ?>,
+					speed: <?php echo $accesspress_slider_speed; ?>
 				});
 
 				<?php if($accesspress_slider_full_window == "yes" && !empty($accesspress_slider_category)) : ?>
@@ -155,13 +123,13 @@ function accesspress_bxslidercb(){
 					$image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full', false ); 
 					$image_url = "";
 					if($accesspress_slider_full_window == "yes") : 
-						$image_url =  "style = 'background-image:url(".$image[0].");'";
+						$image_url =  "style = 'background-image:url(".esc_url($image[0]).");'";
 				    endif;
 					?>
 					<div class="slides" <?php echo $image_url; ?>>
 					
 					<?php if($accesspress_slider_full_window == "no") : ?>		
-						<img src="<?php echo $image[0]; ?>">
+						<img src="<?php echo esc_url($image[0]); ?>">
 					<?php endif; ?>
 								
 						<?php if($accesspress_show_caption == 'yes'): ?>
@@ -176,19 +144,18 @@ function accesspress_bxslidercb(){
 			        </div>
 					<?php endwhile; ?>
 					</div>
-					<?php endif; ?>	
-
-        <?php else: ?>
+					<?php endif; ?>
+			<?php else: ?>
 
             <div class="bx-slider">
 				<div class="slides">
 					<img src="<?php echo get_template_directory_uri(); ?>/images/demo/slider1.jpg" alt="slider1">
 					<div class="slider-caption">
 						<div class="mid-content">
-							<h1 class="caption-title">Welcome to AccessPress Parallax!</h1>
+							<h1 class="caption-title"><?php _e('Welcome to AccessPress Parallax!','accesspress-parallax'); ?></h1>
 							<h2 class="caption-description">
-							<p>A full featured parallax theme – and its absolutely free!</p>
-							<p><a href="#">Read More</a></p>
+							<p><?php _e('A full featured parallax theme - and its absolutely free!','accesspress-parallax'); ?></p>
+							<p><a href="#"><?php _e('Read More','accesspress-parallax'); ?></a></p>
 							</h2>
 						</div>
 					</div>
@@ -198,28 +165,29 @@ function accesspress_bxslidercb(){
 					<img src="<?php echo get_template_directory_uri(); ?>/images/demo/slider2.jpg" alt="slider2">
 					<div class="slider-caption">
 						<div class="ak-container">
-							<h1 class="caption-title">Amazing multi-purpose parallax theme</h1>
+							<h1 class="caption-title"><?php _e('Amazing multi-purpose parallax theme','accesspress-parallax'); ?></h1>
 							<h2 class="caption-description">
-							<p>Travel, corporate, small biz, portfolio, agencies, photography, health, creative – useful for anyone and everyone</p>
-							<p><a href="#">Read More</a></p>
+							<p><?php _e('Travel, corporate, small biz, portfolio, agencies, photography, health, creative - useful for anyone and everyone','accesspress-parallax'); ?></p>
+							<p><a href="#"><?php _e('Read More','accesspress-parallax'); ?></a></p>
 							</h2>
 							</div>
 					</div>
 				</div>
 			</div>
+
 			<?php  endif; ?>
 		</section>
 		<?php endif; ?>
 <?php
 }
 
-add_action('accesspress_bxslider','accesspress_bxslidercb', 10);
+add_action('accesspress_bxslider','accesspress_parallax_bxslidercb', 10);
 
 
 //add class for parallax
 function accesspress_is_parallax($class){
 	$is_parallax = of_get_option('enable_parallax');
-	if($is_parallax=='1'):
+	if($is_parallax=='1' || is_page_template('home-page.php')):
 		$class[] = "parallax-on"; 
 	endif;
 	return $class;
@@ -230,19 +198,28 @@ add_filter('body_class','accesspress_is_parallax');
 
 //Dynamic styles on header
 function accesspress_header_styles_scripts(){
+	$sections = array();
 	$sections = of_get_option('parallax_section');
 	$favicon = of_get_option('fav_icon');
 	$custom_css = of_get_option('custom_css');
-	$custom_js = of_get_option('custom_js');
+	$slider_overlay = of_get_option('slider_overlay');
 	$image_url = get_template_directory_uri()."/images/";
-	echo "<link type='image/png' rel='icon' href='".$favicon."'/>\n";
+	$dyamic_style = "";
+	echo "<link type='image/png' rel='icon' href='".esc_url($favicon)."'/>\n";
 	echo "<style type='text/css' media='all'>"; 
 
+	if(!empty($sections)){
 	foreach ($sections as $section) {
-		echo "#section-".$section['page']."{ background:url(".$section['image'].") ".$section['repeat']." ".$section['attachment']." ".$section['position']." ".$section['color']."; background-size:".$section['size']."; color:".$section['font_color']."}\n";
-		echo "#section-".$section['page']." .overlay { background:url(".$image_url.$section['overlay'].".png);}\n";
+		$dyamic_style .= "#section-".$section['page']."{ background:url(".$section['image'].") ".$section['repeat']." ".$section['attachment']." ".$section['position']." ".$section['color']."; background-size:".$section['size']."; color:".$section['font_color']."}\n";
+		$dyamic_style .= "#section-".$section['page']." .overlay { background:url(".$image_url.$section['overlay'].".png);}\n";
 	}
-	echo $custom_css;
+	}
+
+	if($slider_overlay == "yes"){
+		$dyamic_style .= "#main-slider .overlay{display:none};";
+	}
+	echo esc_textarea($dyamic_style);
+	echo esc_textarea($custom_css);
 
 	echo "</style>\n"; 
 
@@ -257,7 +234,6 @@ function accesspress_header_styles_scripts(){
       wow.init();
     });
     <?php endif;
-	echo $custom_js;
 	echo "</script>\n";
 }
 
@@ -295,43 +271,43 @@ function accesspress_social_cb(){
 	?>
 	<div class="social-icons">
 		<?php if(!empty($facebooklink)){ ?>
-		<a href="<?php echo of_get_option('facebook'); ?>" class="facebook" data-title="Facebook" target="_blank"><i class="fa fa-facebook"></i><span></span></a>
+		<a href="<?php echo esc_url($facebooklink); ?>" class="facebook" data-title="Facebook" target="_blank"><i class="fa fa-facebook"></i><span></span></a>
 		<?php } ?>
 
 		<?php if(!empty($twitterlink)){ ?>
-		<a href="<?php echo of_get_option('twitter'); ?>" class="twitter" data-title="Twitter" target="_blank"><i class="fa fa-twitter"></i><span></span></a>
+		<a href="<?php echo esc_url($twitterlink); ?>" class="twitter" data-title="Twitter" target="_blank"><i class="fa fa-twitter"></i><span></span></a>
 		<?php } ?>
 
 		<?php if(!empty($google_pluslink)){ ?>
-		<a href="<?php echo of_get_option('google_plus'); ?>" class="gplus" data-title="Google Plus" target="_blank"><i class="fa fa-google-plus"></i><span></span></a>
+		<a href="<?php echo esc_url($google_pluslink); ?>" class="gplus" data-title="Google Plus" target="_blank"><i class="fa fa-google-plus"></i><span></span></a>
 		<?php } ?>
 
 		<?php if(!empty($youtubelink)){ ?>
-		<a href="<?php echo of_get_option('youtube'); ?>" class="youtube" data-title="Youtube" target="_blank"><i class="fa fa-youtube"></i><span></span></a>
+		<a href="<?php echo esc_url($youtubelink); ?>" class="youtube" data-title="Youtube" target="_blank"><i class="fa fa-youtube"></i><span></span></a>
 		<?php } ?>
 
 		<?php if(!empty($pinterestlink)){ ?>
-		<a href="<?php echo of_get_option('pinterest'); ?>" class="pinterest" data-title="Pinterest" target="_blank"><i class="fa fa-pinterest"></i><span></span></a>
+		<a href="<?php echo esc_url($pinterestlink); ?>" class="pinterest" data-title="Pinterest" target="_blank"><i class="fa fa-pinterest"></i><span></span></a>
 		<?php } ?>
 
 		<?php if(!empty($linkedinlink)){ ?>
-		<a href="<?php echo of_get_option('linkedin'); ?>" class="linkedin" data-title="Linkedin" target="_blank"><i class="fa fa-linkedin"></i><span></span></a>
+		<a href="<?php echo esc_url($linkedinlink); ?>" class="linkedin" data-title="Linkedin" target="_blank"><i class="fa fa-linkedin"></i><span></span></a>
 		<?php } ?>
 
 		<?php if(!empty($flickrlink)){ ?>
-		<a href="<?php echo of_get_option('flickr'); ?>" class="flickr" data-title="Flickr" target="_blank"><i class="fa fa-flickr"></i><span></span></a>
+		<a href="<?php echo esc_url($flickrlink); ?>" class="flickr" data-title="Flickr" target="_blank"><i class="fa fa-flickr"></i><span></span></a>
 		<?php } ?>
 
 		<?php if(!empty($vimeolink)){ ?>
-		<a href="<?php echo of_get_option('vimeo'); ?>" class="vimeo" data-title="Vimeo" target="_blank"><i class="fa fa-vimeo-square"></i><span></span></a>
+		<a href="<?php echo esc_url($vimeolink); ?>" class="vimeo" data-title="Vimeo" target="_blank"><i class="fa fa-vimeo-square"></i><span></span></a>
 		<?php } ?>
 
 		<?php if(!empty($instagramlink)){ ?>
-		<a href="<?php echo of_get_option('instagram'); ?>" class="instagram" data-title="instagram" target="_blank"><i class="fa fa-instagram"></i><span></span></a>
+		<a href="<?php echo esc_url($instagramlink); ?>" class="instagram" data-title="instagram" target="_blank"><i class="fa fa-instagram"></i><span></span></a>
 		<?php } ?>
 		
 		<?php if(!empty($skypelink)){ ?>
-		<a href="<?php echo "skype:".of_get_option('skype') ?>" class="skype" data-title="Skype"><i class="fa fa-skype"></i><span></span></a>
+		<a href="<?php echo "skype:".esc_attr($skypelink) ?>" class="skype" data-title="Skype"><i class="fa fa-skype"></i><span></span></a>
 		<?php } ?>
 	</div>
 
@@ -367,9 +343,105 @@ function accesspress_letter_count($content, $limit) {
 	$striped_content = strip_shortcodes($striped_content);
 	$limit_content = mb_substr($striped_content, 0 , $limit );
 
-	if($limit_content < $content){
+	if( strlen($limit_content) < strlen($content) ){
 		$limit_content .= "..."; 
 	}
 	return $limit_content;
 }
-add_filter('widget_text', 'do_shortcode');
+
+
+
+function accesspress_register_string(){
+	if(function_exists('pll_register_string')){
+		$home_text = of_get_option('home_text');
+		pll_register_string('Menu: Home Text', $home_text ,'Theme Option Text');
+	}
+}
+
+add_action('after_setup_theme','accesspress_register_string');
+
+add_action( 'tgmpa_register', 'accesspress_parallax_register_plugins' );
+
+/**
+ * Register the required plugins for this theme.
+ *
+ * In this example, we register five plugins:
+ * - one included with the TGMPA library
+ * - two from an external source, one from an arbitrary source, one from a GitHub repository
+ * - two from the .org repo, where one demonstrates the use of the `is_callable` argument
+ *
+ * The variables passed to the `tgmpa()` function should be:
+ * - an array of plugin arrays;
+ * - optionally a configuration array.
+ * If you are not changing anything in the configuration array, you can remove the array and remove the
+ * variable from the function call: `tgmpa( $plugins );`.
+ * In that case, the TGMPA default settings will be used.
+ *
+ * This function is hooked into `tgmpa_register`, which is fired on the WP `init` action on priority 10.
+ */
+function accesspress_parallax_register_plugins() {
+	/*
+	 * Array of plugin arrays. Required keys are name and slug.
+	 * If the source is NOT from the .org repo, then source is also required.
+	 */
+	$plugins = array(
+
+		array(
+            'name'      => __( 'AccessPress Social Icons', 'accesspress-parallax' ), //The plugin name
+            'slug'      => 'accesspress-social-icons',  // The plugin slug (typically the folder name)
+            'required'  => false,  // If false, the plugin is only 'recommended' instead of required.
+            'force_activation'   => false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch.
+            'force_deactivation' => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins.
+            ),
+         array(
+            'name'      => __( 'AccessPress Social Counter', 'accesspress-parallax' ), //The plugin name
+            'slug'      => 'accesspress-social-counter',  // The plugin slug (typically the folder name)
+            'required'  => false,  // If false, the plugin is only 'recommended' instead of required.
+            'force_activation'   => false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch.
+            'force_deactivation' => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins.
+            ),
+         array(
+            'name'      => __( 'AccessPress Social Share', 'accesspress-parallax' ), //The plugin name
+            'slug'      => 'accesspress-social-share',  // The plugin slug (typically the folder name)
+            'required'  => false,  // If false, the plugin is only 'recommended' instead of required.
+            'force_activation'   => false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch.
+            'force_deactivation' => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins.
+            ),   
+        array(
+            'name'      => 'Ultimate Form Builder Lite',
+            'slug'      => 'ultimate-form-builder-lite',
+            'required'  => false,
+            'force_activation'   => false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch.
+            'force_deactivation' => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins.
+        ),   
+        array(
+            'name'      => 'AccessPress Twitter Feed',
+            'slug'      => 'accesspress-twitter-feed',
+            'required'  => false,
+            'force_activation'   => false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch.
+            'force_deactivation' => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins.
+        ),      
+	);
+
+	/*
+	 * Array of configuration settings. Amend each line as needed.
+	 *
+	 * TGMPA will start providing localized text strings soon. If you already have translations of our standard
+	 * strings available, please help us make TGMPA even better by giving us access to these translations or by
+	 * sending in a pull-request with .po file(s) with the translations.
+	 *
+	 * Only uncomment the strings in the config array if you want to customize the strings.
+	 */
+	$config = array(
+		'id'           => 'accesspress-parallax',                 // Unique ID for hashing notices for multiple instances of TGMPA.
+		'default_path' => '',                      // Default absolute path to bundled plugins.
+		'menu'         => 'accesspress-install-plugins', // Menu slug.
+		'has_notices'  => true,                    // Show admin notices or not.
+		'dismissable'  => true,                    // If false, a user cannot dismiss the nag message.
+		'dismiss_msg'  => '',                      // If 'dismissable' is false, this message will be output at top of nag.
+		'is_automatic' => false,                   // Automatically activate plugins after installation or not.
+		'message'      => '',                      // Message to output right before the plugins table.
+	);
+
+	tgmpa( $plugins, $config );
+}

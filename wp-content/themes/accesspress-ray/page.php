@@ -11,7 +11,9 @@
  */
 
 get_header(); 
-global $post;
+global $post, $accesspress_ray_options;
+$accesspress_ray_settings = get_option( 'accesspress_ray_options', $accesspress_ray_options );
+$accesspress_ray_template_design = $accesspress_ray_settings['accesspress_ray_template_design'];
 if(is_front_page()){
 	$post_id = get_option('page_on_front');
 }else{
@@ -58,4 +60,10 @@ get_sidebar('left');
 get_sidebar('right'); ?>
 </div>
 </div>
-<?php get_footer(); ?>
+<?php 
+	if( $accesspress_ray_template_design == 'default_template' ) {
+		get_footer();
+	}else{
+		get_footer('two');
+	}
+?>

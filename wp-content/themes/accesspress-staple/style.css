@@ -1,14 +1,14 @@
 /*
 Theme Name: AccessPress Staple
-Theme URI: http://accesspressthemes.com/wordpress-themes/accesspress-staple/
+Theme URI: https://accesspressthemes.com/wordpress-themes/accesspress-staple/
 Author: AccessPress Themes
 Author URI: https://accesspressthemes.com/
-Description: Staple is the is a HTML5 & CSS3 Responsive WordPress Business theme with clean, minimal yet highly professional design. AccessPress Staple is probably the most feature rich, simple, elegant, responsive , woocommerce compatible and beautiful multi-purpose business theme with great built in ready to use features for a business website like: events, portfolio, testimonials, blog, gallery, featured posts on home page, quick contact, social media integration, easy to configure/use slider, our team and many other page layout and widgets.  Then just set the content from the Themes Options Panel. AccessPress Staple is multi-purpose and is suitable for travel, corporate, portfolio, photography, green thinking, nature, health, small biz, personal, any other creative and minimalistic style website, corporate, agencies, bloggers anyone and everyone. Great customer support via online chat, email, support forum. Official support forum: http://accesspressthemes.com/support/ View full demo here: https://accesspressthemes.com/accesspress-staple/
-Version: 1.0.2
+Description: AccessPress Staple is a simple, clean, beautifully designed responsive WordPress business theme. Its minimal but mostly used features will help you setup your website easily and quickly. Full width and boxed layout, featured slider, featured posts, services/features/projects layout, testimonial layout, blog layout, social media integration,call to action and many other page layouts. Fully responsive, WooCommerce compatible, bbPress compatible, translation ready, cross-browser compatible, SEO friendly, RTL support. AccessPress Staple is multi-purpose and is suitable for any type of business. Highest level of compatibility with mostly used WP plugins.  Great customer support via online chat, email, support forum. Official support forum: https://accesspressthemes.com/support/ View full demo here: http://demo.accesspressthemes.com/accesspress-staple/
+Version: 1.7.9
 License: GNU General Public License v3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 Text Domain: accesspress-staple
-Tags:Orange, white, light, one-column, two-columns, three-columns, left-sidebar, right-sidebar, fixed-layout, fluid-layout,  featured-image-header,  theme-options, threaded-comments, featured-images, full-width-template, custom-header, flexible-header
+Tags: one-column, two-columns, three-columns, left-sidebar, right-sidebar, theme-options, threaded-comments, featured-images, full-width-template, flexible-header, translation-ready, custom-menu
 
 This theme, like WordPress, is licensed under the GPL.
 Use it to make something cool, have fun, and share what you've learned with others.
@@ -17,33 +17,8 @@ Use it to make something cool, have fun, and share what you've learned with othe
 */
 
 /*--------------------------------------------------------------
->>> TABLE OF CONTENTS:
-----------------------------------------------------------------
-1.0 Reset
-2.0 Typography
-3.0 Elements
-4.0 Forms
-5.0 Navigation
-    5.1 Links
-    5.2 Menus
-6.0 Accessibility
-7.0 Alignments
-8.0 Clearings
-9.0 Widgets
-10.0 Content
-    10.1 Posts and pages
-    10.2 Asides
-    10.3 Comments
-11.0 Infinite scroll
-12.0 Media
-    12.1 Captions
-    12.2 Galleries
-    --------------------------------------------------------------*/
-
-/*--------------------------------------------------------------
 Reset
 --------------------------------------------------------------*/
-@import "css/fonts.css";
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -143,7 +118,7 @@ input,
 select, 
 textarea {
     color: #444;
-    font-family: "Raleway", sans-serif;
+    font-family: "Open Sans", sans-serif;
     font-size: 15px;
     font-weight: 400;
     line-height: 1.8;
@@ -152,7 +127,7 @@ textarea {
 h1, h2, h3, h4, h5, h6 {
     clear: both;
     color: #555;
-    font-family: "Roboto Slab", serif;
+    font-family: "Raleway", serif;
     font-weight: 400;
     line-height: 1.3;
     margin-bottom: 15px;
@@ -325,7 +300,6 @@ th {
     font-weight: bold;
     padding: 5px 10px;
 }
-
 td {
     border: 1px solid #ccc;
     padding: 5px 10px;
@@ -373,7 +347,7 @@ input[type="submit"] {
 input[type="button"]:hover, 
 input[type="reset"]:hover, 
 input[type="submit"]:hover {
-    background: none repeat scroll 0 0 #bb4330;
+    background: #22252D;
 }
 
 input[type="checkbox"], 
@@ -391,7 +365,8 @@ input[type="text"],
 input[type="email"], 
 input[type="url"], 
 input[type="password"], 
-input[type="search"] {
+input[type="search"],
+select {
     border: 1px solid #ccc;
     color: #666;
     height: 36px;
@@ -416,7 +391,8 @@ input[type="text"],
 input[type="email"], 
 input[type="url"], 
 input[type="password"], 
-input[type="search"] {
+input[type="search"],
+select {
     padding: 3px 6px;
 }
 
@@ -449,7 +425,7 @@ a:visited {
 a:hover, 
 a:focus, 
 a:active {
-    color: #bb4330;
+    color: #FC3313;
 }
 
 /*--------------------------------------------------------------
@@ -552,7 +528,6 @@ a:active {
 }
 
 h1.entry-title {
-    background: url("images/title-bg.png") repeat-x scroll left bottom;
     color: #666;
     margin-bottom: 15px;
     padding-bottom: 15px;
@@ -569,6 +544,10 @@ h1.entry-title {
 .byline, 
 .updated {
     display: none;
+}
+
+.published {
+    display: inline;
 }
 
 .single .byline, 
@@ -610,7 +589,7 @@ h1.entry-title {
 .archive article.hentry, 
 .tag article.hentry, 
 .category article.hentry {
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #F0F0F0;
     margin-bottom: 20px;
     padding-bottom: 20px;
 }
@@ -631,7 +610,6 @@ article.hentry .entry-footer > span {
 }
 
 .page-header .page-title {
-    background: url("images/title-bg.png") repeat-x scroll left bottom;
     color: #666;
     padding-bottom: 15px;
 }
@@ -740,6 +718,19 @@ article.hentry .entry-footer > span {
     display: none;
 }
 
+.main-title{
+    color: #353535;
+    border-bottom: 2px dotted #eee;
+}
+
+.main-title span {
+  border-bottom: 4px solid #f0563d;
+  bottom: -2px;
+  display: inline-block;
+  padding-bottom: 10px;
+  position: relative;
+}
+
 /*--------------------------------------------------------------
 10.3 Comments
 --------------------------------------------------------------*/
@@ -752,11 +743,11 @@ article.hentry .entry-footer > span {
     background: none repeat scroll 0 0 #f0563d;
     color: #fff;
     display: inline-block;
-    font-size: 22px;
+    font-size: 18px;
     font-style: italic;
     font-weight: 300;
     margin: 15px 0;
-    padding: 8px 15px;
+    padding: 6px 15px;
 }
 
 #comments h3 {
@@ -805,10 +796,6 @@ textarea#comment {
     vertical-align: text-top;
 }
 
-.comment-author {
-    float: left;
-}
-
 .comment-author .fn {
     font-size: 16px;
     font-style: normal;
@@ -830,23 +817,13 @@ textarea#comment {
     display: none;
 }
 
-.commentmetadata {
-    float: right;
+.comment-metadata {
     font-size: 12px;
     font-style: italic;
-    font-weight: 300;
 }
 
-.commentmetadata a {
-    color: #666;
-}
-
-.commentmetadata .comment-edit-link {
-    color: #01aefd;
-}
-
-.commentmetadata + .clear {
-    margin-bottom: 20px;
+.comment-metadata  a {
+    color: #333;
 }
 
 .reply .comment-reply-link {
@@ -861,7 +838,7 @@ textarea#comment {
 #respond {
     background: none repeat scroll 0 0 #efefef;
     color: #ccc;
-    margin-top: 70px;
+    margin: 30px 0;
     padding: 20px;
 }
 
@@ -980,7 +957,7 @@ body.boxed-layout {
 
 .ak-container {
     margin: 0 auto;
-    width: 1178px;
+    width: 1170px;
 }
 
 .menu-toggle {
@@ -1002,7 +979,7 @@ Header
 --------------------------------------------------------------*/
 
 #masthead {
-    background: none repeat scroll 0 0 #353535;
+    background:#353535;
     border-bottom: 3px solid #f0563d;
     position: relative;
     z-index: 99;
@@ -1020,6 +997,7 @@ Header
     margin-bottom: 0;
     position: absolute;
     width: 100%;
+    z-index: 99999;
 }
 
 .home #masthead.no_slider {
@@ -1029,20 +1007,66 @@ Header
 }
 
 .home #masthead.classic {
-    position: static;
+    position: relative;
     background: #353535
+}
+
+.home.header-white #masthead.classic{
+    background: #FFF;
+}
+
+.home.header-white #masthead.no-classic{
+    background: rgba(255,255,255,0.2);
+    border-bottom: 0;
+}
+
+.header-white #masthead{
+    border-bottom: 1px solid #EEE;
+    background:#FFF;
 }
 
 .site-branding {
     float: left;
-    line-height: 58px;
+    padding: 10px 0;
+}
+
+.site-branding img{
+    max-height: 80px;
+}
+
+.site-branding.logo-left{
+    max-height: 100px;
+}
+
+.site-branding h1{
+    color: #f0563d;
+    margin: 0;
+    font-weight: 300;
+}
+
+.site-branding .tagline{
+    line-height: 1.4;
+    font-weight: 200;
+    color: #EEE;
+}
+
+.header-white .site-branding .tagline{
+    color: #333;
+}
+
+.header-white.home .no-classic .site-branding .tagline{
+    color: #FFF;
 }
 
 .site-branding.logo-center {
-    display: block;
-    float: none;
-    margin: 0 auto;
-    text-align: center;
+  display: block;
+  float: none;
+  margin: 0 auto;
+  text-align: center;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
 }
 
 .site-branding.logo-right {
@@ -1050,17 +1074,30 @@ Header
     line-height: 58px;
 }
 
+#main-header{
+    position: relative;
+}
+
 /*--------------------------------------------------------------
 header social
 --------------------------------------------------------------*/
 
 .header-social {
-    background: rgba(0,0,0,0.5);
+    background: rgba(0,0,0,0.2);
+    line-height: 34px;
+}
+
+.classic .header-social{
+    background: #222;
+}
+
+.header-white .header-social{
+    background:#f0563d;
 }
 
 .header-social .ak_footer_social {
     float: right;
-    line-height: 45px;
+    
 }
 
 /*--------------------------------------------------------------
@@ -1074,44 +1111,57 @@ Menu
 #site-navigation ul {
     list-style: outside none none;
     margin: 0;
+    font-size: 15px;
 }
 
-#site-navigation ul.nav-menu > li {
+#site-navigation .staple-menu > ul > li {
     float: left;
-    line-height: 58px;
     position: relative;
     white-space: nowrap;
     display: block;
 }
 
-#site-navigation ul.nav-menu > li a {
-    border: medium none;
+#site-navigation .staple-menu > ul > li a {
     color: #ffffff;
     display: block;
-    font-size: 14px;
-    font-weight: 300;
-    padding: 0 10px;
+    font-weight: 400;
+    padding: 0 15px;
     position: relative;
     text-transform: capitalize;
 }
 
-#site-navigation ul.nav-menu > li:hover, 
-#site-navigation ul.nav-menu > li.current-menu-item,
-#site-navigation ul.nav-menu > li.current-menu-ancestor,
-#site-navigation ul.nav-menu > li.current-menu-parent {
-    background: none repeat scroll 0 0 #2e313d;
+.header-white #site-navigation .staple-menu > ul > li a{
+    color:#333;
+}
+
+.header-white.home .no-classic #site-navigation .staple-menu > ul > li > a{
+    color: #FFF;
+}
+
+#site-navigation .staple-menu > ul > li:hover > a, 
+#site-navigation .staple-menu > ul > li.current-menu-item > a,
+#site-navigation .staple-menu > ul > li.current-menu-ancestor > a,
+#site-navigation .staple-menu > ul > li.current-menu-parent > a{
+    background: rgba(0,0,0,0.2);
+}
+
+.header-white #site-navigation .staple-menu > ul > li:hover > a, 
+.header-white #site-navigation .staple-menu > ul > li.current-menu-item > a,
+.header-white #site-navigation .staple-menu > ul > li.current-menu-ancestor > a,
+.header-white #site-navigation .staple-menu > ul > li.current-menu-parent > a{
+    background: none;
     display: block;
 }
 
-#site-navigation ul.nav-menu > li a:after {
+#site-navigation .staple-menu > ul > li a:after {
     border: medium none;
 }
 
-#site-navigation ul.nav-menu > li a:hover:after, 
-#site-navigation ul.nav-menu > li.current-menu-item a:after, 
-#site-navigation ul.nav-menu > li.current-menu-ancestor a:after,
-#site-navigation ul.nav-menu > li.current-menu-parent a:after {
-    background: none repeat scroll 0 0 #21232b;
+#site-navigation .staple-menu > ul > li:hover > a:after, 
+#site-navigation .staple-menu > ul > li.current-menu-item > a:after, 
+#site-navigation .staple-menu > ul > li.current-menu-ancestor > a:after,
+#site-navigation .staple-menu > ul > li.current-menu-parent > a:after {
+    background: #EA3F23;
     border: medium none;
     bottom: -3px;
     content: "";
@@ -1124,6 +1174,13 @@ Menu
     z-index: 999999;
 }
 
+.header-white #site-navigation .staple-menu > ul > li:hover > a:after, 
+.header-white #site-navigation .staple-menu > ul > li.current-menu-item > a:after, 
+.header-white #site-navigation .staple-menu > ul > li.current-menu-ancestor > a:after,
+.header-white #site-navigation .staple-menu > ul > li.current-menu-parent > a:after {
+    bottom: -1px;
+}
+
 .main-navigation ul li:hover > ul {
     opacity: 1;
     visibility: visible;
@@ -1131,7 +1188,7 @@ Menu
 }
 
 .main-navigation ul ul {
-    background: none repeat scroll 0 0 #2e313d;
+    background: rgba(0,0,0,0.6);
     box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
     opacity: 0;
     visibility: hidden;
@@ -1139,10 +1196,16 @@ Menu
     position: absolute;
     top: 130%;
     z-index: 99999;
-    -webkit-transition: all 1s ease 0s;
-    -moz-transition: all 1s ease 0s;
-    transition: all 1s ease 0s;
+    -webkit-transition: all 0.3s ease 0s;
+    -moz-transition: all 0.3s ease 0s;
+    transition: all 0.3s ease 0s;
     text-align: left;
+    font-size: 13px !important;
+    font-weight: 300 !important;
+}
+
+.header-white .main-navigation ul ul{
+    background:#FFF;
 }
 
 #site-navigation ul li {
@@ -1154,29 +1217,15 @@ Menu
     top: 0;
 }
 
-.main-navigation ul ul li a:after {
-    background: none repeat scroll 0 0 #21232b;
-    border: medium none;
-    bottom: -2px;
-    content: "";
-    height: 2px;
-    left: 0;
-    position: absolute;
-    right: auto;
-    top: auto;
-    width: 100%;
-    z-index: 999999;
-}
-
-.main-navigation ul ul li a:hover:after, .main-navigation ul ul li.current-menu-item a:after {
-    background: none repeat scroll 0 0 #f0563d !important;
-    height: 2px !important;
-    bottom: -2px !important;
-}
 .main-navigation ul ul a {
     min-width: 150px;
     padding: 0;
-    line-height: 40px;
+    line-height: 42px;
+    border-bottom: 1px solid rgba(0,0,0,0.1)
+}
+
+.main-navigation ul ul li:last-child > a{
+    border-bottom: 0;
 }
 
 .menu-main-menu-container > ul ul li:hover > ul {
@@ -1204,6 +1253,10 @@ Menu
     float: left;
 }
 
+.menu-center .staple-menu{
+    line-height: 52px !important
+}
+
 /*--------------------------------------------------------------
 Search css
 --------------------------------------------------------------*/
@@ -1222,9 +1275,12 @@ Search css
 
 .search-icon {
     color: #ffffff;
-    float: right;
-    line-height: 56px;
     padding-left: 10px;
+    background: none !important;
+}
+
+.header-white .search-icon{
+    color:#f0563d;
 }
 
 .search-icon i {
@@ -1250,9 +1306,9 @@ Search css
 }
 
 .menu-wrap .search-submit {
-    font-family: "roboto slab",sans-serif;
+    font-family: "Raleway",sans-serif;
     font-size: 30px !important;
-    font-weight: 700 !important;
+    font-weight: 300 !important;
     height: 60px;
     left: 50%;
     margin-left: -100px;
@@ -1284,10 +1340,24 @@ Home Slider
     text-align: center;
 }
 
+#main-slider .staple-overlay{
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    background: -moz-linear-gradient(top, rgba(0,0,0,0.76) 0%, rgba(0,0,0,0.25) 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0.76)), color-stop(100%,rgba(0,0,0,0.25)));
+    background: -webkit-linear-gradient(top, rgba(0,0,0,0.76) 0%,rgba(0,0,0,0.25) 100%);
+    background: -o-linear-gradient(top, rgba(0,0,0,0.76) 0%,rgba(0,0,0,0.25) 100%);
+    background: -ms-linear-gradient(top, rgba(0,0,0,0.76) 0%,rgba(0,0,0,0.25) 100%);
+    background: linear-gradient(to bottom, rgba(0,0,0,0.76) 0%,rgba(0,0,0,0.25) 100%);
+
+}
+
 #main-slider .caption-wrapper {
     height: auto;
     left: 0;
-    margin-top: -110px;
     position: absolute;
     text-align: left;
     top: 50%;
@@ -1301,24 +1371,19 @@ Home Slider
 #main-slider .small-caption {
     font-size: 18px;
     font-weight: 300;
-    line-height: 35px;
+    line-height: 1;
+    margin-bottom: 10px;
 }
 
 #main-slider .caption-title {
-    -moz-border-bottom-colors: none;
-    -moz-border-left-colors: none;
-    -moz-border-right-colors: none;
-    -moz-border-top-colors: none;
-    border-color: #fff -moz-use-text-color;
-    border-image: none;
-    border-style: solid none;
-    border-width: 1px medium;
+    border-top: 1px solid #fff ;
+    border-bottom: 1px solid #fff ;
     color: #ffffff;
     display: inline-block;
-    font-size: 82.78px;
-    line-height: 73px;
+    font-size: 72px;
+    line-height: 1;
     margin-bottom: 0;
-    padding-bottom: 7px;
+    padding-bottom: 8px;
 }
 
 #main-slider .caption-title span {
@@ -1327,7 +1392,7 @@ Home Slider
 
 #main-slider .caption-description {
     font-size: 20px;
-    font-weight: 400;
+    font-weight: 300;
     line-height: 28px;
     margin-top: 20px;
 }
@@ -1336,18 +1401,18 @@ Home Slider
     border: 1px solid #ffffff;
     color: #ffffff;
     display: inline-block;
-    font-size: 18px;
-    font-weight: 300;
-    height: 45px;
-    line-height: 45px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 42px;
     margin-top: 22px;
     text-align: center;
     text-transform: uppercase;
-    width: 202px;
+    padding:0 40px;
 }
 
 #main-slider .slider-btn:hover {
-    background: #d64c37;
+    background: #FFF;
+    color: #d64c37;
 }
 
 #main-slider .bx-controls-direction {
@@ -1444,16 +1509,16 @@ About
     font-size: 30px;
     font-weight: 300;
     line-height: 33px;
-    margin-bottom: 24px;
+    margin-bottom: 25px;
     text-align: center;
     text-transform: capitalize;
 }
 
 .home-description {
     color: #3d3d3d;
-    font-size: 17px;
+    font-size: 16px;
     line-height: 26px;
-    margin-bottom: 72px;
+    margin-bottom: 30px;
     text-align: center;
 }
 
@@ -1486,7 +1551,7 @@ About
 }
 
 .pricing-table-desc.home-description {
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     text-align: center;
 }
 
@@ -1500,25 +1565,23 @@ Our services
 }
 
 .service-block-wrapper {
-    margin-left: -20px;
+    margin-left: -1.5%;
 }
 
 .service-block {
     float: left;
-    margin-left: 20px;
+    margin-left: 1.5%;
     text-align: center;
-    width: 279px;
+    width: 23.5%;
 }
 
 .services-desc {
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 .our-services .service-icons {
     color: #3e3e3e;
     font-size: 65px;
-    height: 203px;
-    line-height: 203px;
     text-align: center;
     width: 100%;
 }
@@ -1530,21 +1593,21 @@ Our services
 
 .our-services .service-title {
     color: #000000;
-    font-family: "Roboto Slab", serif;
+    font-family: "Raleway", serif;
     font-size: 20px;
     font-weight: 300;
-    line-height: 45px;
+    line-height: 1.3;
     margin-bottom: 10px;
     margin-top: 20px;
 }
 
 .our-services .service-content {
     font-size: 14px;
-    line-height: 28px;
+    line-height: 2;
 }
 
-.service-btn {
-    margin-top: 20px;
+.our-services .btn-wrapper{
+    margin-top: 40px;
 }
 
 /*--------------------------------------------------------------
@@ -1554,6 +1617,7 @@ Pricing Table
 .pricing-table {
     padding: 90px 0;
     position: relative;
+    z-index: 99;
 }
 
 .pricing-table:before {
@@ -1626,7 +1690,7 @@ Pricing Table
 
 .pricing-table .title-price {
     color: #ffffff;
-    font-family: "Roboto Slab", serif;
+    font-family: "Raleway", serif;
     font-size: 42px;
     padding-top: 30px;
 }
@@ -1643,11 +1707,7 @@ Pricing Table
 }
 
 .price .dollar {
-    display: inline-block;
-    font-size: 28px;
-    margin-right: 3px;
-    position: relative;
-    top: -13px;
+    margin-right: 5px;
 }
 
 .pricing-table .table-content ul {
@@ -1758,7 +1818,7 @@ Awesome
 --------------------------------------------------------------*/
 
 .awesome-feature {
-    background: none repeat scroll 0 0 #ecf1f2;
+    background: #F6F6F6;
     padding: 90px 0;
 }
 
@@ -1780,7 +1840,7 @@ Awesome
 .awesome-feature .aw-left .aw-content {
     display: inline-block;
     float: left;
-    width: 85%;
+    width: 83%;
 }
 
 .awesome-feature .aw-left .awesome-icons {
@@ -1792,7 +1852,7 @@ Awesome
 .awesome-feature .aw-right .aw-content {
     display: inline-block;
     float: right;
-    width: 85%;
+    width: 83%;
 }
 
 .awesome-feature .aw-right .awesome-icons {
@@ -1802,18 +1862,18 @@ Awesome
 }
 
 .awesome-icons > span {
-    background: none repeat scroll 0 0 #ffffff;
     border-radius: 100%;
-    box-shadow: 0 0 2px #e5e5e5;
-    color: #3c4761;
     display: block;
-    font-size: 24px;
     height: 70px;
     line-height: 70px;
     position: relative;
     text-align: center;
     width: 70px;
     overflow: hidden;
+}
+
+.awesome-icons > span img{
+    display: block;
 }
 
 .awesome-feature .aw-left .awesome-icons span {
@@ -1848,14 +1908,15 @@ Awesome
 
 .awesome-feature .aw-title {
     color: #000000;
-    font-size: 18px;
-    font-weight: 500;
+    font-size: 20px;
+    font-weight: 300;
+    margin-bottom: 10px;
 }
 
 .awesome-feature .aw-excerpt {
     color: #000000;
     font-size: 14px;
-    line-height: 22px;
+    line-height: 2;
     margin-top: 8px;
 }
 
@@ -1867,40 +1928,13 @@ Awesome
     margin-top: 20px;
 }
 
-.awesome-feature .aw-left:after {
-    background: none repeat scroll 0 0 #e0e5e6;
-    content: "";
-    height: 100%;
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 2px;
-}
-
-.awesome-icons a img:hover, .awesome-icons a i:hover {
-    -webkit-transform: scale(1.3);
-    -moz-transform: scale(1.3);
-    transform: scale(1.3);
-}
-
-.awesome-icons a img, .awesome-icons a i {
-    -webkit-transform: scale(1);
-    -moz-transform: scale(1);
-    transform: scale(1);
-    -webkit-transition:all 0.5s ease 0s;
-    -moz-transition:all 0.5s ease 0s;
-    transition:all 0.5s ease 0s;
-    overflow: hidden;
-    width: 100%;
-    margin:0 auto;
-    height: 100%;
-    border-radius: 100%;
-}
-
 .team-hover-icon .fa.fa-link {
     color: #fff;
 }
 
+.awesome-feature .btn-wrapper{
+    margin-top: 25px;
+}
 /*--------------------------------------------------------------
 Portfolio
 --------------------------------------------------------------*/
@@ -1917,8 +1951,8 @@ Portfolio
 
 .portfolio .port-desc {
     background: url("images/portfolio-sepr.png") no-repeat scroll center bottom;
-    margin-bottom: 74px;
-    padding-bottom: 48px;
+    margin-bottom: 50px;
+    padding-bottom: 30px;
 }
 
 #portfolio-grid .port-wrap {
@@ -1977,22 +2011,25 @@ Portfolio
 .portfolio-content .port-title {
     color: #ffffff;
     font-size: 24px;
-    font-weight: 700;
+    font-weight: 400;
+    margin-bottom: 6px;
 }
 
 .portfolio-content .port-content {
     color: #ffffff;
     font-size: 16px;
     line-height: 18px;
+    font-weight: 300;
 }
 
 .portfolio-content-wrapper {
     height: 100%;
     left: 0;
-    margin-top: -50px;
+    margin-top: -70px;
     position: absolute;
     top: 50%;
     width: 100%;
+    padding: 10px;
 }
 
 #portfolio-grid .port-wrap .portfolio-image {
@@ -2065,23 +2102,20 @@ Stat counter
 .btn-wrapper .btn, 
 .btn-wrapper a {
     border: 2px solid #f0563d;
-    border-radius: 2px;
     color: #000000;
     display: inline-block;
-    font-size: 18px;
-    font-weight: 300;
-    height: 45px;
-    line-height: 45px;
-    margin-top: 22px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 42px;
     text-align: center;
     text-transform: uppercase;
-    width: 202px;
     text-decoration: none;
+    padding: 0 30px;
 }
 
 .btn-wrapper .btn:hover, 
 .btn-wrapper a:hover {
-    background: #d64c37;
+    background: #f0563d;
     text-decoration: none;
     color: #ffffff;
 }
@@ -2091,7 +2125,7 @@ Stat counter
 }
 
 .statcounters {
-    margin-top: 65px;
+    margin-top: 55px;
 }
 
 .statcounter-circle {
@@ -2102,8 +2136,9 @@ Stat counter
 
 .coutner-title > h2 {
     color: #fff;
-    font-size: 26px;
+    font-size: 18px;
     line-height: 36px;
+    font-weight: 300;
 }
 
 .stat-counter-title {
@@ -2112,8 +2147,8 @@ Stat counter
     line-height: 24px;
     margin-bottom: 35px;
     text-align: center;
-    font-family: "Roboto Slab", serif;
-    font-weight: 400;
+    font-family: "Raleway", serif;
+    font-weight: 300;
 }
 
 .stat-counter-desc {
@@ -2121,13 +2156,13 @@ Stat counter
     font-size: 17px;
     line-height: 26px;
     text-align: center;
-    font-family: "Raleway", sans-serif;
+    font-family: "Open Sans", sans-serif;
     font-weight: 300;
 }
 
 .inner-circle > h2 {
     background: #fff;
-    color: #b3412d;
+    color: #f0563d;
     font-size: 30px;
     border-radius: 100%;
     font-family: "Roboto Slab", serif;
@@ -2177,9 +2212,9 @@ Blog
 
 .blog-title {
     color: #000000;
-    font-family: "Roboto Slab", serif;
+    font-family: "Raleway", serif;
     font-size: 30px;
-    font-weight: 400;
+    font-weight: 300;
     line-height: 24px;
     margin-bottom: 35px;
     text-align: center;
@@ -2189,31 +2224,31 @@ Blog
     color: #000000;
     font-size: 17px;
     line-height: 26px;
-    margin-bottom: 50px;
+    margin-bottom: 40px;
     text-align: center;
-    font-family: "Raleway", sans-serif;
+    font-family: "Open Sans", sans-serif;
     font-weight: 400;
 }
 
 .blog-single-title {
-    font-size: 17px;
+    font-size: 18px;
     line-height: 28px;
-    font-family: "Roboto Slab", serif;
+    font-family: "Raleway", serif;
     font-weight: 400;
 }
 
 .blog-in-wrap {
-    display: inline-block;
     margin-left: 30px;
     width: 347px;
     position: relative;
     top: 0;
-    -webkit-transition:all 1s ease 0s;
-    -o-transition:all 1s ease 0s;
-    transition:all 1s ease 0s;
+    -webkit-transition:all 0.4s ease 0s;
+    -o-transition:all 0.4s ease 0s;
+    transition:all 0.4s ease 0s;
     -webkit-backface-visibility: hidden;
     -webkit-transform: translateZ(0) scale(1.0, 1.0);
     cursor:pointer;
+    float: left;
 }
 
 .blog-in-wrap:hover {
@@ -2228,9 +2263,9 @@ Blog
 }
 
 .blog-content {
-    font-size: 13px;
-    line-height: 23px;
-    font-family: "Raleway", sans-serif;
+    font-size: 14px;
+    line-height: 2;
+    font-family: "Open Sans", sans-serif;
     font-weight: 400;
     margin-top: 20px;
 }
@@ -2251,8 +2286,8 @@ Blog
     box-sizing: content-box;
     color: #ffffff;
     display: inline-block;
-    font-family: "Roboto Slab", serif;
-    font-size: 19px;
+    font-family: "Raleway", serif;
+    font-size: 16px;
     font-weight: 400;
     line-height: 23px;
     margin-right: 16px;
@@ -2272,7 +2307,7 @@ Blog
     float: left;
     font-size: 13px;
     line-height: 23px;
-    font-family: "Raleway", sans-serif;
+    font-family: "Open Sans", sans-serif;
     font-weight: 300;
 }
 
@@ -2280,7 +2315,7 @@ Blog
     float: right;
     font-size: 13px;
     line-height: 23px;
-    font-family: "Raleway", sans-serif;
+    font-family: "Open Sans", sans-serif;
     font-weight: 300;
 }
 
@@ -2292,7 +2327,7 @@ Blog
     color: #000;
     font-size: 13px;
     line-height: 23px;
-    font-family: "Raleway", sans-serif;
+    font-family: "Open Sans", sans-serif;
     font-weight: 300;
 }
 
@@ -2310,10 +2345,8 @@ Blog
 /*--------------------------------------------------------------
 Client Logo
 --------------------------------------------------------------*/
-
 .clients-logo a {
     display: inline-block;
-    margin-left: 20px;
     opacity: 0.54;
     width: 180px;
 }
@@ -2323,7 +2356,7 @@ Client Logo
 }
 
 .clients-logo {
-    padding: 20px 0;
+    padding: 40px 0;
     position: relative;
     text-align: center;
 }
@@ -2335,23 +2368,33 @@ Client Logo
 .clients-logo .bx-controls a {
     background: url("images/thin-arrow.png") no-repeat scroll 0 0;
     color: transparent;
-    font: 0px/0 a;
     height: 42px;
     left: 0;
-    margin-top: 0px;
+    margin-top: -21px;
     position: absolute;
     top: 50%;
     width: 25px;
 }
 
+.clients-logo .bx-controls a.bx-prev {
+    background-position: 0 0;
+    left: -25px;
+}
+
 .clients-logo .bx-controls a.bx-next {
     background-position: -52px 0;
+    right: -25px;
     left: auto;
-    right: 0;
 }
 
 .clients-logo .ak-container {
-    position: relative;
+    position: relative;   
+}
+
+.clients-logo .bx-wrapper{
+    margin:0 auto;
+    position:relative;
+    margin-top: 40px;
 }
 
 .static .client-slider {
@@ -2361,23 +2404,35 @@ Client Logo
     height: 146px;
 }
 
-.clients-logo-title {
-    margin-bottom: 25px;
-}
-
 .clients-logo .clients-logo-wrapper.static {
     margin-left: -30px;
     padding-top: 30px;
 }
 
-
 .call-to-action {
-    background: url("images/call-bg.jpg") no-repeat scroll center top;
-    padding: 60px 0;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.call-to-action-wrap{
+    position: relative;
+    padding: 70px 0 90px;
+}
+
+.call-to-action .calltoaction-overlay{
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.72)
+}
+
+.call-to-action .ak-container{
     position: relative;
 }
 
-.call-to-action:after {
+.call-to-action-wrap:after {
     background: url("images/footer-top.png") no-repeat scroll 0 0;
     bottom: -1px;
     content: "";
@@ -2390,6 +2445,7 @@ Client Logo
 
 .call-to-action .title, .call-to-action .call-to-action-desc {
     color: #ffffff;
+    font-weight: 300;
 }
 
 .cta-link {
@@ -2398,16 +2454,15 @@ Client Logo
 
 .cta-link > a {
     background: none repeat scroll 0 0 #f0563d;
-    border-bottom: 3px solid #bb4330;
+    border-bottom: 3px solid #FC3313;
     color: #ffffff;
     display: inline-block;
     font-size: 14px;
     font-weight: 400;
-    height: 58px;
-    line-height: 58px;
+    line-height: 52px;
     text-align: center;
     text-transform: uppercase;
-    width: 258px;
+    padding:0 60px;
 }
 
 .cta-link > a:hover {
@@ -2437,21 +2492,21 @@ Our Team
 .team-image {
     cursor: pointer;
     position: relative;
+    box-shadow: 2px 2px 3px rgba(0,0,0,0.3);
 }
 
 .team-hover {
-    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.7);
-    border-radius: 5px;
-    height: 97%;
-    left: 4px;
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.6);
+    right: 6px;
+    left: 6px;
     opacity: 0;
     overflow: hidden;
     position: absolute;
-    top: 4px;
-    -webkit-transition: all 0.5s ease 0s;
-    -moz-transition: all 0.5s ease 0s;
-    transition: all 0.5s ease 0s;
-    width: 97%;
+    top: 6px;
+    -webkit-transition: all 0.3s ease 0s;
+    -moz-transition: all 0.3s ease 0s;
+    transition: all 0.3s ease 0s;
+    bottom: 6px;
 }
 
 .team-image:hover > .team-hover {
@@ -2469,9 +2524,9 @@ Our Team
     position: absolute;
     text-align: center;
     top: -20px;
-    -webkit-transition: all 1s ease 0s;
-    -moz-transition: all 1s ease 0s;
-    transition: all 1s ease 0s;
+    -webkit-transition: all 0.3s ease 0s;
+    -moz-transition: all 0.3s ease 0s;
+    transition: all 0.3s ease 0s;
     width: 42px;
 }
 
@@ -2487,10 +2542,11 @@ Our Team
     margin-left: -90px;
     position: absolute;
     text-align: center;
-    -webkit-transition: all 1s ease 0s;
-    -moz-transition: all 1s ease 0s;
-    transition: all 1s ease 0s;
+    -webkit-transition: all 0.5s ease 0s;
+    -moz-transition: all 0.5s ease 0s;
+    transition: all 0.5s ease 0s;
     width: 175px;
+    line-height: 1.3;
 }
 
 .team-image:hover .team-hover-text {
@@ -2499,10 +2555,10 @@ Our Team
 }
 
 .our-team-member .team-name {
-    font-size: 15px;
-    font-weight: 700;
+    font-size: 18px;
+    font-weight: 400;
     margin: 15px 0 0;
-    text-align: left;
+    text-align: center;
 }
 
 .our-team-member .team-designation {
@@ -2527,42 +2583,58 @@ Team Member Grid
 .team-member-grid .cat-event-list {
     border: medium none;
     float: left;
-    margin-left: 1%;
-    width: 32.33%;
+    margin-left: 2%;
+    width: 31.33%;
 }
 
 .team-member-grid {
-    margin-left: -1%;
+    margin-left: -2%;
 }
 
 .team-member-grid .team-block {
     margin-left: 0;
     margin-top: 0;
+    width: 100%;
+}
+
+.team-member-grid .team-block img{
+    width: 100%;
 }
 
 .team-member-grid .entry-content {
   margin-top: 0;
 }
 
-.team-member-grid .entry-title {
-  margin-bottom: 5px;
+.team-member-grid .entry-title,
+.cat-event-list .entry-title{
+  margin-top: 10px;
+  font-size: 20px;
+  text-align: center;
+}
+
+.cat-event-list .entry-title{
+    text-align: left;
 }
 /*--------------------------------------------------------------
 Testimonial
 --------------------------------------------------------------*/
 
 .testimonial {
-    background: url("images/testimionial-bg.jpg") no-repeat scroll center top;
+    background: url("images/testimionial-bg.jpg") no-repeat fixed center top;
     color: #ffffff;
     font-size: 30px;
     font-weight: 300;
     line-height: 44px;
-    padding: 100px 0 40px;
-    position: relative;
     text-align: center;
+    background-size: cover;
 }
 
-.testimonial:before {
+.testimonial-wrap{
+    padding: 100px 0 40px;
+    position: relative;
+}
+
+.testimonial-wrap:before {
     background: url("images/testimonial-top.png") no-repeat;
     content: "";
     height: 40px;
@@ -2574,8 +2646,10 @@ Testimonial
 }
 
 .testimonial-title {
-    font-weight: 700;
-    margin:10px 0;
+    font-weight: 300;
+    margin:10px 0 40px;
+    color: #FFF;
+    font-size: 30px;
 }
 
 .testimonial .bx-pager-item a {
@@ -2600,7 +2674,7 @@ Testimonial
 
 .title-test {
     font-size: 18px;
-    font-weight: 700;
+    font-weight: 500;
     line-height: 30px;
     margin-top: 20px;
     text-transform: uppercase;
@@ -2627,6 +2701,10 @@ Testimonial
   line-height: 35px;
 }
 
+.latest-post{
+    padding: 40px 0;
+}
+
 /*--------------------------------------------------------------
 Footer
 --------------------------------------------------------------*/
@@ -2640,7 +2718,7 @@ Footer
 }
 .top-footer {
     padding: 55px 0 15px;
-    background: #c7c7c7;
+    background: #EEE;
 }
 
 .footer-block {
@@ -2688,10 +2766,10 @@ Footer
 
 .footer-block .widget-title {
     color: #000;
-    font-family: "Roboto Slab", serif;
+    font-family: "Raleway", serif;
     font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 25px;
+    font-weight: 500;
+    margin-bottom: 20px;
     text-transform: uppercase;
 }
 
@@ -2700,8 +2778,8 @@ Footer
 }
 
 .footer-block a {
-    color: #000000;
-    font-size: 13px;
+    border-bottom:1px dotted #000;
+    color : #000;
 }
 
 .footer-block ul {
@@ -2711,9 +2789,9 @@ Footer
 }
 
 .footer-block li {
-    line-height: 1.7;
+    line-height: 1.9;
     list-style: outside none none;
-    margin-bottom: -1px;
+    color: #000;
 }
 
 .site-info {
@@ -2730,6 +2808,11 @@ Footer
 .copyright a {
     color: #d1d1d1;
 }
+
+.copyright a:hover{
+    border-bottom:1px dotted #d1d1d1;
+}
+
 
 .ak_footer_social {
     float: right;
@@ -2815,7 +2898,9 @@ Footer
     -moz-backface-visibility: hidden;
     backface-visibility: hidden;
 }
-
+.site-footer .widget_calendar tr th {
+    color: #000;
+}
 
 /*--------------------------------------------------------------
 SublteBounce css 
@@ -2880,7 +2965,7 @@ Right Sidebar
 }
 
 /*--------------------------------------------------------------
-Lefy Sidebar
+Left Sidebar
 --------------------------------------------------------------*/
 
 .left-sidebar #primary {
@@ -2923,12 +3008,13 @@ Sidebar
 
 .sidebar .widget-title {
     color: #353535;
-    border-bottom: 1px solid #c7c7c7;
-    font-size: 26px;
+    border-bottom: 1px solid #eee;
+    font-size: 22px;
+    font-weight: 300;
 }
 
 .sidebar .widget-title span {
-    border-bottom: 2px solid #df440b;
+    border-bottom: 2px solid #f0563d;
     bottom: -1px;
     display: inline-block;
     padding-bottom: 7px;
@@ -2958,6 +3044,16 @@ Sidebar
 .widget_categories a {
     color: #353535;
     font-weight: 400;
+    display: inline-block;
+    width: 88%;
+}
+
+.sidebar a{
+    color:#333 !important;
+}
+
+.sidebar a:hover{
+    color: #f0563d !important;
 }
 
 /*--------------------------------------------------------------
@@ -3010,7 +3106,7 @@ Responsive grid for pages
 
 .error404 .entry-title {
     font-size: 34px;
-    font-weight: 700;
+    font-weight: normal;
     text-align: center;
     margin-top: 30px;
 }
@@ -3065,16 +3161,6 @@ Responsive grid for pages
 Single Page
 --------------------------------------------------------------*/
 
-.single #secondary-right {
-    float: right;
-    width: 25%;
-}
-
-.single #primary {
-    float: left;
-    width: 73%;
-}
-
 .cat-event-excerpt > div {
     margin-bottom: 10px;
 }
@@ -3090,7 +3176,7 @@ Portfolio List View
   float: left;
   height: auto;
   margin-right: 2%;
-  width: 22%;
+  width: 40%;
 }
 
 .portfolio-list .cat-portfolio-list {
@@ -3101,7 +3187,7 @@ Portfolio List View
 }
 
 .portfolio-list .portfolio-archive {
-    border-bottom: 1px solid #c7c7c7;
+    border-bottom: 1px solid #F6F6F6;
     margin: 10px 0;
     padding: 5px 0 20px;
 }
@@ -3112,7 +3198,7 @@ Portfolio List View
 
 .portfolio-list .cat-portfolio-content {
   float: left;
-  width: 75%;
+  width: 58%;
 }
 
 /*--------------------------------------------------------------
@@ -3177,8 +3263,7 @@ Portfolio Grid View
 
 .portfolio-grid .portofolio-layout-wrap .entry-title {
     color: #ffffff;
-    font-size: 24px;
-    font-weight: 700;
+    font-size: 18px;
     margin-top: 5px;
 }
 
@@ -3236,8 +3321,12 @@ Header Social Icon
 .ak_header_social .social-icons a {
     color: #ffffff;
     display: inline-block;
-    margin: 0 2px;
+    margin: 0 6px;
     font-size: 16px;
+}
+
+.header-white .ak_header_social .social-icons a {
+    color: #ffffff !important;
 }
 
 .ak_header_social .social-icons a:hover {
@@ -3254,11 +3343,12 @@ Team Memmber Inner
 .cat-event-image {
     float: left;
     margin-right: 20px;
+    width: 28%;
 }
 
 
 .cat-event-list {
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #F6F6F6;
     margin-bottom: 15px;
     padding-bottom: 20px;
 }
@@ -3271,8 +3361,8 @@ Ak Top
     bottom: 10px;
     color: #ffffff;
     cursor: pointer;
-    font-size: 15px;
-    font-weight: 700;
+    font-size: 13px;
+    font-weight: 300;
     height: 50px;
     line-height: 10px;
     position: fixed;
@@ -3282,12 +3372,13 @@ Ak Top
 }
 
 #ak-top:hover {
-    background: rgba(241,87,62,0.8);
+    background: #f0563d;
 }
 
 #ak-top i {
     display: block;
-    font-size: 30px;
+    font-size: 22px;
+    line-height: 28px;
 }
 
 
@@ -3315,7 +3406,7 @@ Woocommerce cart
 .woocommerce #respond input#submit.alt, 
 .woocommerce #content input.button.alt, 
 .woocommerce-page a.button.alt, 
-woocommerce-page button.button.alt, 
+.woocommerce-page button.button.alt, 
 .woocommerce-page input.button.alt, 
 .woocommerce-page #respond input#submit.alt, 
 .woocommerce-page #content input.button.alt,
@@ -3362,6 +3453,9 @@ woocommerce-page button.button.alt,
 .woocommerce-page #content input.button.alt:hover{
     background: #d64c37;
     text-shadow: 0 0 0 rgba(0, 0, 0,0);
+}
+.woocommerce a.button:hover {
+    color: #ffffff;
 }
 
 .woocommerce #content table.cart td.actions .input-text, 
@@ -3418,7 +3512,7 @@ woocommerce-page button.button.alt,
 }
 
 .cart-empty {
-    font-family: roboto slab;
+    font-family: Raleway;
     font-size: 20px;
     font-weight: 400;
 }
@@ -3479,6 +3573,9 @@ woocommerce-page button.button.alt,
     height: 38px;
 }
 
+.woocommerce .woocommerce-info:before {
+    color: #f0563d;
+}
 
 /*--------------------------------------------------------------
 Woocommerce single page
@@ -3585,26 +3682,68 @@ Woocommerce single page
 
 .woocommerce .star-rating, 
 .woocommerce-page .star-rating {
-  color: #f15740;
+    color: #f15740;
 }
 
 .single-product .quantity {
-  height: 36px;
+    height: 36px;
 }
 
 .single-product .qty {
-  height: 36px !important;
+    height: 36px !important;
 }
 
 .single-product .minus, .single-product .plus {
-  height: 19px !important;
+    height: 19px !important;
 }
-
 /******* responsive menu **********/
 #nav {
-  display: none;
+    display: none;
 }
 
 .responsive-header {
-  display: none;
+    display: none;
+}
+
+.search-results article {
+    border-bottom: 1px solid #c7c7c7;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+}
+
+/*------------------------------------
+       Woocommerce Account Page
+------------------------------------*/
+
+nav.woocommerce-MyAccount-navigation {
+   border-right: 2px solid #f0563d;
+}
+nav.woocommerce-MyAccount-navigation ul {
+   list-style: none;
+   padding: 0;
+   margin: 0; 
+}
+nav.woocommerce-MyAccount-navigation ul li {
+   padding: 5px 10px;
+   background: #f0563d;
+   margin-bottom: 2px;
+   width: 97%;
+   cursor: pointer;
+}
+nav.woocommerce-MyAccount-navigation ul li:hover,
+nav.woocommerce-MyAccount-navigation ul li.is-active {
+    background: #a9a9a9;
+}
+nav.woocommerce-MyAccount-navigation ul li:hover a,
+nav.woocommerce-MyAccount-navigation ul li.is-active a {
+   color: #fff;
+}
+nav.woocommerce-MyAccount-navigation ul li a {
+   color: #fff;
+}
+.woocommerce-account .woocommerce-MyAccount-navigation {
+   width: 25%;
+}
+.woocommerce-account .woocommerce-MyAccount-content {
+   width: 73%;
 }

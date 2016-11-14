@@ -6,6 +6,7 @@
  *
  * @package AccessPress Staple
  */
+ $read_more_archive      =   of_get_option('read_more_archive');
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
@@ -21,6 +22,7 @@
 
 	<div class="entry-summary">
 		<?php the_excerpt(); ?>
+        <a href="<?php the_permalink(); ?>" class="bttn"><?php echo __('Read More', 'accesspress-staple'); ?></a>
 	</div><!-- .entry-summary -->
 
 	<footer class="entry-footer">

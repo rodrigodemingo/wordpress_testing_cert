@@ -17,7 +17,7 @@ get_header(); ?>
 global $post;
 $both_sidebar = get_post_meta($post->ID, 'accesspress_staple_sidebar_layout', true);
 if($both_sidebar=='both-sidebar'){
-    ?>
+?>
         <div class="left-sidbar-right">
     <?php
 }

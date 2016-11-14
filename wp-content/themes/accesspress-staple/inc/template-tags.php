@@ -48,7 +48,7 @@ function accesspress_staple_post_nav() {
 		return;
 	}
 	?>
-	<nav class="navigation post-navigation" role="navigation">
+	<nav class="navigation post-navigation clearfix" role="navigation">
 		<h1 class="screen-reader-text"><?php _e( 'Post navigation', 'accesspress-staple' ); ?></h1>
 		<div class="nav-links">
 			<?php
@@ -84,7 +84,7 @@ function accesspress_staple_posted_on() {
 	);
 
 	$byline = sprintf(
-		_x( 'by %s', 'post author', 'accesspress_staple' ),
+		_x( 'by %s', 'post author', 'accesspress-staple' ),
 		'<span class="author vcard"><a class="url fn n" href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '">' . esc_html( get_the_author() ) . '</a></span>'
 	);
 

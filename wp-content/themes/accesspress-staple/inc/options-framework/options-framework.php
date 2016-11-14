@@ -24,7 +24,7 @@
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
 	die;
-}   
+}
 
 // Don't load if optionsframework_init is already defined
 if (is_admin() && ! function_exists( 'optionsframework_init' ) ) :
@@ -37,12 +37,12 @@ function optionsframework_init() {
 	}
 
 	// Loads the required Options Framework classes.
-	require get_template_directory().'/inc/options-framework/includes/class-options-framework.php';
-	require get_template_directory().'/inc/options-framework/includes/class-options-framework-admin.php';
-	require get_template_directory().'/inc/options-framework/includes/class-options-interface.php';
-	require get_template_directory().'/inc/options-framework/includes/class-options-media-uploader.php';
-	require get_template_directory().'/inc/options-framework/includes/class-options-sanitization.php';
-    
+	require get_template_directory() . '/inc/options-framework/includes/class-options-framework.php';
+	require get_template_directory() . '/inc/options-framework/includes/class-options-framework-admin.php';
+	require get_template_directory() . '/inc/options-framework/includes/class-options-interface.php';
+	require get_template_directory() . '/inc/options-framework/includes/class-options-media-uploader.php';
+	require get_template_directory() . '/inc/options-framework/includes/class-options-sanitization.php';
+
 	// Instantiate the main plugin class.
 	$options_framework = new Options_Framework;
 
@@ -74,7 +74,7 @@ function of_get_option( $name, $default = false ) {
 	$option_name = '';
 
 	// Gets option name as defined in the theme
-   	if ( function_exists( 'optionsframework_option_name' ) ) {
+	if ( function_exists( 'optionsframework_option_name' ) ) {
 		$option_name = optionsframework_option_name();
 	}
 

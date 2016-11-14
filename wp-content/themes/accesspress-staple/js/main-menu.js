@@ -74,7 +74,7 @@
 
             nav_class = 'js-nav';
 
-console.log(inner);
+//console.log(inner);
         app.init = function()
         {
             if (_init) {
@@ -94,12 +94,12 @@ console.log(inner);
             {
                 if (nav_open) {
                     // close navigation after transition or immediately
-                    var duration = (transition_end && transition_prop) ? parseFloat(window.getComputedStyle(inner, '')[transition_prop + 'Duration']) : 0;
-                    if (duration > 0) {
-                        document.addEventListener(transition_end, closeNavEnd, false);
-                    } else {
+                    //var duration = (transition_end && transition_prop) ? parseFloat(window.getComputedStyle(inner, '')[transition_prop + 'Duration']) : 0;
+                    //if (duration > 0) {
+                    //    document.addEventListener(transition_end, closeNavEnd, false);
+                    //} else {
                         closeNavEnd(null);
-                    }
+                    //}
                 }
                 removeClass(doc, nav_class);
             };

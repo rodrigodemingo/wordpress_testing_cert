@@ -47,6 +47,8 @@ jQuery(document).ready(function($) {
 		});
 	}
 
+	$('.accesspress_ray-color').wpColorPicker();
+
   $('#single_post_slider').click(function(){
     $('.post-as-slider').show();
     $('.cat-as-slider').hide();
@@ -73,6 +75,10 @@ jQuery(document).ready(function($) {
 	$('.ap-popup-bg, .ap-popup-close').click(function(){
 		$('.ap-popup-bg, .ap-popup-wrapper').fadeOut();
 	});
+
+	$('.upgrade-header').click(function(){
+	    $('.upgrade-image').slideToggle();
+	  });
 });
 
 

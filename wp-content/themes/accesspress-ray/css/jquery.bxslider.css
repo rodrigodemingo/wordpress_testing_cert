@@ -26,6 +26,10 @@
 	display: block;
 }
 
+.bx-wrapper *{
+	direction: ltr;
+}
+
 /** THEME
 ===================================*/
 
@@ -81,7 +85,7 @@
 	*display: inline;
 }
 
-.bx-wrapper .bx-pager.bx-default-pager a {
+#slider-banner .bx-wrapper .bx-pager.bx-default-pager a {
 	text-indent: -9999px;
 	display: block;
 	background: #07A2DD;
@@ -137,33 +141,20 @@
 
 /* DIRECTION CONTROLS (NEXT / PREV) */
 
-.bx-wrapper .bx-prev {
-	left: -100px;
-	background: url(images/controls.png) no-repeat 0 0;
-}
-
-.bx-wrapper .bx-next {
-	right: -100px;
-	background: url(images/controls.png) no-repeat right 0;
-}
-
-.bx-wrapper:hover  .bx-prev{
+#slider-banner .bx-wrapper:hover  .bx-prev{
 	left: 10px;
 }
-
-.bx-wrapper:hover .bx-next {
+#slider-banner .bx-wrapper:hover .bx-next {
 	right: 10px;
 }
-
-.bx-wrapper .bx-prev:hover {
-	 background-position: -56px 0;
+#slider-banner .bx-wrapper .bx-next{
+	right: -100px;
+}
+#slider-banner .bx-wrapper  .bx-prev{
+	left:-100px;
 }
 
-.bx-wrapper .bx-next:hover {
-	background-position: -155px 0;
-}
-
-.bx-wrapper .bx-controls-direction a {
+#slider-banner .bx-wrapper .bx-controls-direction a {
 	position: absolute;
 	top: 50%;
 	margin-top: -25px;
@@ -186,7 +177,7 @@
 	margin: 0 auto;
 }
 .slider-caption{ 
-	background: url(images/caption-bg.png);
+	/*background: url(images/caption-bg.png);*/
 	position: absolute; 
 	top:50%; 
 	left: 0; 

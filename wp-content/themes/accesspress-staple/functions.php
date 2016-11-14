@@ -32,7 +32,14 @@ function accesspress_staple_setup() {
 
 	// Add default posts and comments RSS feed links to head.
 	add_theme_support( 'automatic-feed-links' );
-    add_theme_support( 'woocommerce' );
+
+	/*
+	 * Let WordPress manage the document title.
+	 * By adding theme support, we declare that this theme does not use a
+	 * hard-coded <title> tag in the document head, and expect WordPress to
+	 * provide it for us.
+	 */
+	add_theme_support( 'title-tag' );
 
 	/*
 	 * Enable support for Post Thumbnails on posts and pages.
@@ -40,6 +47,20 @@ function accesspress_staple_setup() {
 	 * @link http://codex.wordpress.org/Function_Reference/add_theme_support#Post_Thumbnails
 	 */
 	add_theme_support( 'post-thumbnails' );
+
+	add_image_size('accesspress-staple-thumbnail', 130, 130, true);
+
+	add_image_size('accesspress-staple-portfolio-thumbnail', 420, 300,  true);
+
+	add_image_size('accesspress-staple-featured-thumbnail', 190, 133, true);
+
+	add_image_size('accesspress-staple-team-image', 238, 238, true);
+
+	add_image_size('accesspress-staple-feature-image', 279, 203, true);
+
+	add_image_size('accesspress-staple-port-image', 550, 400, true);
+
+	add_image_size('accesspress-staple-archive-image', 860, 300, true);
 
 	// This theme uses wp_nav_menu() in one location.
 	register_nav_menus( array(
@@ -62,11 +83,7 @@ function accesspress_staple_setup() {
 		'aside', 'image', 'video', 'quote', 'link',
 	) );
 
-	// Set up the WordPress core custom background feature.
-	add_theme_support( 'custom-background', apply_filters( 'accesspress_staple_custom_background_args', array(
-		'default-color' => 'ffffff',
-		'default-image' => '',
-	) ) );
+	add_theme_support( 'woocommerce' );
 }
 endif; // accesspress_staple_setup
 add_action( 'after_setup_theme', 'accesspress_staple_setup' );
@@ -78,22 +95,13 @@ add_action( 'after_setup_theme', 'accesspress_staple_setup' );
  */
 function accesspress_staple_widgets_init() {
 	register_sidebar( array(
-		'name'          => __( 'Sidebar', 'accesspress-staple' ),
-		'id'            => 'sidebar-1',
-		'description'   => '',
-		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-		'after_widget'  => '</aside>',
-		'before_title'  => '<h1 class="widget-title">',
-		'after_title'   => '</h1>',
-	) );
-    register_sidebar( array(
 		'name'          => __( 'Left Sidebar', 'accesspress-staple' ),
 		'id'            => 'left-sidebar',
 		'description'   => '',
 		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
 		'after_widget'  => '</aside>',
-		'before_title'  => '<h1 class="widget-title"><span>',
-		'after_title'   => '</span></h1>',
+		'before_title'  => '<h3 class="widget-title"><span>',
+		'after_title'   => '</span></h2>',
 	) );
     register_sidebar( array(
 		'name'          => __( 'Right Sidebar', 'accesspress-staple' ),
@@ -101,8 +109,8 @@ function accesspress_staple_widgets_init() {
 		'description'   => '',
 		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
 		'after_widget'  => '</aside>',
-		'before_title'  => '<h1 class="widget-title"><span>',
-		'after_title'   => '</span></h1>',
+		'before_title'  => '<h3 class="widget-title"><span>',
+		'after_title'   => '</span></h2>',
 	) );
     register_sidebar( array(
 		'name'          => __( 'Footer 1', 'accesspress-staple' ),
@@ -110,8 +118,8 @@ function accesspress_staple_widgets_init() {
 		'description'   => '',
 		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
 		'after_widget'  => '</aside>',
-		'before_title'  => '<h1 class="widget-title"><span>',
-		'after_title'   => '</span></h1>',
+		'before_title'  => '<h3 class="widget-title"><span>',
+		'after_title'   => '</span></h3>',
 	) );
     register_sidebar( array(
 		'name'          => __( 'Footer 2', 'accesspress-staple' ),
@@ -119,8 +127,8 @@ function accesspress_staple_widgets_init() {
 		'description'   => '',
 		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
 		'after_widget'  => '</aside>',
-		'before_title'  => '<h1 class="widget-title"><span>',
-		'after_title'   => '</span></h1>',
+		'before_title'  => '<h3 class="widget-title"><span>',
+		'after_title'   => '</span></h3>',
 	) );
     register_sidebar( array(
 		'name'          => __( 'Footer 3', 'accesspress-staple' ),
@@ -128,8 +136,8 @@ function accesspress_staple_widgets_init() {
 		'description'   => '',
 		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
 		'after_widget'  => '</aside>',
-		'before_title'  => '<h1 class="widget-title"><span>',
-		'after_title'   => '</span></h1>',
+		'before_title'  => '<h3 class="widget-title"><span>',
+		'after_title'   => '</span></h3>',
 	) );
     register_sidebar( array(
 		'name'          => __( 'Footer 4', 'accesspress-staple' ),
@@ -137,8 +145,8 @@ function accesspress_staple_widgets_init() {
 		'description'   => '',
 		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
 		'after_widget'  => '</aside>',
-		'before_title'  => '<h1 class="widget-title"><span>',
-		'after_title'   => '</span></h1>',
+		'before_title'  => '<h3 class="widget-title"><span>',
+		'after_title'   => '</span></h3>',
 	) );
 }
 add_action( 'widgets_init', 'accesspress_staple_widgets_init' );
@@ -147,42 +155,32 @@ add_action( 'widgets_init', 'accesspress_staple_widgets_init' );
  * Enqueue scripts and styles.
  */
 function accesspress_staple_scripts() {
-	wp_enqueue_style( 'step3css', get_template_directory_uri() . '/css/step3.css');
-	wp_enqueue_style( 'animate', get_template_directory_uri() . '/css/animate.css');
-	wp_enqueue_style( 'accesspress_staple-style', get_stylesheet_uri() );
-	wp_enqueue_style( 'responsive', get_template_directory_uri() . '/css/responsive.css');
-    wp_enqueue_style( 'font-awesome', get_template_directory_uri() . '/css/font-awesome.min.css');
-    wp_enqueue_style( 'font-raleway', '//fonts.googleapis.com/css?family=Raleway:400,500,600,700,800,900,300,100,200');
-    wp_enqueue_style( 'font-roboto-slab', '//fonts.googleapis.com/css?family=Roboto+Slab:400,700,300,100');
-    
-    wp_enqueue_script( 'jquery');
-    wp_enqueue_script( 'wow', get_template_directory_uri() . '/js/wow.min.js');
-    wp_enqueue_script( 'custom', get_template_directory_uri() . '/js/custom.js', array('jquery'), '1.0', true );
+	$query_args = array(
+		'family' => 'Raleway:400,500,600,700,800,900,300,100,200|Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300|Roboto+Slab:400,700,300,100',
+	);
+	wp_enqueue_style( 'accesspress-staple-google-fonts', add_query_arg( $query_args, "//fonts.googleapis.com/css" ) );
 	
-    wp_enqueue_script( 'accesspress_staple-bx_slider', get_template_directory_uri() . '/js/jquery.bxslider.min.js', array('jquery'), '4.2.1', true );
-	wp_enqueue_script( 'accesspress_staple-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20120206', true );
-    wp_enqueue_script( 'jquery-counterup', get_template_directory_uri() . '/js/jquery.counterup.js', array('jquery'), '20120206', true );
-    wp_enqueue_script( 'jquery-waypoint', get_template_directory_uri() . '/js/waypoint.js', array('jquery'), '20120206', true );
-    wp_enqueue_script( 'modernizer', get_template_directory_uri() . '/js/modernizr.js', array(), '2.6.2', false);
-    wp_enqueue_script( 'main-menu', get_template_directory_uri() . '/js/main-menu.js', array(), '2.6.2', true);
-        
-    //wp_enqueue_script( 'superfish', get_template_directory_uri() . '/js/superfish.min.js', array(), '20120206', true );
-
-	wp_enqueue_script( 'accesspress_staple-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '1.0', true );
+	wp_enqueue_style( 'accesspress-staple-responsive-nav', get_template_directory_uri() . '/css/responsive-nav.css');
+	wp_enqueue_style( 'accesspress-staple-animate', get_template_directory_uri() . '/css/animate.css');
+    wp_enqueue_style( 'accesspress-staple-font-awesome', get_template_directory_uri() . '/css/font-awesome.min.css');
+    wp_enqueue_style( 'accesspress-staple-style', get_stylesheet_uri() );
+    wp_enqueue_style( 'accesspress-staple-responsive', get_template_directory_uri() . '/css/responsive.css');
+    
+    wp_enqueue_script( 'accesspress-staple-wow', get_template_directory_uri() . '/js/wow.js');
+	wp_enqueue_script( 'accesspress-staple-bx_slider', get_template_directory_uri() . '/js/jquery.bxslider.js', array('jquery'), '4.2.1', true );
+    wp_enqueue_script( 'accesspress-staplejquery-counterup', get_template_directory_uri() . '/js/jquery.counterup.js', array('jquery'), '1.0', true );
+    wp_enqueue_script( 'accesspress-staplejquery-waypoint', get_template_directory_uri() . '/js/waypoint.js', array('jquery'), '2.03', true );
+    wp_enqueue_script( 'accesspress-staple-modernizer', get_template_directory_uri() . '/js/modernizr.js', array(), '2.8.3', false);
+    wp_enqueue_script( 'accesspress-staple-main-menu', get_template_directory_uri() . '/js/main-menu.js', array(), '1.0', false);
+    wp_enqueue_script( 'accesspress-staple-actual', get_template_directory_uri() . '/js/jquery.actual.js', array(), '1.0', false);
+    wp_enqueue_script( 'accesspress-staple-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '1.0', true );
+    wp_enqueue_script( 'accesspress-staple-custom', get_template_directory_uri() . '/js/custom.js', array('jquery'), '1.0', true );
+	
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
-	}
-    
-    
-    
-	
+	}	
 }
 add_action( 'wp_enqueue_scripts', 'accesspress_staple_scripts' );
-
-/**
- * Implement the Custom Header feature.
- */
-//require get_template_directory() . '/inc/custom-header.php';
 
 /**
  * Custom template tags for this theme.
@@ -209,8 +207,6 @@ require get_template_directory() . '/inc/jetpack.php';
  */
 require get_template_directory() . '/inc/options-framework/options-framework.php';
 
-define( 'OPTIONS_FRAMEWORK_DIRECTORY', get_template_directory_uri() . '/inc/options-framework/' );
-
 /**
  * Load Options .
  */
@@ -225,18 +221,16 @@ require get_template_directory() . '/inc/accesspress-function.php';
 /**
  * Load Options Custom metabox.
  */
-require get_template_directory() . '/inc/custom-metabox.php';
+require get_template_directory() . '/inc/accesspress-custom-metabox.php';
 
-add_image_size('portfolio-thumbnail', 420, 300,  true);
+/**
+ * Load accesspress-class-tgm-plugin-activation
+ */
+require get_template_directory() . '/inc/accesspress-class-tgm-plugin-activation.php';
 
-add_image_size('featured-thumbnail', 190, 133, true);
+/**
+ * Load more themes page
+ */
+require get_template_directory() . '/inc/more-themes.php';
 
-add_image_size('team-image', 238, 238, true);
-
-add_image_size('feature-image', 279, 203, true);
-
-add_image_size('port-image', 550, 400, true);
-
-add_image_size('archive-image', 860, 300, true);
-
-add_image_size('woocommerce-thumb', 350, 435, true);
+define( 'OPTIONS_FRAMEWORK_DIRECTORY', get_template_directory_uri() . '/inc/options-framework/' );

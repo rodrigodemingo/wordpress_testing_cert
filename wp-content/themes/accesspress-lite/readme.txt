@@ -1,4 +1,4 @@
-License: GNU General Public License v3 or later
+﻿License: GNU General Public License v3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 AccessPress Lite WordPress Theme, Copyright 2014 http://wordpresssuperexpress.com
 AccessPress Lite is distributed under the terms of the GNU GPL v3
@@ -26,6 +26,9 @@ JS Files
 
     jQuery Actual: MIT licenses
     https://github.com/dreamerslab/jquery.actual/
+    
+    theis stickey sidebar: MIT license
+    https://github.com/WeCodePixels/theia-sticky-sidebar
 
 
 -------------------------------------------
@@ -46,7 +49,9 @@ Images
     http://pixabay.com/en/beautiful-face-female-girl-happy-19075/
     http://pixabay.com/en/board-blank-border-couple-empty-84420/
     http://pixabay.com/en/teacher-lecturer-writer-counselor-99741/
-
+    
+    https://pixabay.com/en/fashion-beauty-model-portrait-girl-1063100/
+    
     http://pixabay.com/en/money-bills-calculator-save-256312/
     http://pixabay.com/en/architecture-banking-blue-building-19171/
     http://pixabay.com/en/keyboard-apple-input-keys-hardware-338510/
@@ -60,6 +65,121 @@ Images
     http://pixabay.com/en/key-metal-home-security-wedding-96233/
 
 == Changelog ==
+Version 2.46.9
+* Change Screenshot
+* Post Title issue solve
+
+Version 2.46.9
+* Add feature section title input field
+
+Version 2.46.8
+* Fixed the theme tag
+* Fixed text domain issue
+* Updated .pot file
+
+Version 2.46.7
+* Update sidebat testimonial title issue
+* Add Sticky sidebar js
+* Minor css Fixed
+* Screenshot change
+
+Version 2.46.6
+* Menu Align Issue solve
+
+Version 2.46.5
+* Update default template selection ssue
+
+Version 2.46.4
+* Update Template selection issue
+
+Version 2.46.5
+* Update Template selection issue
+
+Version 2.46.3
+* Footer Gallery Issue Fixed
+* Change Default content
+
+Veresion 2.46.0
+* Change Screenshot
+* Fix design issue at footer
+* Fix menu design issue
+
+Veresion 2.46.0
+* Add new home page layout with new design
+
+Version 2.45.9
+* Espanish Translation Added
+Contributer - José Roldán <rolozco@ono.com>
+
+Version 2.45.8
+* Added theme support for the title tag and remove the hardcoded Title Tag
+
+Version 2.45.7
+* Tested with WordPress 4.4 and minor bugs fixed
+
+Version 2.45.6
+* Minor CSS fixes
+* Translation .pot file updated
+
+Version 2.45.5
+* Fixes in CSS for Full RTL support
+
+Version 2.45.4
+* Fixes in CSS for Full RTL support
+* More Themes page added
+
+Version 2.45.3
+* FontAwesome Updated to latest version for New icons Compatibility
+* Pot file updated with latest change
+* New Plugin Suggested via TGM-Plugin-Activation 
+
+Version 2.45.2
+* Made fully compatible with RTL
+* Minor fixes in Option Panel
+
+Version 2.45.1
+* String Count bug fixed for accesspresslite_excerpt function
+* Responsive bug for grid layout fixed
+
+Version 2.45.0
+* Demo Url in the theme description changed
+* accesspresslite.pot file updated with latest changes
+
+Version 2.44.9
+* Documentation and Demo link Updates according to new change in the website
+* Few Other link changed from http to https
+* Unused code remove from the theme option panel
+* TGM-Plugin-Activation updated to 2.5.2
+
+Version 2.44.8
+* Addition and modification of Info in theme option panel
+
+Version 2.44.7
+* Plugins recommended Via TGM. 
+* Minor Fixes in theme option panel.
+
+Version 2.44.6
+* Translation bug for the variable fixed.
+* Spelling mistake in meta tag(viewport) fixed.
+
+Version 2.44
+* Font Awesome updated to latest version.
+* Minor bug in Home page slider fixed.
+
+Version 2.43
+* Minor adjustment in theme option panel
+* New .pot file created
+* Translation bug fixed
+* Screenshot changed
+
+Version 2.42
+* Translation Issue fixed for the month name for event date metabox
+* Minor adjustment in theme option panel
+* New .pot file created
+
+Version 2.41
+* New Translation Language added(Italian)
+
 Version 2.40
 * Changes in theme Option panel
 * Email removed due to unnecessary spam emails

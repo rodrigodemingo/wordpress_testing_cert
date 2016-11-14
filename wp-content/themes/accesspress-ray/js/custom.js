@@ -1,10 +1,37 @@
 jQuery(function($){
-  $('.event-slider').bxSlider({
-    minSlides: 1,
-    maxSlides: 3,
-    slideWidth: 377,
-    slideMargin: 19
-  });
+  $('.event-slider').lightSlider({
+        item:3,
+        loop:false,
+        slideMove:3,
+        easing: 'cubic-bezier(0.25, 0, 0.25, 1)',
+        speed:600,
+        enableDrag: false,
+        controls: false,
+        responsive : [
+            {
+                breakpoint:900,
+                settings: {
+                    item:3,
+                    slideMove:3,
+                    slideMargin:6,
+                  }
+            },
+            {
+                breakpoint:767,
+                settings: {
+                    item:5,
+                    slideMove:1
+                  }
+            },
+            {
+                breakpoint:500,
+                settings: {
+                    item:1,
+                    slideMove:1
+                  }
+            }
+        ]
+    });
 
   $('.testimonial-slider').bxSlider({
    auto:true,
@@ -12,8 +39,6 @@ jQuery(function($){
    controls:'true',
    speed:1000
   });
-
-  
 
   $(window).resize(function(){
     $('.slider-caption').each(function(){

@@ -18,11 +18,11 @@ jQuery(document).ready(function($){
     $('#add-logo').on('click', function(){
     logo_count++;
     var logo_code = '<div class="associate-logo sub-option clearfix">'+
-    '<input class="of-input partner-link-input" type="text" placeholder="http://" value="" name="accesspress_staple[partner_logo]['+logo_count+'][link]">'+
-    '<input type="text" placeholder="No file chosen" value="" name="accesspress_staple[partner_logo]['+logo_count+'][image]" class="upload">'+
-    '<input type="button" value="Upload" class="upload-button button">'+
+    '<input class="of-input partner-link-input" type="text" placeholder="http://" value="" name="accesspress-staple[partner_logo]['+logo_count+'][link]">'+
+    '<input type="text" placeholder="No file chosen" value="" name="accesspress-staple[partner_logo]['+logo_count+'][image]" class="upload">'+
+    '<input class="upload-button button" type="button" value="Upload">'+
     '<div id="logo-image" class="screenshot"></div>'+
-    '<div class="logo-remove">[X]</div>'+
+    '<div class="logo-remove">&times;</div>'+
     '</div>';
     $('.logo-wrap').append(logo_code);
     });
@@ -34,13 +34,13 @@ jQuery(document).ready(function($){
                     form_row.parent('.associate-logo').remove();
                     $('.associate-logo input').removeAttr('disabled');
                 }, 3000);
-                });
+    });
         
-            $('.header-group').on('click', function(){
-            $(this).each(function(){
-            $(this).next('.header-content').slideToggle();
-            });
-            }); 
+    $('.header-group').on('click', function(){
+        $(this).each(function(){
+        $(this).next('.header-content').slideToggle();
+        });
+    }); 
 
     $('#optionsframework-metabox .option').addClass('clearfix');
     	jQuery('.switch_options').each(function() {
@@ -76,8 +76,5 @@ jQuery(document).ready(function($){
 		});
 
 	});
-     
-   	$('.ap-popup-bg, .ap-popup-close').click(function(){
-		$('.ap-popup-bg, .ap-popup-wrapper').fadeOut();
-	});       
+            
 });

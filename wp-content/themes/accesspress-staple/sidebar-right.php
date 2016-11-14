@@ -4,13 +4,16 @@
  *
  * @package AccessPress Staple
  */
-
-if(is_front_page()){
-	$post_id = get_option('page_on_front');
-}else{
-	$post_id = $post->ID;
+if( is_archive() || is_search() ) {
+	$post_class = 'right-sidebar';
+} else {
+	if(is_front_page()){
+		$post_id = get_option('page_on_front');
+	}else{
+		$post_id = $post->ID;
+	}
+	$post_class = get_post_meta( $post_id, 'accesspress_staple_sidebar_layout', true );	
 }
-$post_class = get_post_meta( $post_id, 'accesspress_staple_sidebar_layout', true );
 if($post_class=='right-sidebar' || $post_class=='both-sidebar' || empty($post_class)){
     ?>
     <div id="secondary-right" class="widget-area right-sidebar sidebar">
@@ -19,6 +22,5 @@ if($post_class=='right-sidebar' || $post_class=='both-sidebar' || empty($post_cl
 		<?php endif; ?>
     </div>
     <?php    
-}
-    
+}    
 ?>

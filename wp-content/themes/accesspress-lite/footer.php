@@ -7,17 +7,21 @@
  * @package AccesspressLite
  */
 ?>
-
 	</div><!-- #content -->
 
 	<footer id="colophon" class="site-footer" role="contentinfo">
 	<?php 
 		global $accesspresslite_options;
 		$accesspresslite_settings = get_option( 'accesspresslite_options', $accesspresslite_options );
-
-		if ( is_active_sidebar( 'footer-1' ) ||  is_active_sidebar( 'footer-2' )  || is_active_sidebar( 'footer-3' )  || is_active_sidebar( 'footer-4' ) || !empty($accesspresslite_settings['google_map']) || !empty($accesspresslite_settings['contact_address'])) : ?>
+        $home_template = $accesspresslite_settings['accesspresslite_home_template'];
+        $footer_title = $accesspresslite_settings['footer_title'];
+		if ( is_active_sidebar( 'footer-1' ) ||  is_active_sidebar( 'footer-2' )  || is_active_sidebar( 'footer-3' )  || is_active_sidebar( 'footer-4' ) ) : ?>
 		<div id="top-footer">
-		<div class="ak-container">
+		<div class="ak-container"><?php
+        if($home_template == 'template_two' || $home_template == ''){
+         if($footer_title){?>
+                <h1 class="footer_title_text"><?php echo esc_attr($footer_title); ?></h1>
+        <?php }} ?>
 			<div class="footer1 footer">
 				<?php if ( is_active_sidebar( 'footer-1' ) ) : ?>
 					<?php dynamic_sidebar( 'footer-1' ); ?>
@@ -41,26 +45,7 @@
 			<div class="footer4 footer">
 				<?php if ( is_active_sidebar( 'footer-4' ) ) : ?>
 					<?php dynamic_sidebar( 'footer-4' ); ?>
-				<?php else:
-                if(!empty($accesspresslite_settings['google_map']) || !empty($accesspresslite_settings['contact_address'])){ ?>
-                    
-                    <h3 class="widget-title"><?php _e('Find Us','accesspresslite')?></h3>
-				    <?php if(!empty($accesspresslite_settings['google_map'])) { ?>
-
-                        <div class="ak-google-map"><?php echo $accesspresslite_settings['google_map']; ?></div>
-						
-						<?php }
-						if(!empty($accesspresslite_settings['contact_address'])) { ?>
-						
-						<div class="ak-contact-address"><?php echo wpautop($accesspresslite_settings['contact_address']); ?></div>
-
-						<?php }
-					
-						if($accesspresslite_settings['show_social_footer'] == 0){
-						do_action( 'accesspresslite_social_links' ); 
-						}
-					 }
-				endif; ?>	
+				<?php endif; ?>	
 			</div>
 		</div>
 		</div>
@@ -70,14 +55,14 @@
 		<div id="bottom-footer">
 		<div class="ak-container">
 			<h1 class="site-info">
-				<a href="<?php echo esc_url( __( 'http://wordpress.org/', 'accesspresslite' ) ); ?>"><?php _e( 'Free WordPress Theme', 'accesspresslite' ); ?></a>
+				<a href="<?php echo esc_url('http://wordpress.org/'); ?>"><?php _e( 'Free WordPress Theme', 'accesspress-lite' ); ?></a>
 				<span class="sep"> | </span>
-				<a href="<?php echo esc_url('http://accesspressthemes.com/');?>" title="AccessPress Themes" target="_blank">AccessPress Lite</a>
+				<a href="<?php echo esc_url('https://accesspressthemes.com/');?>" title="AccessPress Themes" target="_blank">AccessPress Lite</a>
 			</h1><!-- .site-info -->
 
 			<div class="copyright">
-				Copyright &copy; <?php echo date('Y') ?> 
-				<a href="<?php echo home_url(); ?>">
+				<?php _e('Copyright','accesspress-lite') ?> &copy; <?php echo date('Y') ?> 
+				<a target="_blank" href="http://demo.accesspressthemes.com/accesspresslite/">
 				<?php if(!empty($accesspresslite_settings['footer_copyright'])){
 					echo $accesspresslite_settings['footer_copyright']; 
 					}else{

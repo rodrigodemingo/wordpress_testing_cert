@@ -5,15 +5,8 @@
 function optionsframework_option_name() {
 
 	// Change this to use your theme slug
-	$themename = wp_get_theme();
-	$themename = preg_replace("/\W/", "_", strtolower($themename) );
-
-	$optionsframework_settings = get_option( 'optionsframework' );
-	$optionsframework_settings['id'] = $themename;
-	update_option( 'optionsframework', $optionsframework_settings );
-    return $themename;
- }
-
+	return 'accesspress-staple';
+}
 /**
  * Defines an array of options that will be used to generate the settings page and be saved in the database.
  * When creating the 'id' fields, make sure to use all lowercase and no spaces.
@@ -49,20 +42,27 @@ function optionsframework_options() {
         'transparent'=>__('Transparent', 'accesspress-staple'),
         'classic'=>__('Classic', 'accesspress-staple'));
     
-    
     $options_categories = array();
-	$options_categories_obj = get_categories();
-	$options_categories[''] = 'Select a Category:';
+	$options_categories_obj = get_categories(array('hide_empty' => 0));
+	$options_categories[] = 'Select a Category:';
 	foreach ($options_categories_obj as $category) {
 		$options_categories[$category->cat_ID] = $category->cat_name;
 	}
     
-    $options_pages = array();
+   $options_pages = array();
 	$options_pages_obj = get_posts('posts_per_page=-1');
 	$options_pages[''] = 'Select a Post:';
 	foreach ($options_pages_obj as $page) {
 		$options_pages[$page->ID] = $page->post_title;
 	}
+
+    $options_page = array();
+    $options_page_obj = get_pages('posts_per_page=-1');
+    $options_page[''] = 'Select a Page:';
+    foreach ($options_page_obj as $page) {
+        $options_page[$page->ID] = $page->post_title;
+    }
+
     $show_pager = array(
         'yes'=> __('Yes', 'accesspress-staple'),
         'no'=>__('No', 'accesspress-staple'));
@@ -85,59 +85,58 @@ function optionsframework_options() {
         'hide'=>__('Hide', 'accesspress-staple'));
         
     $client_slider = array(
-        'static'=>__('Static', 'accesspress-staple'),
-        'scroll'=>__('Scroll', 'accesspress-staple'));
+        'static'=>__('Static Images', 'accesspress-staple'),
+        'scroll'=>__('Logo Slider', 'accesspress-staple'));
         
-    $about_content = "<div class='product'>";
-	$about_content .= "<a target='_blank' href='".esc_url('https://accesspressthemes.com/wordpress-themes/accesspress-pro/')."'><img alt='AccessPress Pro' src='".get_template_directory_uri()."/inc/options-framework/images/accesspress-pro.jpg'>";
-	$about_content .= "<div class='view-detail'>View Detail</div></a>";
-	$about_content .= "</div>";
+    
+   $theme = wp_get_theme();
 
-	$about_content .= "<div class='product'>";
-	$about_content .= "<a target='_blank' href='".esc_url('https://accesspressthemes.com/wordpress-themes/accesspress-ray/')."'><img alt='AccessPress Ray' src='".get_template_directory_uri()."/inc/options-framework/images/accesspress-ray.jpg'>";
-	$about_content .= "<div class='view-detail'>View Detail</div></a>";
-	$about_content .= "</div>";
+	$about_content = '<div class="about-accesspress">
+          <a class="button-primary" target="_blank" href="'.esc_url('https://accesspressthemes.com/documentation/theme-instruction-accesspress-staple/').'">'. __('View Documentaion','accesspress-staple').'</a> &nbsp;&nbsp;
+          <a class="button-primary float-right" target="_blank" href="'.esc_url('http://accesspressthemes.com/theme-demos/?theme=accesspress-staple').'">'.__('View Demo','accesspress-staple').'</a>
+          <div class="seperator-gap"></div>
+          <img src="'.esc_url($theme->get_screenshot()).'" /><br/>'
+          .$theme->get('Description').
+        '</div>';
+    $for_support =  '<div class="has-padding">'. __("Forum:","accesspress-staple").' <a target="_blank" href="'. esc_url("https://accesspressthemes.com/support").'">accesspressthemes.com/support</a><br/>'. __("Live Chat:","accesspress-staple").' <a target="_blank" href="'. esc_url("https://accesspressthemes.com").'">accesspressthemes.com</a></div>';
+	$for_customization = '<div class="has-padding">'. __('We offer WordPress Themes/Plugins development, customization, design integration, WordPress setup, fixes etc.','accesspress-staple').'<br/>'
+        .__('Email:','accesspress-staple').' <a href="mailto:support@accesspressthemes.com">support@accesspressthemes.com</a></div>';
+    $about_accesspress_themes = '<div class="about-access">AccessPress Themes is an online WordPress themes store, that provides beautiful and useful themes. All of our themes are crafted with our years of experience. Our theme don&#146;t lack the basics and don&#146;t have a lot of non-sense features which you might never use. AccessPress Themes has beautiful and elegant, fully responsive, multipurpose themes to meet your need for free and premium basis. Our themes have bunch of easily customizable options and features, someone with no programming knowledge can use our easy theme options panel and configure/setup the theme as needed.</div>';        
+    $from_accesspress_thems = '<div class="accesspressthemes-products"><div class="ap-themes">
+        <a target="_blank" href="https://accesspressthemes.com/wordpress-themes/">
+        <div class="ap-themes-img">
+        <img src="'.get_template_directory_uri().'/inc/options-framework/images/wordpress-themes.png">
+        <span>'.__('View all Themes','accesspress-staple').' <i class="fa fa-external-link"></i></span>
+        </div>'
+        .__('WordPress Themes','accesspress-staple'). 
+        '</a>
+        </div>';
 
-	$about_content .= "<div class='product'>";
-	$about_content .= "<a target='_blank' href='".esc_url('https://accesspressthemes.com/wordpress-themes/accesspress-parallax/')."'><img alt='AccessPress Parallax' src='".get_template_directory_uri()."/inc/options-framework/images/accesspress-parallax.jpg'>";
-	$about_content .= "<div class='view-detail'>View Detail</div></a>";
-	$about_content .= "</div>";
+    $from_accesspress_thems .= '<div class="ap-plugins">
+        <a target="_blank" href="https://accesspressthemes.com/plugins/">
+        <div class="ap-themes-img">
+        <img src="'.get_template_directory_uri().'/inc/options-framework/images/wordpress-plugins.png">
+        <span>'. __('View all Plugins','accesspress-staple').' <i class="fa fa-external-link"></i></span>
+        </div>'
+        .__('WordPress Plugins','accesspress-staple').  
+        '</a>
+        </div>';
 
+    $from_accesspress_thems .= '<div class="ap-customization">
+        <a target="_blank" href="https://accesspressthemes.com/request-customization/">
+        <div class="ap-themes-img">
+        <img src="'. get_template_directory_uri().'/inc/options-framework/images/wordpress-customization.png">
+        <span>'. __('Request Customization','accesspress-staple').' <i class="fa fa-external-link"></i></span>
+        </div>'
+        .__('WordPress Customization','accesspress-staple').  
+        '</a>
+        </div></div>';
+    
+    
+    
 	
-
-	$about_content .= "<div class='product'>";
-	$about_content .= "<a target='_blank' href='".esc_url('https://accesspressthemes.com/wordpress-plugins/accesspress-anonymous-post/')."'><img alt='AccessPress Anonymous Post' src='".get_template_directory_uri()."/inc/options-framework/images/accesspress-anonymous-post.jpg'>";
-	$about_content .= "<div class='view-detail'>View Detail</div></a>";
-	$about_content .= "</div>";
-    $about_content .= "<div class='clearfix'></div>";
-	$about_content .= "<div class='product'>";
-	$about_content .= "<a target='_blank' href='".esc_url('https://accesspressthemes.com/wordpress-plugins/accesspress-anonymous-post-premium/')."'><img alt='AccessPress Anonymous Post Pro' src='".get_template_directory_uri()."/inc/options-framework/images/accesspress-anonymous-post-pro.jpg'>";
-	$about_content .= "<div class='view-detail'>View Detail</div></a>";
-	$about_content .= "</div>";
-
-    $about_content .= "<div class='about-admin-wrap'>";
-    $about_content .= "<p>".__('AccessPress Staple - is a FREE WordPress theme by','accesspress-staple')." <a target='_blank' href='".esc_url('http://www.accesspressthemes.com/')."'>AccessPress Themes</a> ".__('- A WordPress Division of Access Keys.','accesspress-staple')."</p>"; 
-    $about_content .= "<p>".__(' Access Keys - has developed more than 350 WordPress websites for its clients.','accesspress-staple')."</p>";
-    $about_content .= "<h4>".__('Get in touch','accesspress-staple')."</h4>";
-    $about_content .= __('If you have any question/feedback, please get in touch:','accesspress-staple')."<br /><br />";
-    $about_content .= __('General enquiries:','accesspress-staple')." <a href='mailto:".esc_url('info@accesspressthemes.com')."'>info@accesspressthemes.com</a><br /><br />";
-    $about_content .= __('Support:','accesspress-staple')." <a href='mailto:".esc_url('support@accesspressthemes.com')."'>support@accesspressthemes.com</a><br /><br />";
-    $about_content .= __('Sales:','accesspress-staple')." <a href='mailto:".esc_url('sales@accesspressthemes.com')."'>sales@accesspressthemes.com</a><br/><br /><br />";
-    $about_content .= "</div>";
-    $pop_up = '<div class="ap-popup-wrapper">';
-	$pop_up .= 	'<div class="ap-popup-close">&times;</div>';
-	$pop_up .=	'<h4>Like our Facebook page and don\'t miss any updates!</h4>';
-	$pop_up .=	'<iframe style="border: none; overflow: hidden; width: 340px; height: 260px;" src="//www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2Fpages%2FAccessPress-Themes%2F1396595907277967&amp;width=340&amp;height=260&amp;colorscheme=light&amp;show_faces=true&amp;header=false&amp;stream=false&amp;show_border=true&amp;appId=1411139805828592" width="340" height="260" frameborder="0" scrolling="no"></iframe>';
-	$pop_up .='</div>';
-	$pop_up .='<div class="ap-popup-bg"></div>';
     
-    
-	//$settings_array = get_option( 'accesspress_staple' );
-  //if(!is_array($settings_array)):
-    //echo $pop_up;
-  //endif;
-    
-  /** ************************************************ Basic Setting Section ***************************************************************************/
+/** ************************************************ Basic Setting Section ********************************************************/
     $options[] = array(
         'name'=> __('Basic Setting', 'accesspress-staple'),
         'type'=> 'heading');
@@ -160,6 +159,7 @@ function optionsframework_options() {
         'name'=>'Upload Logo', 'accesspress-staple',
         'id'=>'logo',
         'std'=>'',
+        'desc' => __('Size of logo should be 270 x 70px','accesspress-staple'),
         'class'=>'sub-option',
         'type'=>'upload');
         
@@ -167,7 +167,7 @@ function optionsframework_options() {
         'name'=>__('Copyright Footer Text', 'accesspress-staple'),
         'id'=>'copyright',
         'std'=>'AccessPress Staple',
-        'type'=>'text');
+        'type'=>'textarea');
     
         
  /** -----------------------------------------------------------Basic Seccting Section Ends here-----------------------------------------------**/
@@ -184,13 +184,25 @@ function optionsframework_options() {
         'std'=>'transparent',
         'type'=>'radio',
         'options'=>$header_type);
+
+     $options[] = array(
+        'name'=>__('Header Backgound', 'accesspress-staple'),
+        'id'=>'header_bg',
+        'std'=>'white',
+        'type'=>'radio',
+        'options'=>array(
+            'white' => __('White','accesspress-staple'),
+            'black' => __('Black','accesspress-staple')
+            ));
         
       $options[] = array(
         'name'=> __('Show Search in Header', 'accesspress-staple'),
-        'desc'=> __('Click here to Enable',  'accesspress-staple'),
+        'desc'=> __('Click here to Show or Hide Search in Header',  'accesspress-staple'),
         'id'=>'show_search',
         'std'=>'1',
-        'type'=>'checkbox');
+        'type'=>'switch',
+        'on'=>'Show',
+        'off'=>'Hide');
         
      $options[] = array(
         'name'=>__('Search PlaceHolder Text', 'accesspress-staple'),
@@ -229,7 +241,9 @@ function optionsframework_options() {
         'id'=>'enable_about',
         'desc'=>'Click here to enable',
         'std'=>'1',
-        'type'=>'checkbox');
+        'type'=>'switch',
+        'on'=>'Enable',
+        'off'=>'Disable');
         
     $options[] = array(
         'name'=>__('Select the Post to show About Section', 'accesspress-staple'),
@@ -251,20 +265,21 @@ function optionsframework_options() {
       $options[] = array(
         'name'=>__('Enable Feature Section', 'accesspress-staple'),
         'id'=>'enable_feature',
-        'desc'=>'Click here to enable',
+        'desc'=>'Click here to Enable or Disable Feature Section',
         'std'=>'1',
-        'type'=>'checkbox'); 
+        'type'=>'switch',
+        'on'=>'Enable',
+        'off'=>'Disable'); 
         
      $options[] = array(
         'name'=>__('Feature Section Title', 'accesspress-staple'),
         'id'=>'feature_title',
-        'std'=>'Our Services',
+        'std'=>'Our Features',
         'type'=>'text');
      
      $options[] = array(
         'name'=>__('Feature Section Description', 'accesspress-staple'),
         'id'=>'feature_desc',
-        'std'=>'',
         'type'=>'editor');
      
      $options[] = array(
@@ -275,17 +290,44 @@ function optionsframework_options() {
         'options'=>$options_categories);
         
      $options[] = array(
-        'name'=>__('Display Button for Category Page', 'accesspress-staple'),
+        'name'=>__('Display View All Button', 'accesspress-staple'),
         'id'=>'feature_more',
         'desc'=>'Click here to enable',
         'std'=>'1',
-        'type'=>'checkbox');
+        'type'=>'switch',
+        'on'=>'Enable',
+        'off'=>'Disable');
         
      $options[] = array(
-        'name'=>__('Button Text', 'accesspress-staple'),
+        'name'=>__('View All Button Text', 'accesspress-staple'),
         'id'=>'feature_more_text',
         'std'=>'View More',
         'type'=>'text'); 
+
+    $options[] = array(
+        'name'=>__('Pricing Table Section', 'accesspress-staple'),
+        'type'=>'header');
+
+    $options[] = array(
+        'name'=>__('Enable Pricing Table', 'accesspress-staple'),
+        'id'=>'enable_pricing',
+        'std'=>'0',
+        'type'=>'switch',
+        'desc' => __('Go to Pricing Table Setting tab to add the table','accesspress-staple'),
+        'on'=>'Enable',
+        'off'=>'Disable');
+       
+    $options[] = array(
+        'name'=>__('Pricing Table Title', 'accesspress-staple'),
+        'id'=>'pricing_table_title',
+        'std'=>'Pricing Table',
+        'type'=>'text');
+      
+    $options[] = array(
+        'name'=>__('Pricing Table Description', 'accesspress-staple'),
+        'id'=>'pricing_table_desc',
+        'std'=>'Lorem Ipsum about Pricing Table is shown below',
+        'type'=>'editor');
         
      $options[] = array(
         'name'=>__('Awesome Features Section', 'accesspress-staple'),
@@ -296,7 +338,9 @@ function optionsframework_options() {
         'id'=>'enable_awesome_feature',
         'desc'=>'Click here to enable',
         'std'=>'1',
-        'type'=>'checkbox'); 
+        'type'=>'switch',
+        'on'=>'Enable',
+        'off'=>'Disable'); 
         
      $options[] = array(
         'name'=>__('Feature Section Title', 'accesspress-staple'),
@@ -307,7 +351,6 @@ function optionsframework_options() {
      $options[] = array(
         'name'=>__('Feature Section Description', 'accesspress-staple'),
         'id'=>'feature_awesome_desc',
-        'std'=>'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, aliquet nec, vulputate eget, arcu. In enim justo.',
         'type'=>'editor');
      
      $options[] = array(
@@ -318,19 +361,19 @@ function optionsframework_options() {
         'options'=>$options_categories);
         
      $options[] = array(
-        'name'=>__('Display Button for Category Page', 'accesspress-staple'),
+        'name'=>__('Display View All Button', 'accesspress-staple'),
         'id'=>'awesome_feature_more',
         'desc'=>'Click here to enable',
         'std'=>'1',
-        'type'=>'checkbox');
+        'type'=>'switch',
+        'on'=>'Enable',
+        'off'=>'Disable');
         
      $options[] = array(
-        'name'=>__('Button Text', 'accesspress-staple'),
+        'name'=>__('View All Button Text', 'accesspress-staple'),
         'id'=>'awesome_feature_more_text',
         'std'=>'View More',
         'type'=>'text');
-        
-     
         
      $options[] = array(
         'name'=>__('Portfolio Section', 'accesspress-staple'),
@@ -341,7 +384,9 @@ function optionsframework_options() {
         'id'=>'enable_portfolio',
         'desc'=>'Click here to enable',
         'std'=>'1',
-        'type'=>'checkbox'); 
+        'type'=>'switch',
+        'on'=>'Enable',
+        'off'=>'Disable'); 
         
      $options[] = array(
         'name'=>__('Portfolio Section Title', 'accesspress-staple'),
@@ -370,7 +415,10 @@ function optionsframework_options() {
         'name'=>__('Enable Client Logo Section', 'accesspress-staple'),
         'id'=>'enable_client',
         'std'=>'1',
-        'type'=>'checkbox');
+        'type'=>'switch',
+        'on'=>'Enable',
+        'off'=>'Disable',
+        'desc' => __('Go to <strong>Upload Client Logo</strong> tab to upload logo','accesspress-staple'));
      
      $options[] = array(
         'name'=>__('View Type', 'accesspress-staple'),
@@ -388,9 +436,8 @@ function optionsframework_options() {
      $options[] = array(
         'name'=>__('Clients Desription', 'accesspress-staple'),
         'id'=>'client_desc',
-        'std'=>'Our Clients',
-        'type'=>'editor');
-     
+        'type'=>'editor',
+        );   
      
         
      $options[] = array(
@@ -401,12 +448,14 @@ function optionsframework_options() {
         'name'=>__('Enable Call To Action', 'accesspress-staple'),
         'id'=>'enable_call_to_action',
         'std'=>'1',
-        'type'=>'checkbox');
+        'type'=>'switch',
+        'on'=>'Enable',
+        'off'=>'Disable');
         
      $options[] = array(
         'name'=>__('Call To Action Title', 'accesspress-staple'),
         'id'=>'call_to_action_title',
-        'std'=>'About Access Press Agency',
+        'std'=>'About Access Press Staple',
         'type'=>'text');
         
      $options[] = array(
@@ -441,10 +490,12 @@ function optionsframework_options() {
         'name'=>__('Enable Team Member Section', 'accesspress-staple'),
         'id'=>'enable_team_member',
         'std'=>'1',
-        'type'=>'checkbox');
+        'type'=>'switch',
+        'on'=>'Enable',
+        'off'=>'Disable');
         
     $options[] = array(
-        'name'=>__('Team Member Title'),
+        'name'=>__('Team Member Title','accesspress-staple'),
         'id'=>'team_member_title',
         'std'=>'',
         'type'=>'text');
@@ -463,7 +514,9 @@ function optionsframework_options() {
         'name'=>__('Enable Stat Counter', 'accesspress-staple'),
         'id'=>'enable_stat_counter',
         'std'=>'1',
-        'type'=>'checkbox');
+        'type'=>'switch',
+        'on'=>'Enable',
+        'off'=>'Disable');
         
      $options[] = array(
         'name'=>__('Stat Counter Title', 'accesspress-staple'),
@@ -483,12 +536,6 @@ function optionsframework_options() {
         );
         
      $options[] = array(
-        'name'=>__('Enable Stat Counter 1'),
-        'id'=>'enable_stat_counter1',
-        'std'=>'1',
-        'type'=>'checkbox');
-        
-     $options[] = array(
         'name'=>__('Title', 'accesspress-staple'),
         'id'=>'counter1_text',
         'std'=>'',
@@ -504,19 +551,13 @@ function optionsframework_options() {
         'name'=>__('Font Awesome text','accesspress-staple'),
         'id'=>'counter1_font_awesome',
         'std'=>'',
-        'desc'=>'Please put Font Aawesome Code like fa-bell, Please go to <a href="">Font Awesome Website</a>',
+        'desc'=> sprintf(__('Add Font Aawesome Code example:fa-bell, Please go to <a href="%s" target="_blank">Font Awesome Website</a>','accesspress-staple'), esc_url('http://fortawesome.github.io/Font-Awesome/icons/')),
         'type'=>'text');
      
      $options[] = array(
         'name'=>__('Counter 2', 'accesspress-staple'),
         'type'=>'info',
         );
-        
-     $options[] = array(
-        'name'=>__('Enable Stat Counter 2'),
-        'id'=>'enable_stat_counter2',
-        'std'=>'1',
-        'type'=>'checkbox');
         
      $options[] = array(
         'name'=>__('Title', 'accesspress-staple'),
@@ -534,20 +575,14 @@ function optionsframework_options() {
         'name'=>__('Font Awesome text','accesspress-staple'),
         'id'=>'counter2_font_awesome',
         'std'=>'',
-        'desc'=>'Please put Font Aawesome Code like fa-bell',
+        'desc'=> sprintf(__('Add Font Aawesome Code example:fa-bell, Please go to <a href="%s" target="_blank">Font Awesome Website</a>','accesspress-staple'), esc_url('http://fortawesome.github.io/Font-Awesome/icons/')),
         'type'=>'text');
         
     $options[] = array(
         'name'=>__('Counter 3', 'accesspress-staple'),
         'type'=>'info',
         );
-        
-     $options[] = array(
-        'name'=>__('Enable Stat Counter 3'),
-        'id'=>'enable_stat_counter3',
-        'std'=>'1',
-        'type'=>'checkbox');
-        
+
      $options[] = array(
         'name'=>__('Title', 'accesspress-staple'),
         'id'=>'counter3_text',
@@ -564,19 +599,13 @@ function optionsframework_options() {
         'name'=>__('Font Awesome text','accesspress-staple'),
         'id'=>'counter3_font_awesome',
         'std'=>'',
-        'desc'=>'Please put Font Aawesome Code like fa-bell',
+        'desc'=> sprintf(__('Add Font Aawesome Code example:fa-bell, Please go to <a href="%s" target="_blank">Font Awesome Website</a>','accesspress-staple'), esc_url('http://fortawesome.github.io/Font-Awesome/icons/')),
         'type'=>'text');
         
       $options[] = array(
         'name'=>__('Counter 4', 'accesspress-staple'),
         'type'=>'info',
         );
-        
-     $options[] = array(
-        'name'=>__('Enable Stat Counter 4'),
-        'id'=>'enable_stat_counter4',
-        'std'=>'1',
-        'type'=>'checkbox');
         
      $options[] = array(
         'name'=>__('Title', 'accesspress-staple'),
@@ -594,7 +623,7 @@ function optionsframework_options() {
         'name'=>__('Font Awesome text','accesspress-staple'),
         'id'=>'counter4_font_awesome',
         'std'=>'',
-        'desc'=>'Please put Font Aawesome Code like fa-bell',
+        'desc'=> sprintf(__('Add Font Aawesome Code example:fa-bell, Please go to <a href="%s" target="_blank">Font Awesome Website</a>','accesspress-staple'), esc_url('http://fortawesome.github.io/Font-Awesome/icons/')),
         'type'=>'text');
         
      $options[] = array(
@@ -606,7 +635,9 @@ function optionsframework_options() {
         'id'=>'enable_blog',
         'std'=>'1',
         'desc'=>'Click here to enable',
-        'type'=>'checkbox');
+        'type'=>'switch',
+        'on'=>'Enable',
+        'off'=>'Disable');
         
      $options[] = array(
         'name'=>__('Blog Title', 'accesspress-staple'),
@@ -634,13 +665,15 @@ function optionsframework_options() {
         'options'=>$options_categories);
            
       $options[] = array(
-        'name'=>__('Display Button for Category Page', 'accesspress-staple'),
+        'name'=>__('Display View All Button', 'accesspress-staple'),
         'id'=>'enable_blog_more',
         'std'=>'1',
-        'type'=>'checkbox');
+        'type'=>'switch',
+        'on'=>'Enable',
+        'off'=>'Disable');
       
        $options[] = array(
-        'name'=>__('Button Text', 'accesspress-staple'),
+        'name'=>__('View All Button Text', 'accesspress-staple'),
         'id'=>'blog_more_text',
         'std'=>'Details',
         'type'=>'text');
@@ -653,10 +686,12 @@ function optionsframework_options() {
         'name'=>__('Enable Testimonial Section', 'accesspress-staple'),
         'id'=>'enable_testomonial',
         'std'=>'1',
-        'type'=>'checkbox');
+        'type'=>'switch',
+        'on'=>'Enable',
+        'off'=>'Disable');
         
     $options[] = array(
-        'name'=>__('Testimonial Title'),
+        'name'=>__('Testimonial Title','accesspress-staple'),
         'id'=>'testomonial_title',
         'std'=>'',
         'type'=>'text');
@@ -668,15 +703,29 @@ function optionsframework_options() {
         'options'=>$options_categories);
         
     $options[] = array(
+        'name'=>__('Latest Post', 'accesspress-staple'),
+        'type'=>'header');
+    
+    $options[] = array(
+        'name'=>__('Enable Latest Post Section', 'accesspress-staple'),
+        'id'=>'enable_posts',
+        'std'=>'1',
+        'type'=>'switch',
+        'on'=>'Enable',
+        'off'=>'Disable');
+        
+    $options[] = array(
+        'name'=>__('ReadMore text for Latest Post', 'accesspress-staple'),
+        'type'=>'text',
+        'id'    =>'rm_lp',
+        'std'=>__('Read More', 'accesspress-staple'),  );
+        
+    $options[] = array(
         'type'=>'div',
         'id'=>'div1');
     $options[] = array(
         'type'=>'div',
-        'id'=>'div2');    
-    
-     
-     
-     
+        'id'=>'div2');       
 /** ------------------------------------------------------Home Setting Section Ends Here --------------------------------------- **/
 
  /** ------------------------------------------------------Pricing Table Section Starts Here --------------------------------- *
@@ -684,35 +733,18 @@ function optionsframework_options() {
     $options[] = array(
         'name'=>__('Pricing Table Settings', 'accesspress-staple'),
         'type'=>'heading');
-    
-    $options[] = array(
-        'name'=>__('Enable Pricing Table in Home Page', 'accesspress-staple'),
-        'id'=>'enable_pricing',
-        'std'=>'1',
-        'type'=>'checkbox');
-       
-    $options[] = array(
-        'name'=>__('Pricing Table Title', 'accesspress-staple'),
-        'id'=>'pricing_table_title',
-        'std'=>'Pricing Table',
-        'type'=>'text');
-      
-    $options[] = array(
-        'name'=>__('Pricing Table Description', 'accesspress-staple'),
-        'id'=>'pricing_table_desc',
-        'std'=>'Lorem Ipsum about Pricing Table is shown below',
-        'type'=>'editor');
          
     $options[] = array(
         'name'=>__('Table 1', 'accesspress-staple'),
         'type'=>'info');
         
-    $options[] = array(
-        'name'=>__('Table 1 title', 'accesspress-staple'),
-        'id'=>'table1_title',
-        'std'=>'Basic',
-        'type'=>'text');
-        
+     $options[] = array(
+        'name'=>__('Table Content and Title', 'accesspress-staple'),
+        'id'=>'table1_desc',
+        'std'=>'',
+        'type'=>'select',
+        'options'=>$options_page);
+
     $options[] = array(
         'name'=>'Currency Unit', 'accesspress-staple',
         'id'=>'table1_price_unit',
@@ -724,13 +756,7 @@ function optionsframework_options() {
         'id'=>'table1_price',
         'std'=>'100',
         'type'=>'text');
-        
-    $options[] = array(
-        'name'=>__('Table Content', 'accesspress-staple'),
-        'id'=>'table1_desc',
-        'std'=>'',
-        'type'=>'editor');
-    
+  
     $options[] = array(
         'name'=>__('More Link Text', 'accesspress-staple'),
         'id'=>'table1_more_text',
@@ -748,10 +774,11 @@ function optionsframework_options() {
         'type'=>'info');
         
     $options[] = array(
-        'name'=>__('Table 2 title', 'accesspress-staple'),
-        'id'=>'table2_title',
-        'std'=>'Basic',
-        'type'=>'text');
+        'name'=>__('Table Content and Title', 'accesspress-staple'),
+        'id'=>'table2_desc',
+        'std'=>'',
+        'type'=>'select',
+        'options'=>$options_page);
         
     $options[] = array(
         'name'=>'Currency Unit', 'accesspress-staple',
@@ -765,12 +792,6 @@ function optionsframework_options() {
         'std'=>'100',
         'type'=>'text');
         
-    $options[] = array(
-        'name'=>__('Table Content', 'accesspress-staple'),
-        'id'=>'table2_desc',
-        'std'=>'',
-        'type'=>'editor');
-    
     $options[] = array(
         'name'=>__('More Link Text', 'accesspress-staple'),
         'id'=>'table2_more_text',
@@ -787,13 +808,13 @@ function optionsframework_options() {
      $options[] = array(
         'name'=>__('Table 3', 'accesspress-staple'),
         'type'=>'info');
-        
-        
+   
     $options[] = array(
-        'name'=>__('Table 3 title', 'accesspress-staple'),
-        'id'=>'table3_title',
-        'std'=>'Basic',
-        'type'=>'text');
+        'name'=>__('Table Content and Title', 'accesspress-staple'),
+        'id'=>'table3_desc',
+        'std'=>'',
+        'type'=>'select',
+        'options'=>$options_page);
         
     $options[] = array(
         'name'=>'Currency Unit', 'accesspress-staple',
@@ -807,12 +828,7 @@ function optionsframework_options() {
         'std'=>'100',
         'type'=>'text');
         
-    $options[] = array(
-        'name'=>__('Table Content', 'accesspress-staple'),
-        'id'=>'table3_desc',
-        'std'=>'',
-        'type'=>'editor');
-    
+       
     $options[] = array(
         'name'=>__('More Link Text', 'accesspress-staple'),
         'id'=>'table3_more_text',
@@ -836,17 +852,18 @@ function optionsframework_options() {
     $options[] = array(
         'name'=>__('Enable Slider', 'accesspress-staple'),
         'id'=>'enable_slider',
-        'desc'=>'Click here to Enable Slider',
+        'desc'=>__('The Best Size of the image is 1800 X 660px','accesspress-staple'),
         'std'=>'1',
-        'type'=>'checkbox');
+        'type'=>'switch',
+        'on'=>'Enable',
+        'off'=>'Disable');
  
-    if($options_categories){
+
     $options[] = array(
         'name'=> __('Choose the category to show in Slider', 'accesspress-staple'),
         'id'=>'cagegory_as_slider',
         'type'=>'select',
         'options'=>$options_categories);   
-   }
    
    $options[] = array(
         'name'=>__('Slider Button Text', 'accesspress-staple'),
@@ -862,17 +879,17 @@ function optionsframework_options() {
         'options'=>$show_pager);
         
    $options[] = array(
-    'name'=>__('Show Controls', 'accesspress-staple'),
-    'id'=>'show_controls',
-    'std'=>'yes',
-    'type'=>'radio',
-    'options'=>$show_controls);
+        'name'=>__('Show Controls', 'accesspress-staple'),
+        'id'=>'show_controls',
+        'std'=>'yes',
+        'type'=>'radio',
+        'options'=>$show_controls);
     
     $options[] = array(
         'name'=> __('Slider Transition (Fade/Slide)', 'accesspress-staple'),
         'id'=>'slider_transition',
-        'std'=>'slide',
-        'type'=>'radio',
+        'std'=>'fade',
+        'type'=>'select',
         'options'=>$slider_transition);
     
     $options[] = array(
@@ -910,27 +927,31 @@ function optionsframework_options() {
         'type'=>'heading');
     
     $options[] = array(
-    'name'=>__('Disable Social Icon in header', 'accesspress-staple'),
-    'id'=>'social_footer_header',
-    'std'=>'1',
-    'desc'=>'Click here to disable',
-    'type'=>'checkbox');
+        'name'=>__('Social Icon in header', 'accesspress-staple'),
+        'id'=>'social_footer_header',
+        'std'=>'1',
+        'type'=>'switch',
+        'on'=>'Enable',
+        'off'=>'Disable');
     
     $options[] = array(
-    'name'=>__('Disable Social Icon in footer', 'accesspress-staple'),
-    'id'=>'social_footer',
-    'desc'=>'Click here to disable',
-    'std'=>'0',
-    'type'=>'checkbox');
+        'name'=>__('Social Icon in footer', 'accesspress-staple'),
+        'id'=>'social_footer',
+        'std'=>'1',
+        'type'=>'switch',
+        'on'=>'Enable',
+        'off'=>'Disable');
     
     $options[] = array(
         'name'=>__('Facebook', 'accesspress-staple'),
         'id'=>'facebook',
+        'std'=>'#',
         'type'=>'url');
     
     $options[] = array(
         'name'=>__('Twitter', 'accesspress-staple'),
         'id'=>'twitter',
+        'std'=>'#',
         'type'=>'url');
     
     $options[] = array(
@@ -1016,21 +1037,11 @@ function optionsframework_options() {
         'options'=>$archive_layout);
         
     $options[] = array(
-        'name'=>__('Read More Text for Poprtfolio list'),
+        'name'=>__('Read More Text for Portfolio list','accesspress-staple'),
         'id'=>'read_more_portfolio',
         'std'=>'Read More',
         'type'=>'text');
         
-        
-    $options[] = array(
-        'name'=>__('Archive', 'accesspress-staple'),
-        'type'=>'info');
-    
-    $options[] = array(
-        'name'=>__('Read More Text for Archive', 'accesspress-staple'),
-        'id'=>'read_more_archive',
-        'std'=>'Read More',
-        'type'=>'text');
         
     $options[] = array(
         'name'=>__('Team Member', 'accesspress-staple'),
@@ -1044,37 +1055,20 @@ function optionsframework_options() {
         'options'=>$archive_layout);
         
     $options[] = array(
-        'name'=>__('Read More Text for Team Member list'),
+        'name'=>__('Read More Text for Team Member list','accesspress-staple'),
         'id'=>'read_more_team',
         'std'=>'Read More',
         'type'=>'text');
         
     $options[] = array(
-        'name'=>__('Single Page Setting', 'accesspress-staple'),
+        'name'=>__('Archive', 'accesspress-staple'),
         'type'=>'info');
-        
-    $options[] = array(
-        'name'=>__('Enable Feature Image', 'accesspress-staple'),
-        'id'=>'single_feature_image',
-        'std'=>'1',
-        'type'=>'checkbox');
-    
     
     $options[] = array(
-        'name'=>__('Enable Author and Date', 'accesspress-staple'),
-        'id'=>'single_date',
-        'std'=>'1',
-        'type'=>'checkbox');
-        
-    $options[] = array(
-        'name'=>__('Enable Pagination', 'accesspress-staple'),
-        'id'=>'single_pagination',
-        'std'=>'1',
-        'type'=>'checkbox' );
-        
-        
-        
-    
+        'name'=>__('Read More Text for Archive', 'accesspress-staple'),
+        'id'=>'read_more_archive',
+        'std'=>'Read More',
+        'type'=>'text');    
 
 
 /** -------------------------------------------- Blog Setting ends here ------------------------------------------------- */
@@ -1084,7 +1078,7 @@ function optionsframework_options() {
 /** -------------------------------------------- Tools Starts here -------------------------------------------------------- */
 
     $options[] = array(
-        'name'=>__('Tools', 'accesspress-staple'),
+        'name'=>__('Custom CSS', 'accesspress-staple'),
         'type'=>'heading');
    
     $options[] = array(
@@ -1092,19 +1086,13 @@ function optionsframework_options() {
         'id'=>'custom_code_css',
         'desc'=>'Put the CSS code here',
         'type'=>'textarea');
-        
-    $options[] = array(
-        'name'=>__('Custom Code(JS/Analytics)', 'accesspress-staple'),
-        'id'=>'custom_code_analytics',
-        'desc'=>'Put the script like anlytics or any other',
-        'type'=>'textarea');
 
 /** -------------------------------------------- Tools Ends here -------------------------------------------------------- */
 
 /** -------------------------------------------- Clients Logo Upload -------------------------------------------------------- */
     
     $options[] = array(
-        'name'=>__('Upload Client Logo'),
+        'name'=>__('Upload Client Logo', 'accesspress-staple'),
         'type'=>'heading');
     
    $options[] = array(
@@ -1117,30 +1105,42 @@ function optionsframework_options() {
 /** -------------------------------------------- Clients Logo Upload Ends here ------------------------------------------------ */
 
 /** -------------------------------------------- About AccessPress Staple -------------------------------------------------------- */
-    $options[] = array(
-        'name'=>__('About', 'accesspress-staple'),
-        'type'=>'heading');
-        
-    $options[] = array(
-		'name' => __('About AccessPress Themes', 'accesspress-staple'),
+    
+	$options[] = array(
+		'name' => __('About AccessPress Staple', 'accesspress-staple'),
+		'icon' => 'fa fa-globe',
+		'type' => 'heading');
+
+	$options[] = array(
+		//'name' => __('About AccessPress Staple', 'accesspress-staple'),
 		'desc' => $about_content,
 		'type' => 'info');
-  	
-  //
-//   $options[] = array(
-//        'name'=>__('Backup', 'accesspress-staple'),
-//        'type'=>'heading');
-//   $options[] = array(
-//        'name'=>__('Backup', 'accesspress-staple'),
-//        'id'=>'backup',
-//        'type'=>'backup');
-//        
-//   $options[] = array(
-//        'name'=>__('Restore', 'accesspress-staple'),
-//        'id'=>'restore',
-//        'type'=>'restore');    
-            
-        
-/** -------------------------------------------- About AccessPress Staple Ends here -------------------------------------------------------- */
+
+	$options[] = array(
+		'name' => __('For Support', 'accesspress-staple'),
+		'desc' => $for_support,
+		'type' => 'info');
+
+	$options[] = array(
+		'name' => __('For Customization', 'accesspress-staple'),
+		'desc' => $for_customization,
+		'type' => 'info');
+
+
+/* --------------------------ABOUT SECTION-------------------------- */
+
+	$options[] = array(
+		'name' => __('About AccessPress Themes', 'accesspress-staple'),
+		'type' => 'heading');
+
+	$options[] = array(
+		//'name' => __('About AccessPress Themes', 'accesspress-staple'),
+		'desc' => $about_accesspress_themes,
+		'type' => 'info');
+
+	$options[] = array(
+		'name' => __('More from AccessPress Themes', 'accesspress-staple'),
+		'desc' => $from_accesspress_thems,
+		'type' => 'info');
   return $options;
 }

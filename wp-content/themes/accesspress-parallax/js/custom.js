@@ -14,15 +14,19 @@ jQuery(document).ready(function($){
         }
     });
 
-	$('.parallax-on.home .nav').onePageNav({
-		currentClass: 'current',
-    	changeHash: false,
-    	scrollSpeed: 1500,
-    	scrollOffset: headerHeight,
-    	scrollThreshold: 0.5,
-	});
+    $('.home .single-page-nav.nav').onePageNav({
+        currentClass: 'current',
+        changeHash: false,
+        scrollSpeed: 1500,
+        scrollOffset: headerHeight,
+        scrollThreshold: 0.5,
+    });
 
-	$(window).resize(function(){
+    $('.single-page-nav.nav a').click(function(){
+        $('.single-page-nav.nav').hide();
+    });
+
+    $(window).resize(function(){
     var headerHeight = $('#masthead').outerHeight();
     $('.parallax-on #content').css('padding-top', headerHeight);
 
@@ -31,7 +35,7 @@ jQuery(document).ready(function($){
     $(this).css('margin-top',-(cap_height/2));
     });
 
-    }).resize();;
+    }).resize();
 
     $('#main-slider .overlay').prependTo('#main-slider .slides');
 
@@ -53,17 +57,22 @@ jQuery(document).ready(function($){
         minSlides: 2,
         maxSlides: 7,
         slideWidth: 140,
-        slideMargin: 20,
+        slideMargin: 15,
         infiniteLoop: false,
         hideControlOnEnd: true
     });
 
-    $('.team-content .team-list:first').show();
-    $('.team-tab .team-image:first').addClass('active');
+    $('.team-content').each(function(){
+        $(this).find('.team-list:first').show();
+    });
+    
+    $('.team-tab').each(function(){
+        $(this).find('.team-image:first').addClass('active');
+    });
 
     $('.team-tab .team-image').on('click', function(){
-        $('.team-image').removeClass('active');
-        $('.team-content .team-list').hide();
+        $(this).parents('.team-listing').find('.team-image').removeClass('active');
+        $(this).parents('.team-listing').find('.team-list').hide();
         $(this).addClass('active');
         var teamid = $(this).attr('id');
         $('.team-content .'+teamid).fadeIn();
@@ -78,7 +87,6 @@ jQuery(document).ready(function($){
     $('.googlemap-toggle').on('click', function(){
         if(!open){
         open = true;
-        initialize();
         }
         $('.googlemap-content').slideToggle();
         $(this).toggleClass('active');
@@ -110,5 +118,14 @@ jQuery(document).ready(function($){
         $(this).parallax('50%',0.3, true);
         });
     });
+    
+    // *only* if we have anchor on the url
+    if(window.location.hash) {
+
+        $('html, body').animate({
+            scrollTop: $(window.location.hash).offset().top-headerHeight
+        }, 1000 );
+           
+    }
     
 });

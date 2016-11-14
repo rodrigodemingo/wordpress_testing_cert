@@ -29,9 +29,9 @@ function accesspresslite_setup() {
 	 * Make theme available for translation.
 	 * Translations can be filed in the /languages/ directory.
 	 * If you're building a theme based on AccesspressLite, use a find and replace
-	 * to change 'accesspresslite' to the name of your theme in all the template files
+	 * to change 'accesspress-lite' to the name of your theme in all the template files
 	 */
-	load_theme_textdomain( 'accesspresslite', get_template_directory() . '/languages' );
+	load_theme_textdomain( 'accesspress-lite', get_template_directory() . '/languages' );
 
 	/**
 	 * Add callback for custom TinyMCE editor stylesheets. (editor-style.css)
@@ -59,11 +59,12 @@ function accesspresslite_setup() {
 
 	add_image_size( 'event-thumbnail', 135, 100, true); //Latest News Events Small Image
 	add_image_size( 'featured-thumbnail', 350, 245, true); //Featured Image
-	add_image_size( 'portfolio-thumbnail', 400, 450, true); //Portfolio Image		
+	add_image_size( 'portfolio-thumbnail', 400, 450, true); //Portfolio Image
+    add_image_size('template_two_event_home',273,235,true);
 
 	// This theme uses wp_nav_menu() in one location.
 	register_nav_menus( array(
-		'primary' => __( 'Primary Menu', 'accesspresslite' ),
+		'primary' => __( 'Primary Menu', 'accesspress-lite' ),
 	) );
 
 	// Enable support for Post Formats.
@@ -108,3 +109,14 @@ require get_template_directory() . '/inc/jetpack.php';
  * Implement the custom metabox feature
  */
 require get_template_directory() . '/inc/custom-metabox.php';
+
+/**
+ * Implement the TGM PLugin Activation Class
+ */
+require get_template_directory() . '/inc/class-tgm-plugin-activation.php';
+
+/**
+ * Implement the More Theme Page
+ */
+require get_template_directory() . '/inc/more-themes.php';
+add_filter('widget_text', 'do_shortcode');

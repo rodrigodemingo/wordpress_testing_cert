@@ -14,8 +14,8 @@ get_header(); ?>
 
 		<?php if ( have_posts() ) : ?>
 
-			<header class="page-header">
-				<h1 class="page-title">
+			<header class="entry-header">
+				<h1 class="main-title"><span>
 					<?php
 						if ( is_category() ) :
 							single_cat_title();
@@ -24,10 +24,10 @@ get_header(); ?>
 							single_tag_title();
 
 						elseif ( is_author() ) :
-							printf( __( 'Author: %s', 'accesspress_staple' ), '<span class="vcard">' . get_the_author() . '</span>' );
+							printf( __( 'Author: %s', 'accesspress-staple' ), '<span class="vcard">' . get_the_author() . '</span>' );
 
 						elseif ( is_day() ) :
-							printf( __( 'Day: %s', 'accesspress_staple' ), '<span>' . get_the_date() . '</span>' );
+							printf( __( 'Day: %s', 'accesspress-staple' ), '<span>' . get_the_date() . '</span>' );
 
 						elseif ( is_month() ) :
 							printf( __( 'Month: %s', 'accesspress-staple' ), '<span>' . get_the_date( _x( 'F Y', 'monthly archives date format', 'accesspress-staple' ) ) . '</span>' );
@@ -67,7 +67,7 @@ get_header(); ?>
 
 						endif;
 					?>
-				</h1>
+				</span></h1>
 				<?php
 					// Show an optional term description.
 					$term_description = term_description();
@@ -77,30 +77,27 @@ get_header(); ?>
 				?>
 			</header><!-- .page-header -->
             <?php
-                        $layout_portfolio = of_get_option('portfolio_layout');
-                        $layout_blog = of_get_option('blog_layout');
-                        $layout_team_member = of_get_option('team_member_layout');
-                        $cat_event = of_get_option('team_member_category');
-                        $cat_testimonial = of_get_option('testomonial_category');
-                        $cat_portfolio = of_get_option('portfolio_section');
-                        $cat_feature  =   of_get_option('feature_section');
-                        $cat_af      =   of_get_option('feature_awesome_section');
-                        if(is_category($cat_event)){
-                        	$team_member = "team-member";
-                            $cat =  $team_member.'-'.$layout_team_member; 
-                        }
-                        elseif(is_category($cat_portfolio)){
-                            $portfolio_class = "portfolio";
-                            $cat =  $portfolio_class.'-'.$layout_portfolio;
-                        }
+                $layout_portfolio = of_get_option('portfolio_layout');
+                $layout_blog = of_get_option('blog_layout');
+                $layout_team_member = of_get_option('team_member_layout');
+                $cat_event = of_get_option('team_member_category');
+                $cat_testimonial = of_get_option('testomonial_category');
+                $cat_portfolio = of_get_option('portfolio_section');
+                $cat_feature  =   of_get_option('feature_section');
+                $cat_af      =   of_get_option('feature_awesome_section');
+                if(is_category($cat_event)){
+                    $cat =  'team-member-'.$layout_team_member; 
+                }
+                if(is_category($cat_portfolio)){
+                    $cat =  'portfolio-'.$layout_portfolio;
+                }
                     ?>
                <div class="archive-wrap <?php echo $cat; ?>">            
 
 			<?php /* Start the Loop */ ?>
 			<?php while ( have_posts() ) : the_post(); ?>
                      
-                    
-				<?php
+                <?php
 					/* Include the Post-Format-specific template for the content.
 					 * If you want to override this in a child theme, then include a file
 					 * called content-___.php (where ___ is the Post Format name) and that will be used instead.
@@ -117,7 +114,7 @@ get_header(); ?>
 			<?php get_template_part( 'content', 'none' ); ?>
 
 		<?php endif; ?>
-    </div>
+    		</div>
 		</main><!-- #main -->
 	</section><!-- #primary -->
 

@@ -24,27 +24,33 @@
 	?>
 
 	<?php if(!empty($section['page'])): ?>
-		<section class="parallax-section clearfix<?php echo $googlemapclass." ".$layout;  ?>" id="<?php echo "section-".$page->ID; ?>">
-		<?php if(!empty($image) && $overlay!="overlay0") : ?>
+		<section class="parallax-section clearfix<?php echo esc_attr($googlemapclass)." ".esc_attr($layout);  ?>" id="<?php echo "section-".absint($page->ID); ?>">
+		<?php if(!empty($image) && $overlay != "overlay0") : ?>
 			<div class="overlay"></div>
 		<?php endif; ?>
 
 		<?php if($layout != "googlemap_template") :?>
 			<div class="mid-content">
 		<?php endif; ?>
-
+			<?php  
+	            $query = new WP_Query( 'page_id='.$section['page'] );
+	            while ( $query->have_posts() ) : $query->the_post();
+	        ?>
 				<?php 
 				if($layout != "action_template" && $layout != "blank_template" && $layout != "googlemap_template"): ?>
-					<h1><span><?php echo $page->post_title; ?></span></h1>
+					<h1><span><?php the_title(); ?></span></h1>
 
 					<div class="parallax-content">
-					<?php if($page->post_content != "") : ?>
+					<?php if(get_the_content() != "") : ?>
 						<div class="page-content">
-						<?php echo wpautop(do_shortcode($page->post_content)); ?>
+						<?php the_content(); ?>
 						</div>
 					<?php endif; ?>
 					</div> 
 				<?php endif; ?>
+			<?php 
+		        endwhile;    
+	        ?>
 
 					<?php 
 						switch ($layout) {
@@ -90,7 +96,7 @@
 						}
 					?>
 
-					<?php include($template."-section.php");?>
+					<?php include(locate_template($template."-section.php"));?>
         		
 			<?php if($layout != "googlemap_template") :?>
 			</div>
@@ -99,8 +105,6 @@
 	<?php
 	endif; 
 	endforeach;
-    else:
+	else:
         get_template_part('demo');
 	endif;
-
-?>

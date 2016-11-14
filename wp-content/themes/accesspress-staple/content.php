@@ -18,47 +18,43 @@ $read_more_team      =   of_get_option('read_more_team');
 
 <?php if(!empty($cat_event) && is_category() && is_category($cat_event)): ?>
 <article id="post-<?php the_ID(); ?>" class="cat-event-list">
-	<header class="entry-header">
-		<h2 class="entry-title"><a href="<?php the_permalink(); ?>" rel="bookmark"><?php the_title(); ?></a></h2>
-	</header><!-- .entry-header -->
-    
-        
-        
-	<div class="entry-content">
+  
+    <div class="entry-content">
 		<?php if($layout_team_member=='grid'): ?>
         <div class="team-block">
-                <figure class="team-image">
-                <?php if (has_post_thumbnail()):
-                $image = wp_get_attachment_image_src(get_post_thumbnail_id(get_the_ID()),'team-image'); ?>
-			  <img src="<?php echo $image[0]; ?>" alt="<?php the_title(); ?>" /><?php
+            <figure class="team-image">
+            <?php if (has_post_thumbnail()):
+            $image = wp_get_attachment_image_src(get_post_thumbnail_id(get_the_ID()),'accesspress-staple-team-image'); ?>
+			  <img src="<?php echo esc_url($image[0]); ?>" alt="<?php the_title(); ?>" /><?php
             endif;
             ?>
-                <div class="team-hover">
-                    <div class="team-hover-icon"><a href="<?php the_permalink(); ?>"><i class="fa fa-link">  </i></a> </div>
-                    <div class="team-hover-text"><?php echo accesspress_excerpt(get_the_content(), 60);?></div>
-                </div>
-                </figure>
-             </div>        
+            <div class="team-hover">
+                <div class="team-hover-icon"><a href="<?php the_permalink(); ?>"><i class="fa fa-link">  </i></a> </div>
+                <div class="team-hover-text"><?php echo esc_attr(accesspress_excerpt(get_the_content(), 60));?></div>
+            </div>
+            </figure>
+        </div>  
+        <header class="entry-header">
+		  <h2 class="entry-title"><a href="<?php the_permalink(); ?>" rel="bookmark"><?php the_title(); ?></a></h2>
+	    </header><!-- .entry-header -->      
         
         <?php 
         else:        
-		if( has_post_thumbnail() ){
-			$image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'featured-thumbnail', false ); 
-		?>
-		<div class="cat-event-image">
-		<img src="<?php echo $image[0]; ?>" alt="<?php the_title(); ?>">
-		</div>
-		<?php } ?>
-		<div class="cat-event-excerpt <?php if(! has_post_thumbnail() ) { echo "full-width"; }?>">
-		<?php 
-		?>
-		    <div><?php echo accesspress_excerpt( get_the_content() , 400 ) ?></div>
-		</div>
-		<a href="<?php the_permalink(); ?>" class="cat-event-more bttn"><?php echo $read_more_team;?></a>
+			if( has_post_thumbnail() ){
+				$image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'accesspress-staple-featured-thumbnail', false ); 
+			?>
+			<div class="cat-event-image">
+			<img src="<?php echo esc_url($image[0]); ?>" alt="<?php the_title(); ?>">
+			</div>
+			<?php } ?>
+			<div class="cat-event-excerpt <?php if(! has_post_thumbnail() ) { echo "full-width"; }?>">
+			<?php 
+			?>
+			<div><?php echo esc_attr(accesspress_excerpt( get_the_content() , 400 )) ?></div>
+			</div>
+			<a href="<?php the_permalink(); ?>" class="cat-event-more bttn"><?php echo esc_attr($read_more_team);?></a>
         <?php endif;?>        
-	</div><!-- .entry-content -->
-    
-            
+	</div><!-- .entry-content -->           
 </article>
 
 <?php elseif(!empty($cat_feature) && is_category() && is_category($cat_feature)): ?>
@@ -70,18 +66,18 @@ $read_more_team      =   of_get_option('read_more_team');
 	<div class="entry-content">
 		<?php 
 		if( has_post_thumbnail() ){
-			$image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'thumbnail', false ); 
+			$image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'accesspress-staple-team-image', false ); 
 		?>
 		<div class="cat-event-image">
-		<img src="<?php echo $image[0]; ?>" alt="<?php the_title(); ?>">
+		<img src="<?php echo esc_url($image[0]); ?>" alt="<?php the_title(); ?>">
 		</div>
 		<?php } ?>
 		<div class="cat-event-excerpt <?php if(! has_post_thumbnail() ) { echo "full-width"; }?>">
 		<?php 
 		?>
-		    <div><?php echo accesspress_excerpt( get_the_content() , 400 ) ?></div>
+		<div><?php echo esc_attr(accesspress_excerpt( get_the_content() , 400 )); ?></div>
 		</div>
-		<a href="<?php the_permalink(); ?>" class="cat-event-more bttn"><?php echo $read_more_archive;?></a>
+		<a href="<?php the_permalink(); ?>" class="cat-event-more bttn"><?php echo esc_attr($read_more_archive);?></a>
 	</div><!-- .entry-content -->
 </article>
 
@@ -94,18 +90,18 @@ $read_more_team      =   of_get_option('read_more_team');
 	<div class="entry-content">
 		<?php 
 		if( has_post_thumbnail() ){
-			$image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'thumbnail', false ); 
+			$image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'accesspress-staple-team-image', false ); 
 		?>
 		<div class="cat-event-image">
-		<img src="<?php echo $image[0]; ?>" alt="<?php the_title(); ?>">
+		<img src="<?php echo esc_url($image[0]); ?>" alt="<?php the_title(); ?>">
 		</div>
 		<?php } ?>
 		<div class="cat-event-excerpt <?php if(! has_post_thumbnail() ) { echo "full-width"; }?>">
 		<?php 
 		?>
-		    <div><?php echo accesspress_excerpt( get_the_content() , 400 ) ?></div>
+		<div><?php echo esc_attr(accesspress_excerpt( get_the_content() , 400 )) ?></div>
 		</div>
-		<a href="<?php the_permalink(); ?>" class="cat-event-more bttn"><?php echo $read_more_archive;?></a>
+		<a href="<?php the_permalink(); ?>" class="cat-event-more bttn"><?php echo esc_attr($read_more_archive);?></a>
 	</div><!-- .entry-content -->
 </article>
 
@@ -117,17 +113,15 @@ $read_more_team      =   of_get_option('read_more_team');
 	<div class="cat-testimonial-image">
 	<?php 
 		if( has_post_thumbnail() ){
-			$image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'featured-thumbnail', false ); 
+			$image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'accesspress-staple-featured-thumbnail', false ); 
 		?>
-		<img src="<?php echo $image[0]; ?>" alt="<?php the_title(); ?>">
+		<img src="<?php echo esc_url($image[0]); ?>" alt="<?php the_title(); ?>">
 		<?php }else {?>	
 		<img src="<?php echo get_template_directory_uri(); ?>/images/testimonial-fallback.jpg" alt="<?php the_title(); ?>">
 		<?php }?>
 	</div>
-		
-
-	<h2 class="entry-title"><?php the_title(); ?></h2>
 	
+	<h2 class="entry-title"><?php the_title(); ?></h2>
 	</header><!-- .entry-header -->
 
 	<div class="cat-testimonial-excerpt">
@@ -136,44 +130,38 @@ $read_more_team      =   of_get_option('read_more_team');
 </article>
 
 <?php elseif(!empty($cat_portfolio) && is_category() && is_category($cat_portfolio)): 
-$ak_port_style = of_get_option('portfolio_layout');
-?>
-<div class="portfolio-archive clearfix <?php if($ak_port_style=='list'){ echo 'list'; } ?>">
-<article id="post-<?php the_ID(); ?>" class="cat-portfolio-list ">
-<?php 
-$image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'portfolio-thumbnail', false ); 
-if($ak_port_style=='list'){ ?>
-<div class="cat-portfolio-image">
-		<img src="<?php echo $image[0]; ?>" alt="<?php the_title(); ?>">
-</div>
-<div class="cat-portfolio-content">
-<h3 class="entry-title"><?php the_title(); ?></h3>
-    <div class="port-content"><?php echo accesspress_excerpt(get_the_content(), 250, true); ?></div>
-    <a  class="bttn" href="<?php the_permalink(); ?>"><?php echo $read_more_port ?></a>
-
-</div>
-    <?php 
- } 
- else{
- ?>
-
+	$ak_port_style = of_get_option('portfolio_layout');
+	?>
+	<div class="portfolio-archive clearfix <?php if($ak_port_style=='list'){ echo 'list'; } ?>">
+	<article id="post-<?php the_ID(); ?>" class="cat-portfolio-list clearfix">
+	<?php 
+	$image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'accesspress-staple-portfolio-thumbnail', false ); 
+	if($ak_port_style=='list'){ ?>
+	<div class="cat-portfolio-image">
+		<img src="<?php echo esc_url($image[0]); ?>" alt="<?php the_title(); ?>">
+	</div>
+	<div class="cat-portfolio-content">
+		<h3 class="entry-title"><?php the_title(); ?></h3>
+		<div class="port-content"><?php echo esc_attr(accesspress_excerpt(get_the_content(), 250, true)); ?></div>
+		<a class="bttn" href="<?php the_permalink(); ?>"><?php echo esc_attr($read_more_port); ?></a>
+	</div>
+<?php }
+else{ ?>
 	<a class="fancybox-gallery" href="<?php the_permalink(); ?>" data-lightbox-gallery="gallery">
     <div class="cat-portfolio-image">
-		<div class="cat-port-image-wrapper"> <img src="<?php echo $image[0]; ?>" alt="<?php the_title(); ?>"> </div>
+		<div class="cat-port-image-wrapper"> <img src="<?php echo esc_url($image[0]); ?>" alt="<?php the_title(); ?>"> </div>
 
-    <div class="portofolio-layout-wrap">
-    	<div class="portofolio-layout-wrapper">
-	   		<a class="read-more" href="<?php the_permalink(); ?>"> <i class="fa fa-link"> </i> </a>
-	    		<h1 class="entry-title"><?php the_title(); ?></h1>  
-	    </div>   
-    </div>
-</div>
-	
-        
-    </a>
+	    <div class="portofolio-layout-wrap">
+	    	<div class="portofolio-layout-wrapper">
+		   		<a class="read-more" href="<?php the_permalink(); ?>"> <i class="fa fa-link"> </i> </a>
+		    	<h1 class="entry-title"><?php the_title(); ?></h1>  
+		    </div>   
+	    </div>
+	</div>
+	</a>
     <?php }?>
-</article>
-</div>
+	</article>
+	</div>
 <?php else: ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
@@ -190,24 +178,25 @@ if($ak_port_style=='list'){ ?>
 	<?php if ( is_search() ) : // Only display Excerpts for Search ?>
 	<div class="entry-summary">
 		<?php the_excerpt(); ?>
+        <a href="<?php the_permalink(); ?>" class="bttn"><?php echo esc_attr($read_more_archive); ?></a>
 	</div><!-- .entry-summary -->
 	<?php else : ?>
 	<div class="entry-content">
 		<?php if(has_post_thumbnail()){?>
-		<div class="archive-thumbnail blog-thumbnail">
-			<?php $image = wp_get_attachment_image_src(get_post_thumbnail_id(get_the_ID()),'archive-image'); 
+		<div class="archive-thumbnail">
+			<?php $image = wp_get_attachment_image_src(get_post_thumbnail_id(get_the_ID()),'accesspress-staple-archive-image'); 
             if(has_post_thumbnail()){
               ?>
-              <a href="<?php the_permalink(); ?>"> <img class="blog-image" src="<?php echo $image[0]; ?>" alt="<?php the_title(); ?>" /> </a><?php
+              <img src="<?php echo esc_url($image[0]); ?>" alt="<?php the_title(); ?>" /><?php
               
             }
             ?> 
 		</div>
 		<?php } ?>
 		<div class="short-content">
-		<?php echo accesspress_excerpt( get_the_content() , 600 ) ?>
+		<?php echo esc_attr(accesspress_excerpt( get_the_content() , 600 )); ?>
 		</div>
-		<a href="<?php the_permalink(); ?>" class="bttn"><?php echo $read_more_archive; ?></a>
+		<a href="<?php the_permalink(); ?>" class="bttn"><?php echo esc_attr($read_more_archive); ?></a>
 		<?php
 			wp_link_pages( array(
 				'before' => '<div class="page-links">' . __( 'Pages:', 'accesspress-staple' ),

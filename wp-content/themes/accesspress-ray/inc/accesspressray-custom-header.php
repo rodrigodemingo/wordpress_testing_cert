@@ -17,7 +17,7 @@
  */
 function accesspress_ray_custom_header_setup() {
 	add_theme_support( 'custom-header', apply_filters( 'accesspress_ray_custom_header_args', array(
-		'default-image'          => get_template_directory_uri() . '/images/demo/logo.png',
+		'default-image'          => get_template_directory_uri() . '/images/demo/logo-new.png',
 		'default-text-color'     => '000000',
 		'width'                  => 190,
 		'height'                 => 70,

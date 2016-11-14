@@ -6,7 +6,12 @@
  */
 get_header();
 ?>
-   <?php
+<?php
+
+if ( 'page' == get_option( 'show_on_front' ) ) {
+    include( get_page_template() );
+}else{
+
 if (of_get_option('enable_about') == 1) {
 $post_id = of_get_option('about_section');
 if(!empty($post_id)):
@@ -14,49 +19,48 @@ if(!empty($post_id)):
     <section class="about">
         <div class="ak-container">
         <?php 
-            $about_args  = array('post_type'=>'post', 'page_id' => $post_id, 'post_status' => 'publish','posts_per_page'=>1);
+            $about_args  = array('post_type'=>'post', 'page_id' => $post_id);
             $about_query = new WP_Query($about_args);
             if ($about_query->have_posts()):
-            while ($about_query->have_posts()):
-            $about_query->the_post();
-?>
+                while ($about_query->have_posts()):
+                $about_query->the_post();
+                ?>
               <h2 class="title home-title"><?php the_title(); ?></h2>
               <div class="about-excerpt home-description"><?php the_content(); ?></div>
               <figure class="about-img wow fadeInLeft" data-wow-delay="0.8s">
-              <?php if (has_post_thumbnail()):
+                <?php if (has_post_thumbnail()):
                 $image = wp_get_attachment_image_src(get_post_thumbnail_id(get_the_ID()),'about-image'); ?>
-			  <img src="<?php echo $image[0]; ?>" alt="<?php the_title(); ?>" /><?php
-            endif;
-?>
+			    <img src="<?php echo esc_url($image[0]); ?>" alt="<?php the_title(); ?>" /><?php
+                endif;
+                ?>
               </figure>
-              <div class="btn-wrapper wow pulse" data-wow-delay="0.5s"><a href="<?php the_permalink(); ?>" class="btn"><?php echo of_get_option('about_view_more'); ?></a></div>
+              <div class="btn-wrapper wow bounce" data-wow-delay="0.5s"><a href="<?php the_permalink(); ?>" class="btn"><?php echo esc_attr(of_get_option('about_view_more')); ?></a></div>
               <?php
-        endwhile;
-    endif;
-
-?>
+                endwhile;
+            endif;
+            wp_reset_postdata();
+            ?>
         </div>
        </section>
        <?php
        endif;
-}
-?>
+} ?>
+
 <?php if(of_get_option('enable_feature')==1){
     $service_cat = of_get_option('feature_section');
     if(!empty($service_cat)):
-?>
+    ?>
     <section class="our-services wow fadeInUp animated" data-wow-delay="0.8s">
     <?php 
-      
       $service_title = of_get_option('feature_title');
       $service_desc = of_get_option('feature_desc'); 
     ?>
       <div class="ak-container">  
-        <h2 class="title home-title"><?php echo $service_title ?></h2>
-        <div class="services-desc home-description"><?php echo $service_desc ?></div>
-        <div class="service-block-wrapper ">
+        <h2 class="title home-title"><?php echo esc_attr($service_title); ?></h2>
+        <div class="services-desc home-description"><?php echo wp_kses_post($service_desc); ?></div>
+        <div class="service-block-wrapper clearfix">
             <?php 
-            $feature_args   = array('cat'=>$service_cat, 'posts_per_page'=>4, 'post_status'=>'publish');
+            $feature_args   = array('cat'=>$service_cat, 'posts_per_page' => 4);
             $feature_query  = new WP_Query($feature_args);
             $i = 0;
             if($feature_query->have_posts()):
@@ -67,8 +71,8 @@ if(!empty($post_id)):
                     <figure class="service-icons">
                         <a href="<?php the_permalink(); ?>">
                         <?php if (has_post_thumbnail()):
-                             $image = wp_get_attachment_image_src(get_post_thumbnail_id(get_the_ID()),'feature-image'); ?>
-            			     <img src="<?php echo $image[0]; ?>" alt="<?php the_title(); ?>" /><?php
+                             $image = wp_get_attachment_image_src(get_post_thumbnail_id(get_the_ID()),'accesspress-staple-feature-image'); ?>
+            			     <img src="<?php echo esc_url($image[0]); ?>" alt="<?php the_title(); ?>" /><?php
                              else:
                              ?>
                              <i class="fa fa-desktop"> </i>
@@ -86,17 +90,18 @@ if(!empty($post_id)):
             </div>
             <?php
             endwhile;
-            endif;
-            if(of_get_option('feature_more')==1){
-            $service_cat_url = get_category_link($service_cat);
-            ?> 
-            <div class="clearfix"> </div>
-            <div class="btn-wrapper service-btn wow pulse" data-wow-delay="0.5s"><a href="<?php echo $service_cat_url ?>"><?php echo of_get_option('feature_more_text'); ?></a></div>
+            endif; 
+            wp_reset_postdata();
+            ?>
+        </div> 
+
             <?php
-            }
+            if(of_get_option('feature_more')==1){
+            $service_cat_url = get_category_link($service_cat); ?> 
+            <div class="btn-wrapper wow bounce" data-wow-delay="0.5s"><a href="<?php echo esc_url($service_cat_url); ?>"><?php echo esc_attr(of_get_option('feature_more_text')); ?></a></div>
+            <?php }
             endif;
-             ?>  
-            </div> 
+            ?>  
         </div>
     </section>
 <?php 
@@ -127,60 +132,95 @@ if(!empty($post_id)):
     $ak_pricing_content3 =   of_get_option('table3_desc');
     $ak_pricing_more_text3   = of_get_option('table3_more_text');
     $ak_pricing_more_link3   = of_get_option('table3_more_link');
-    
-    $table1    = of_get_option('enable_table1');
-    $table2    = of_get_option('enable_table2');
-    $table3    = of_get_option('enable_table3');
-    
-    
-?>  <section class="pricing-table">
+   ?>  
+   <section class="pricing-table">
         <div class="ak-container">
-            <div class="topic home-title"><?php echo $ak_pricing_title; ?></div>
+
+            <h2 class="topic home-title"><?php echo $ak_pricing_title; ?></h2>
             <div class="pricing-table-desc home-description"><?php echo $ak_pricing_desc; ?></div>
+            <?php
+            if(!empty($ak_pricing_content1)){
+            $args_p = array('page_id'=>$ak_pricing_content1,  'post_type'=>'page', 'post_status'=>'publish');
+            $query_p = new WP_Query($args_p);
+            if($query_p->have_posts()):
+                while ($query_p->have_posts()):$query_p->the_post();
+            ?>
             <div class="price-table-wrapper"> 
                 <div class="table1 price-table wow fadeInLeft"  data-wow-delay="1s">
                     <div class="title-price">
-                        <span class="pricing-type"><?php echo $ak_pricing_type1; ?></span>
-                        <span class="price"><span class="dollar"><?php echo $ak_pricing_unit1; ?></span><?php echo $ak_pricing_price1; ?></span>
+                        <span class="pricing-type"><?php the_title(); ?></span>
+                        <span class="price"><span class="dollar"><?php echo esc_attr($ak_pricing_unit1); ?></span><?php echo esc_attr($ak_pricing_price1); ?></span>
                     </div>
                     <div class="table-content">
-                        <?php echo $ak_pricing_content1; ?>                        
+                        <?php echo the_content(); ?>                        
                     </div>
                     <div class="product-link">
-                        <a href="<?php echo $ak_pricing_more_link1; ?>"> <span> <i class="fa fa-thumbs-o-up"></i> </span><?php echo $ak_pricing_more_text1 ?></a>
+                        <a href="<?php echo esc_url($ak_pricing_more_link1); ?>"> <span> <i class="fa fa-thumbs-o-up"></i> </span><?php echo esc_attr($ak_pricing_more_text1); ?></a>
                     </div>
                 </div>
+            <?php
+                endwhile;
+                endif;
+                wp_reset_postdata();
+                }
+            ?>
             
+         <?php
+         if(!empty($ak_pricing_content2)){
+           $args_p = array('page_id'=>$ak_pricing_content2,  'post_type'=>'page', 'post_status'=>'publish');
+            $query_p = new WP_Query($args_p);
+            if($query_p->have_posts()):
+                while ($query_p->have_posts()):$query_p->the_post()
+                ?>
                 <div class="table2 price-table wow fadeInUp" data-wow-delay="1s">
                     <div class="title-price">
-                        <span class="pricing-type"><?php echo $ak_pricing_type2; ?></span>
-                        <span class="price"><span class="dollar"><?php echo $ak_pricing_unit2; ?></span><?php echo $ak_pricing_price2; ?></span>
+                        <span class="pricing-type"><?php  the_title(); ?></span>
+                        <span class="price"><span class="dollar"><?php echo esc_attr($ak_pricing_unit2); ?></span><?php echo esc_attr($ak_pricing_price2); ?></span>
                     </div>
                     <div class="table-content">
-                        <?php echo $ak_pricing_content2; ?>                        
+                        <?php the_content(); ?>                        
                     </div>
                     <div class="product-link">
-                        <a href="<?php echo $ak_pricing_more_link2; ?>"> <span> <i class="fa fa-thumbs-o-up"></i> </span><?php echo $ak_pricing_more_text2 ?></a>
+                        <a href="<?php echo esc_url($ak_pricing_more_link2); ?>"> <span> <i class="fa fa-thumbs-o-up"></i> </span><?php echo esc_attr($ak_pricing_more_text2); ?></a>
                     </div>
                 </div>
-                
+
+                <?php
+                endwhile;
+                endif;
+                wp_reset_postdata();
+                }
+            ?>
+            <?php
+            if(!empty($ak_pricing_content3)){
+           $args_p = array('page_id'=>$ak_pricing_content3,  'post_type'=>'page', 'post_status'=>'publish');
+            $query_p = new WP_Query($args_p);
+            if($query_p->have_posts()):
+                while ($query_p->have_posts()): $query_p->the_post()
+                ?>
                 <div class="table3 price-table wow fadeInRight"  data-wow-delay="1s">
                     <div class="title-price">
-                        <span class="pricing-type"><?php echo $ak_pricing_type3; ?></span>
-                        <span class="price"><span class="dollar"><?php echo $ak_pricing_unit3; ?></span><?php echo $ak_pricing_price3; ?></span>
+                        <span class="pricing-type"><?php the_title(); ?></span>
+                        <span class="price"><span class="dollar"><?php echo esc_attr($ak_pricing_unit3); ?></span><?php echo esc_attr($ak_pricing_price3); ?></span>
                     </div>
                     <div class="table-content">
-                        <?php echo $ak_pricing_content3; ?>                        
+                        <?php the_content(); ?>                        
                     </div>
                     <div class="product-link">
-                        <a href="<?php echo $ak_pricing_more_link3; ?>"> <span> <i class="fa fa-thumbs-o-up"></i> </span><?php echo $ak_pricing_more_text3 ?></a>
+                        <a href="<?php echo esc_url($ak_pricing_more_link3); ?>"> <span> <i class="fa fa-thumbs-o-up"></i> </span><?php echo esc_attr($ak_pricing_more_text3); ?></a>
                     </div>
                 </div>
+
+            <?php
+                endwhile;
+                endif; 
+                wp_reset_postdata();
+                }
+            ?>
             </div>
         </div>
     </section>
 <?php
-
 } 
 ?>
 <?php
@@ -192,13 +232,13 @@ if(of_get_option('enable_awesome_feature')){
 ?>
     <section class="awesome-feature">
         <div class="ak-container">    
-            <h2 class="title home-title"><?php echo $ak_af_title;?></h2>
-           <div class="awesome-feature-desc home-description"><?php echo $ak_af_desc;?></div>
+            <h2 class="title home-title"><?php echo esc_attr($ak_af_title);?></h2>
+           <div class="awesome-feature-desc home-description"><?php echo wp_kses_post($ak_af_desc);?></div>
            <?php $a=0;?>
            <div class="clearfix"> </div>
            <div class="aw-block-wrapper wow fadeInUp" data-wow-delay="0.5s">
            <?php 
-            $af_args    =   array('cat'=>$ak_af_cat, 'post_status'=>'publish', 'posts_per_page'=>8);
+            $af_args    =   array('cat'=>$ak_af_cat, 'posts_per_page'=> 8);
             $af_query   =   new WP_Query($af_args);
             if($af_query->have_posts()):
             while($af_query->have_posts()):$af_query->the_post();    
@@ -206,15 +246,15 @@ if(of_get_option('enable_awesome_feature')){
            ?><div class="<?php if ($a%2==0){echo 'aw-right';} else{ echo 'aw-left';}?>">
                 <div class="aw-wrapper clearfix">
                     <div class="aw-content">
-                        <div class="aw-title"><?php the_title() ?></div>
+                        <h4 class="aw-title"><?php the_title() ?></h4>
                         <div class="aw-excerpt"><?php echo accesspress_excerpt(get_the_content(), 120);?></div>
                     </div>
                 <figure class="awesome-icons">
                     <span> 
                      <a href="<?php the_permalink(); ?>">
                         <?php if (has_post_thumbnail()):
-                             $image = wp_get_attachment_image_src(get_post_thumbnail_id(get_the_ID()),'feature-image'); ?>
-            			     <img src="<?php echo $image[0]; ?>" alt="<?php the_title(); ?>" /><?php
+                             $image = wp_get_attachment_image_src(get_post_thumbnail_id(get_the_ID()),'accesspress-staple-thumbnail'); ?>
+            			     <img src="<?php echo esc_url($image[0]); ?>" alt="<?php the_title(); ?>" /><?php
                              else:
                              ?>
                               <i class="fa fa-font"></i>
@@ -226,9 +266,11 @@ if(of_get_option('enable_awesome_feature')){
                 </figure>
                 </div>
            </div>
+           <?php if ($a%2==0){echo '<div class="clearfix"></div>';}?>
                 <?php 
                 endwhile;
                 endif;
+                wp_reset_postdata();
                  ?>
            </div>
            <div class="clearfix"></div>
@@ -236,7 +278,7 @@ if(of_get_option('enable_awesome_feature')){
            if(of_get_option('awesome_feature_more')==1){
             $ak_af_cat_url = get_category_link($ak_af_cat);
             ?> 
-            <div class="btn-wrapper wow pulse" data-wow-delay="0.5s"><a href="<?php echo $ak_af_cat_url ?>" class="btn"><?php echo of_get_option('awesome_feature_more_text'); ?></a></div> 
+            <div class="btn-wrapper wow bounce" data-wow-delay="0.5s"><a href="<?php echo esc_url($ak_af_cat_url); ?>" class="btn"><?php echo esc_attr(of_get_option('awesome_feature_more_text')); ?></a></div> 
             <?php } ?>  
        </div>
     </section>
@@ -248,15 +290,13 @@ if(of_get_option('enable_awesome_feature')){
        if(!empty($ak_port_cat)):
 ?>
     <section class="portfolio">
-      <div class="ak-container">
-        <h2 class="title home-title"><?php echo of_get_option('portfolio_title'); ?></h2>
-        <div class="port-desc home-description"><?php echo of_get_option('portfolio_desc'); ?></div>
-      </div>
+        <h2 class="title home-title"><?php echo esc_attr(of_get_option('portfolio_title')); ?></h2>
+        <div class="port-desc home-description"><?php echo wp_kses_post(of_get_option('portfolio_desc')); ?></div>
         <div id="portfolio-grid" class="masinory">
         <?php
             
             $ak_port_cat    =   of_get_option('portfolio_section');
-            $port_args      =   array('cat'=>$ak_port_cat, 'post_status'=>'publish', 'posts_per_page'=>4);
+            $port_args      =   array('cat'=>$ak_port_cat, 'posts_per_page'=> 4);
             $port_query     =   new WP_Query($port_args);
             if($port_query->have_posts()):
             while($port_query->have_posts()):$port_query->the_post();
@@ -264,23 +304,23 @@ if(of_get_option('enable_awesome_feature')){
             <div class="port-wrap wow fadeInUp animated" data-wow-delay="0.8s">
                 <figure class="portfolio-image">
                  <?php if (has_post_thumbnail()):
-                $image = wp_get_attachment_image_src(get_post_thumbnail_id(get_the_ID()),'port-image'); ?>
-			  <img src="<?php echo $image[0]; ?>" alt="<?php the_title(); ?>" /><?php
+                $image = wp_get_attachment_image_src(get_post_thumbnail_id(get_the_ID()),'accesspress-staple-port-image'); ?>
+			  <img src="<?php echo esc_url($image[0]); ?>" alt="<?php the_title(); ?>" /><?php
             endif;
 ?>
               </figure>
-              <figcaption class="portfolio-content">
+              <div class="portfolio-content">
                 <div class="portfolio-content-wrapper">
                 <a href="<?php the_permalink() ?> " class="read-more"> <i class="fa fa-link"> </i> </a>
                 <div class="port-title"><?php the_title(); ?></div>
                 <div class="port-content"><?php echo accesspress_excerpt(get_the_content(), 50, true) ?></div>
             </div>
-              </figcaption>
+              </div>
             </div>
             <?php
             endwhile;
             endif;
-            
+            wp_reset_postdata();
         ?>
             
         </div>
@@ -297,13 +337,14 @@ endif;
 ?>
     <section class="clients-logo">
         <div class="ak-container">
-            <h2 class="clients-logo-title"><?php echo of_get_option('client_title'); ?></h2>
-            <div class="clients-logo-wrapper <?php if(of_get_option('view_type_clients')=='scroll'){ echo of_get_option('view_type_clients');} else{ echo of_get_option('view_type_clients'); } ?>">
+            <h2 class="title home-title"><?php echo esc_attr(of_get_option('client_title')); ?></h2>
+            <div class="clients-logo-desc home-description"><?php echo wp_kses_post(of_get_option('client_desc')); ?></div>
+            <div class="clearfix clients-logo-wrapper <?php if(of_get_option('view_type_clients')=='scroll'){ echo of_get_option('view_type_clients');} else{ echo of_get_option('view_type_clients'); } ?>">
             <?php 
             foreach($ak_cl_img as $ak_img){?>
             <div class="client-slider">
-                <a href="<?php echo $ak_img['link'] ?>">
-                    <img src="<?php echo $ak_img['image']?>" />
+                <a href="<?php echo esc_url($ak_img['link']); ?>">
+                    <img alt="client-logo" src="<?php echo esc_url($ak_img['image']);?>" />
                 </a>
             </div>
             <?php }
@@ -321,11 +362,14 @@ endif;
     if(!empty($call_to_action)):
 ?>
     <section class="call-to-action">
+    <div class="call-to-action-wrap">
+    <div class="calltoaction-overlay"></div>
         <div class="ak-container">
-            <h2 class="title home-title"><?php echo of_get_option('call_to_action_title'); ?></h2>
-            <div class="call-to-action-desc home-description"><?php echo of_get_option('call_to_action_desc') ?></div>
-            <div class="cta-link wow shake" data-wow-delay="0.5s"><a href="<?php echo of_get_option('call_to_action_more_link') ?>"><?php echo of_get_option('call_to_action_more_text') ?></a></div>
+            <h2 class="title home-title"><?php echo esc_attr(of_get_option('call_to_action_title')); ?></h2>
+            <div class="call-to-action-desc home-description"><?php echo wp_kses_post(of_get_option('call_to_action_desc')); ?></div>
+            <div class="cta-link wow shake" data-wow-delay="0.5s"><a href="<?php echo esc_url(of_get_option('call_to_action_more_link')); ?>"><?php echo esc_attr(of_get_option('call_to_action_more_text')); ?></a></div>
         </div>
+    </div>
     </section>
 <?php
 endif;
@@ -338,10 +382,10 @@ endif;
 ?>
     <section class="our-team-member">
         <div class="ak-container">
-         <h2 class="title home-title"><?php echo of_get_option('team_member_title'); ?></h2>
+         <h2 class="title home-title"><?php echo esc_attr(of_get_option('team_member_title')); ?></h2>
          <?php
             
-            $team_args      =   array('cat'=>$ak_team_cat, 'post_status'=>'publish', 'posts_per_page'=>4);
+            $team_args      =   array('cat'=>$ak_team_cat, 'posts_per_page'=>4);
             $team_query     =   new WP_Query($team_args);
             $i=0;
             if($team_query->have_posts()):
@@ -351,12 +395,12 @@ endif;
             <div class="team-block <?php if($i==1 || $i==2){ echo "wow fadeInLeft animated"; }  elseif($i==3 || $i==4){echo "wow fadeInRight animated";} ?>" data-wow-delay="0.8s">
                 <figure class="team-image">
                 <?php if (has_post_thumbnail()):
-                $image = wp_get_attachment_image_src(get_post_thumbnail_id(get_the_ID()),'team-image'); ?>
-			  <img src="<?php echo $image[0]; ?>" alt="<?php the_title(); ?>" /><?php
+                $image = wp_get_attachment_image_src(get_post_thumbnail_id(get_the_ID()),'accesspress-staple-team-image'); ?>
+			  <img src="<?php echo esc_attr($image[0]); ?>" alt="<?php the_title(); ?>" /><?php
             endif;
             ?>
                 <div class="team-hover">
-                    <div class="team-hover-icon"><a href="<?php the_permalink(); ?>" <i class="fa fa-link">  </i></a> </div>
+                    <div class="team-hover-icon"><a href="<?php the_permalink(); ?>"> <i class="fa fa-link">  </i></a> </div>
                     <div class="team-hover-text"><?php echo accesspress_excerpt(get_the_content(), 60);?></div>
                 </div>
                 </figure>
@@ -366,7 +410,7 @@ endif;
             <?php 
             endwhile;
             endif;
-            
+            wp_reset_postdata();
             ?>
         </div>
     </section>
@@ -384,63 +428,40 @@ endif;
 ?>
     <section class="stat-counter">
         <div class="ak-container">
-            <div class="stat-counter-title"><?php echo of_get_option('stat_counter_title'); ?></div>
-            <div class="stat-counter-desc"><?php echo of_get_option('stat_counter_desc'); ?></div>
-            <?php
-            	if(of_get_option('enable_stat_counter1')){
-            ?>
-            <div class="statcounters statcounter-1 wow fadeInLeft" data-wow-delay="0.5">
+            <div class="stat-counter-title"><?php echo esc_attr(of_get_option('stat_counter_title')); ?></div>
+            <div class="stat-counter-desc"><?php echo wp_kses_post(of_get_option('stat_counter_desc')); ?></div>
+
+            <div class="statcounters statcounter-1">
             <div class="statcounter-circle">
-                <div class="inner-circle"><h2><span class="counter"><?php echo of_get_option('counter1_numeric') ?></span></h2></div>
-                <div class="stat-fa"><i class="fa <?php echo of_get_option('counter1_font_awesome'); ?>"></i></div>
-                <div class="coutner-title"><h2><?php echo of_get_option('counter1_text') ?></h2></div>
+                <div class="inner-circle"><h2><span class="counter"><?php echo esc_attr(of_get_option('counter1_numeric')) ?></span></h2></div>
+                <div class="stat-fa"><i class="fa <?php echo esc_attr(of_get_option('counter1_font_awesome')); ?>"></i></div>
+                <div class="coutner-title"><h2><?php echo esc_attr(of_get_option('counter1_text')); ?></h2></div>
             </div>
             </div>
-            <?php
-            	}
-            ?>
-             <?php
-            	if(of_get_option('enable_stat_counter2')){
-            ?>
-             <div class="statcounters statcounter-2 wow fadeInLeft" data-wow-delay="1s">
+
+             <div class="statcounters statcounter-2">
             <div class="statcounter-circle">
-                <div class="inner-circle"><h2><span class="counter"><?php echo of_get_option('counter2_numeric') ?></span></h2></div>
-                <div class="stat-fa"><i class="fa <?php echo of_get_option('counter2_font_awesome'); ?>"></i></div>
-                <div class="coutner-title"><h2><?php echo of_get_option('counter2_text') ?></h2></div>
+                <div class="inner-circle"><h2><span class="counter"><?php echo esc_attr(of_get_option('counter2_numeric')); ?></span></h2></div>
+                <div class="stat-fa"><i class="fa <?php echo esc_attr(of_get_option('counter2_font_awesome')); ?>"></i></div>
+                <div class="coutner-title"><h2><?php echo esc_attr(of_get_option('counter2_text')); ?></h2></div>
             </div>
             </div>
             
-            <?php
-            	}
-            ?>
-             <?php
-            	if(of_get_option('enable_stat_counter3')){
-            ?>
-             <div class="statcounters statcounter-3 wow fadeInLeft" data-wow-delay="2s">
+             <div class="statcounters statcounter-3">
             <div class="statcounter-circle">
-                <div class="inner-circle"><h2><span class="counter"><?php echo of_get_option('counter3_numeric') ?></span></h2></div>
-                <div class="stat-fa"><i class="fa <?php echo of_get_option('counter3_font_awesome'); ?>"></i></div>
-                <div class="coutner-title"><h2><?php echo of_get_option('counter3_text') ?></h2></div>
+                <div class="inner-circle"><h2><span class="counter"><?php echo esc_attr(of_get_option('counter3_numeric')); ?></span></h2></div>
+                <div class="stat-fa"><i class="fa <?php echo esc_attr(of_get_option('counter3_font_awesome')); ?>"></i></div>
+                <div class="coutner-title"><h2><?php echo esc_attr(of_get_option('counter3_text')); ?></h2></div>
             </div>
             </div>
             
-            <?php
-            	}
-            ?>
-             <?php
-            	if(of_get_option('enable_stat_counter4')){
-            ?>
-             <div class="statcounters statcounter-4 wow fadeInLeft" data-wow-delay="3s">
+             <div class="statcounters statcounter-4">
             <div class="statcounter-circle">
-                <div class="inner-circle"><h2><span class="counter"><?php echo of_get_option('counter4_numeric') ?></span></h2></div>
-                <div class="stat-fa"><i class="fa <?php echo of_get_option('counter4_font_awesome'); ?>"></i></div>
-                <div class="coutner-title"><h2><?php echo of_get_option('counter4_text') ?></h2></div>
+                <div class="inner-circle"><h2><span class="counter"><?php echo esc_attr(of_get_option('counter4_numeric')); ?></span></h2></div>
+                <div class="stat-fa"><i class="fa <?php echo esc_attr(of_get_option('counter4_font_awesome')); ?>"></i></div>
+                <div class="coutner-title"><h2><?php echo esc_attr(of_get_option('counter4_text')); ?></h2></div>
             </div>
             </div>
-            
-            <?php
-            	}
-            ?>
         </div>
     </section>
 <?php
@@ -457,8 +478,8 @@ endif;
             
     <section class="blogs wow fadeInUp animated" data-wow-delay="0.8s">
        <div class="ak-container">
-        <div class="blog-title"><?php echo of_get_option('blog_title'); ?></div>
-        <div class="blog-desc"><?php echo of_get_option('blog_desc'); ?></div>
+        <h2 class="blog-title"><?php echo esc_attr(of_get_option('blog_title')); ?></h2>
+        <div class="blog-desc"><?php echo wp_kses_post(of_get_option('blog_desc')); ?></div>
              <div class="blog-wrap clearfix">
            <?php
                 $ak_enbale_date =   of_get_option('enable_blog_date');
@@ -469,24 +490,25 @@ endif;
                 while($blog_query->have_posts()):$blog_query->the_post();
                 $blog_image = wp_get_attachment_image_src(get_post_thumbnail_id(get_the_ID()), 'blog-image', true);
                 ?><div class="blog-in-wrap">
-                    <div class="blog-image"><img src="<?php echo $blog_image[0] ?>" alt="<?php the_title(); ?>" /></div>
+                    <div class="blog-image"><img src="<?php echo esc_url($blog_image[0]); ?>" alt="<?php the_title(); ?>" /></div>
                     <div class="blog-date"><?php echo get_the_date('d M'); ?></div>
                     <div class="blog-title-comment">
                     <div class="blog-single-title"><?php the_title(); ?></div>
                     <a href="<?php echo  get_author_posts_url( get_the_author_meta( 'ID' ) );  ?>"><div class="blog-author"><i class="fa fa-user"></i><?php the_author(); ?></div></a>
                     <div class="blog-comment">
                         <?php if ( ! post_password_required() && ( comments_open() || '0' != get_comments_number() ) ) : ?>
-                		<span class="comments-link"><?php comments_popup_link( __( 'No comment', 'accesspress-staple' ), __( '1 Comment', 'accesspress-staple' ), __( '% Comments', 'accesspress_staple' ) ); ?></span>
+                		<span class="comments-link"><?php comments_popup_link( __( 'No comment', 'accesspress-staple' ), __( '1 Comment', 'accesspress-staple' ), __( '% Comments', 'accesspress-staple' ) ); ?></span>
                 		<?php endif; ?>
                     </div>
                 </div>
                     <div class="blog-content"><?php echo accesspress_excerpt(get_the_content(), 120); ?>
-                    <span><a href="<?php the_permalink() ?>"><?php echo of_get_option('blog_more_text_single') ?></a></span>
+                    <span><a href="<?php the_permalink() ?>"><?php echo esc_attr(of_get_option('blog_more_text_single')); ?></a></span>
                     </div>
                   </div>
                 <?php
                 endwhile;
                 endif;
+                wp_reset_postdata();
                 ?>
             </div>
              <?php
@@ -494,7 +516,7 @@ endif;
             $ak_blog_cat_url = get_category_link($ak_blog_cat);
             ?> 
 
-            <div class="btn-wrapper wow pulse animated" data-wow-delay="0.5s" ><a href="<?php echo $ak_blog_cat_url ?>" class="btn"><?php echo of_get_option('blog_more_text'); ?></a></div> 
+            <div class="btn-wrapper wow bounce animated" data-wow-delay="0.5s" ><a href="<?php echo esc_url($ak_blog_cat_url); ?>" class="btn"><?php echo esc_attr(of_get_option('blog_more_text')); ?></a></div> 
             <?php } 
             
             ?>  
@@ -511,8 +533,9 @@ endif;
       if(!empty($ak_tm_cat)):
 ?>
     <section class="testimonial">
+    <div class="testimonial-wrap">
         <div class="ak-container">
-            <div class="testimonial-title"><?php echo of_get_option('testomonial_title'); ?></div>
+            <h2 class="testimonial-title"><?php echo esc_attr(of_get_option('testomonial_title')); ?></h2>
             <?php 
                 ?>
             <div class="testimonial-slider">
@@ -530,15 +553,120 @@ endif;
                 <?php 
                 endwhile;
                 endif;
-                
+                wp_reset_postdata();
                 ?>
             </div>
         </div>
+    </div>
     </section>
     <?php
     endif;
 	}?>
+ 
+<?php 
+    if(of_get_option('enable_posts') == 1 || of_get_option('enable_posts') == NULL){ ?>
+
+        <section class="latest-post" id="blog-post">
+            <div class="ak-container">
+            <div id="primary" class="content-area">
+                <main id="main" class="site-main" role="main">
+                <?php 
+                if(!of_get_option('rm_lp')){
+                    $read_more_archive = "Read More";
+                }else{
+                    $read_more_archive = of_get_option('rm_lp');
+                }
+
+                if(have_posts()):
+                while(have_posts()): the_post();
+                ?>
+                <div class="lp-wrap aw-block-wrapper wow fadeInUp" data-wow-delay="0.5s">
+                <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+                    <header class="entry-header">
+                        <h2 class="entry-title"><a href="<?php the_permalink(); ?>" rel="bookmark"><?php the_title(); ?></a></h2>
+
+                        <?php if ( 'post' == get_post_type() ) : ?>
+                        <div class="entry-meta">
+                            <?php accesspress_staple_posted_on(); ?>
+                        </div><!-- .entry-meta -->
+                        <?php endif; ?>
+                    </header><!-- .entry-header -->
+
+                    <div class="entry-content">
+                        <?php if(has_post_thumbnail()){?>
+                        <div class="archive-thumbnail">
+                            <?php $image = wp_get_attachment_image_src(get_post_thumbnail_id(get_the_ID()),'accesspress-staple-archive-image'); 
+                            if(has_post_thumbnail()){
+                              ?>
+                              <img src="<?php echo esc_url($image[0]); ?>" alt="<?php the_title(); ?>" /><?php
+                              
+                            }
+                            ?> 
+                        </div>
+                        <?php } ?>
+                        <div class="short-content">
+                        <?php echo esc_attr(accesspress_excerpt( get_the_content() , 600 )); ?>
+                        </div>
+                        <a href="<?php the_permalink(); ?>" class="bttn"><?php echo esc_attr($read_more_archive); ?></a>
+                        <?php
+                            wp_link_pages( array(
+                                'before' => '<div class="page-links">' . __( 'Pages:', 'accesspress-staple' ),
+                                'after'  => '</div>',
+                            ) );
+                        ?>
+                    </div><!-- .entry-content -->
+
+                    <footer class="entry-footer">
+                        <?php if ( 'post' == get_post_type() ) : // Hide category and tag text for pages on Search ?>
+                            <?php
+                                /* translators: used between list items, there is a space after the comma */
+                                $categories_list = get_the_category_list( __( ', ', 'accesspress-staple' ) );
+                                if ( $categories_list && accesspress_staple_categorized_blog() ) :
+                            ?>
+                            <span class="cat-links">
+                                <?php printf( __( 'Posted in %1$s', 'accesspress-staple' ), $categories_list ); ?>
+                            </span>
+                            <?php endif; // End if categories ?>
+
+                            <?php
+                                /* translators: used between list items, there is a space after the comma */
+                                $tags_list = get_the_tag_list( '', __( ', ', 'accesspress-staple' ) );
+                                if ( $tags_list ) :
+                            ?>
+                            <span class="tags-links">
+                                <?php printf( __( 'Tagged %1$s', 'accesspress-staple' ), $tags_list ); ?>
+                            </span>
+                            <?php endif; // End if $tags_list ?>
+                        <?php endif; // End if 'post' == get_post_type() ?>
+
+                        <?php //edit_post_link( __( 'Edit', 'accesspress-staple' ), '<span class="edit-link">', '</span>' ); ?>
+                    </footer><!-- .entry-footer -->
+                                    
     
+                </article><!-- #post-## -->
+                </div>
+                <?php
+                endwhile;?>
+                <?php accesspress_staple_paging_nav(); wp_reset_postdata(); ?>
+
+        		<?php else : ?>
+        
+        			<?php get_template_part( 'content', 'none' ); ?>
+        
+        		<?php endif; ?>
+                </main><!-- #main -->
+    </div><!-- #primary -->
+    <div id="secondary-right" class="widget-area right-sidebar sidebar">
+        <?php if ( is_active_sidebar( 'right-sidebar' ) ) : ?>
+            <?php dynamic_sidebar( 'right-sidebar' ); ?>
+        <?php endif; ?>
+    </div>
+</div>
+        </section>
+
+<?php }?>
+ 
  <?php
+ }
  get_footer();
 ?>

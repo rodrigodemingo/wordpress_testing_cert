@@ -13,8 +13,8 @@ class Options_Framework_Interface {
 	 * Generates the tabs that are used in the options menu
 	 */
 	static function optionsframework_tabs() {
+	    $count = 0;
 		$counter = 0;
-        $count = 0;
 		$options = & Options_Framework::_optionsframework_options();
 		$menu = '';
 
@@ -30,6 +30,7 @@ class Options_Framework_Interface {
             
             if($value['type']== "header"){
                 $count++;
+                
             }
 		}
 
@@ -43,22 +44,23 @@ class Options_Framework_Interface {
 
 		global $allowedtags;
 
-		$option_name = Options_Framework::get_option_name();
+		$options_framework = new Options_Framework;
+		$option_name = $options_framework->get_option_name();
 		$settings = get_option( $option_name );
 		$options = & Options_Framework::_optionsframework_options();
-
+        
         $count = 0;
 		$counter = 0;
 		$menu = '';
 
 		foreach ( $options as $value ) {
-
+              
 			$val = '';
 			$select_value = '';
 			$output = '';
 
 			// Wrap all options
-			if ( ( $value['type'] != "heading" ) && ( $value['type'] != "info" ) && ( $value['type'] != "header" )) {
+			if ( ( $value['type'] != "heading" ) && ( $value['type'] != "info" ) && ( $value['type'] != "header" ) ) {
 
 				// Keep all ids lowercase with no spaces
 				$value['id'] = preg_replace('/[^a-zA-Z0-9._\-]/', '', strtolower($value['id']) );
@@ -78,7 +80,7 @@ class Options_Framework_Interface {
 					$output .= '<h4 class="heading">' . esc_html( $value['name'] ) . '</h4>' . "\n";
 				}
 				if ( $value['type'] != 'editor' ) {
-					$output .= '<div class="option">' . "\n" . '<div class="controls">' . "\n";
+					$output .= '<div class="option clearfix">' . "\n" . '<div class="controls">' . "\n";
 				}
 				else {
 					$output .= '<div class="option">' . "\n" . '<div>' . "\n";
@@ -91,7 +93,7 @@ class Options_Framework_Interface {
 			}
 
 			// If the option is already saved, override $val
-			if ( ( $value['type'] != 'heading' ) && ( $value['type'] != 'info') && ( $value['type'] != "header" ) ) {
+			if ( ( $value['type'] != 'heading' ) && ( $value['type'] != 'info') && ( $value['type'] != "header" )) {
 				if ( isset( $settings[($value['id'])]) ) {
 					$val = $settings[($value['id'])];
 					// Striping slashes of non-array options
@@ -124,22 +126,15 @@ class Options_Framework_Interface {
 			case 'text':
 				$output .= '<input id="' . esc_attr( $value['id'] ) . '" class="of-input" name="' . esc_attr( $option_name . '[' . $value['id'] . ']' ) . '" type="text" value="' . esc_attr( $val ) . '"' . $placeholder . ' />';
 				break;
-             
-            //URL
+                
             case 'url':
-				$output .= '<input id="' . esc_attr( $value['id']  ) . '" class="url of-input" name="' . esc_attr( $option_name . '[' . $value['id'] . ']' ) . '" type="text" value="' . esc_url( $val ) . '"' . $placeholder . ' />';
+				$output .= '<input id="' . esc_attr( $value['id'] ) . '" class="of-input" name="' . esc_attr( $option_name . '[' . $value['id'] . ']' ) . '" type="text" value="' . esc_attr( $val ) . '"' . $placeholder . ' />';
 				break;
-
 
 			// Password input
 			case 'password':
 				$output .= '<input id="' . esc_attr( $value['id'] ) . '" class="of-input" name="' . esc_attr( $option_name . '[' . $value['id'] . ']' ) . '" type="password" value="' . esc_attr( $val ) . '" />';
 				break;
-             
-             //button   
-            case 'button':
-				$output .= '<input id="' . esc_attr( $value['id'] ) . '" value="'.esc_attr($value['name']).'" class="of-input" name="' . esc_attr( $option_name . '[' . $value['id'] . ']' ) . '" type="button" value="' . esc_attr( $val ) . '" />';
-				break;                                
 
 			// Textarea
 			case 'textarea':
@@ -155,25 +150,6 @@ class Options_Framework_Interface {
 				$val = stripslashes( $val );
 				$output .= '<textarea id="' . esc_attr( $value['id'] ) . '" class="of-input" name="' . esc_attr( $option_name . '[' . $value['id'] . ']' ) . '" rows="' . $rows . '"' . $placeholder . '>' . esc_textarea( $val ) . '</textarea>';
 				break;
-                
-            //uploads client
-          case "parter_logo":
-                $i = 0;
-                if(!empty($settings['partner_logo'])):
-                foreach ($settings['partner_logo'] as $key => $ival) {
-                $i++;
-                $link = $val[$key]['link'];
-                $image = $val[$key]['image'];
-                $output .= '<div class="associate-logo sub-option clearfix">';
-                $output .= '<input class="of-input partner-link-input" name="' . esc_attr($option_name . '[' . $value['id'].']['.$i.'][link]') . '" type="text" value="' . esc_url($link) . '"' . $placeholder . ' />';
-                $output .= Options_Framework_Media_Uploader::optionsframework_uploader($value['id'], $image , null , esc_attr($option_name . '[' . $value['id'] . ']['.$i.'][image]'));
-                $output .= '<div class="logo-remove">[X]</div></div>';
-                }
-                endif;
-                $output .= '<div class="logo-wrap"></div>';
-                $output .= '<div class="button-primary" id="add-logo">Add Logo</div>';
-                $output .= '<input id="logo-count" type="hidden" value="'.$i.'"/>';
-                break;
 
 			// Select Box
 			case 'select':
@@ -191,7 +167,7 @@ class Options_Framework_Interface {
 				$name = $option_name .'['. $value['id'] .']';
 				foreach ($value['options'] as $key => $option) {
 					$id = $option_name . '-' . $value['id'] .'-'. $key;
-					$output .= '<div id="radio"><input class="of-input of-radio" type="radio" name="' . esc_attr( $name ) . '" id="' . esc_attr( $id ) . '" value="'. esc_attr( $key ) . '" '. checked( $val, $key, false) .' /><label for="' . esc_attr( $id ) . '">' . esc_html( $option ) . '</label></div>';
+					$output .= '<input class="of-input of-radio" type="radio" name="' . esc_attr( $name ) . '" id="' . esc_attr( $id ) . '" value="'. esc_attr( $key ) . '" '. checked( $val, $key, false) .' /><label for="' . esc_attr( $id ) . '">' . esc_html( $option ) . '</label>';
 				}
 				break;
 
@@ -211,41 +187,9 @@ class Options_Framework_Interface {
 
 			// Checkbox
 			case "checkbox":
-                $output .= '<div class="switch_options">';
-				$output .= '<span class="switch_enable"> ON </span>';
-                $output .= '<span class="switch_disable"> OFF </span>';
-                $output .= '<input id="' . esc_attr( $value['id'] ) . '" class="checkbox of-input switch_val"  type="hidden" name="' . esc_attr( $option_name . '[' . $value['id'] . ']' ) . '"  value="' . esc_attr( $val ) . '" /></div>';
+				$output .= '<input id="' . esc_attr( $value['id'] ) . '" class="checkbox of-input" type="checkbox" name="' . esc_attr( $option_name . '[' . $value['id'] . ']' ) . '" '. checked( $val, 1, false) .' />';
 				$output .= '<label class="explain" for="' . esc_attr( $value['id'] ) . '">' . wp_kses( $explain_value, $allowedtags) . '</label>';
 				break;
-                
-           case "backup":
-                   // $output .=  '<form method="post">';
-                    $output .='<p class="submit">';
-                    //wp_nonce_field('accesspress_staple');
-                    $output .='<textarea>'.serialize(get_option('accesspress_staple')).'</textarea>';
-                    $output .='<input type="submit" name="download" value="Backup all options"/>';
-                    $output .='</p>';
-                   // $output .='</form>';                    
-                    $output .= '<p>Click Browse button and choose a json file that you backup before.</p>';
-                    $output .= '<p>Press Restore button, WordPress do the rest for you.</p>';
-                    $output .= '<form method="get" enctype="multipart/form-data">';
-                    $output .='<p class="submit">';
-                    wp_nonce_field('ie-import');
-                    $output .='<input type="file" name="import" />';
-                    $output .='<input type="submit" name="restore" value="Restore"/>';
-                    $output .='</p>';
-                    $output .='</form>';
-                         
-                break;                                            
-
-            case "restore";
-                    $output .='<input type="file" name="dat" />';
-                    $output .='<input type="submit" name="bimport" value="Restore"/>';
-//                    $output .='</p>';
-//                    $output .='</form>';
-//                    $output .='</div>';
-//                         
-                break;                                            
 
 			// Multicheck
 			case "multicheck":
@@ -263,9 +207,8 @@ class Options_Framework_Interface {
 
 					$output .= '<input id="' . esc_attr( $id ) . '" class="checkbox of-input" type="checkbox" name="' . esc_attr( $name ) . '" ' . $checked . ' /><label for="' . esc_attr( $id ) . '">' . esc_html( $label ) . '</label>';
 				}
-                                
 				break;
-           
+
 			// Color picker
 			case "color":
 				$default_color = '';
@@ -355,6 +298,25 @@ class Options_Framework_Interface {
 				$output .= implode( '', $typography_fields );
 
 				break;
+                
+            //uploads client
+          case "parter_logo":
+                $i = 0;
+                if(!empty($settings['partner_logo'])):
+                foreach ($settings['partner_logo'] as $key => $ival) {
+                $i++;
+                $link = $val[$key]['link'];
+                $image = $val[$key]['image'];
+                $output .= '<div class="associate-logo sub-option clearfix">';
+                $output .= '<input class="of-input partner-link-input" name="' . esc_attr($option_name . '[' . $value['id'].']['.$i.'][link]') . '" type="text" value="' . esc_url($link) . '"' . $placeholder . ' />';
+                $output .= Options_Framework_Media_Uploader::optionsframework_uploader($value['id'], $image , null , esc_attr($option_name . '[' . $value['id'] . ']['.$i.'][image]'));
+                $output .= '<div class="logo-remove">&times;</div></div>';
+                }
+                endif;
+                $output .= '<div class="logo-wrap"></div>';
+                $output .= '<div class="button-primary" id="add-logo">'. __('Add Logo','accesspress-staple').'</div>';
+                $output .= '<input id="logo-count" type="hidden" value="'.$i.'"/>';
+                break;
 
 			// Background
 			case 'background':
@@ -411,16 +373,16 @@ class Options_Framework_Interface {
 				$output .= '</div>';
 
 				break;
-     
-     		// Editor
+
+			// Editor
 			case 'editor':
 				$output .= '<div class="explain">' . wp_kses( $explain_value, $allowedtags ) . '</div>'."\n";
 				echo $output;
 				$textarea_name = esc_attr( $option_name . '[' . $value['id'] . ']' );
 				$default_editor_settings = array(
 					'textarea_name' => $textarea_name,
-                    'textarea_rows'=>8,
 					'media_buttons' => false,
+					'textarea_rows' => 5,
 					'tinymce' => array( 'plugins' => 'wordpress' )
 				);
 				$editor_settings = array();
@@ -455,7 +417,7 @@ class Options_Framework_Interface {
 				}
 				$output .= '</div>' . "\n";
 				break;
-
+                
             case "header":
 				$count++;
                 if ($count >= 2) {
@@ -468,38 +430,41 @@ class Options_Framework_Interface {
 				$output .= '<div id="header-group-' . $count . '" class="header-group ' . $class . '">';
 				$output .= '<h3>' . esc_html( $value['name'] ) . '</h3></div>' . "\n";
                 $output .= '<div id="header-content-' . $count . '" class="header-content">';
-                
                 break;
                 
             case "div":
                 $output .='</div>';
                 break;
                 
-                
+            case "switch":
+                $output .= '<div class="switch_options">';
+                $output .= '<span class="switch_enable">' . esc_attr($value['on']) . '</span>';
+                $output .= '<span class="switch_disable">' . esc_attr($value['off']) . '</span>';
+                $output .= '<input id="' . esc_attr($value['id']) . '" type="hidden" class="switch_val" name="' . esc_attr($option_name . '[' . $value['id'] . ']') . '" value="' . esc_attr($val) . '"/>';
+                $output .= '</div>';
+                break;
+
 			// Heading for Navigation
 			case "heading":
 				$counter++;
 				if ( $counter >= 2 ) {
 					$output .= '</div>'."\n";
 				}
-                $class = '';
+				$class = '';
 				$class = ! empty( $value['id'] ) ? $value['id'] : $value['name'];
 				$class = preg_replace('/[^a-zA-Z0-9._\-]/', '', strtolower($class) );
 				$output .= '<div id="options-group-' . $counter . '" class="group ' . $class . '">';
 				$output .= '<h3>' . esc_html( $value['name'] ) . '</h3>' . "\n";
 				break;
 			}
-                        
+
 			if ( ( $value['type'] != "heading" ) && ( $value['type'] != "info" ) && ( $value['type'] != "header" ) ) {
 				$output .= '</div>';
 				if ( ( $value['type'] != "checkbox" ) && ( $value['type'] != "editor" ) ) {
 					$output .= '<div class="explain">' . wp_kses( $explain_value, $allowedtags) . '</div>'."\n";
 				}
 				$output .= '</div></div>'."\n";
-                                
 			}
-                       
-            
 
 			echo $output;
 		}
@@ -507,7 +472,6 @@ class Options_Framework_Interface {
 		// Outputs closing div if there tabs
 		if ( Options_Framework_Interface::optionsframework_tabs() != '' ) {
 			echo '</div>';
-            
 		}
 	}
 

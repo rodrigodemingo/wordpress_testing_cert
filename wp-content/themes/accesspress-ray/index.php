@@ -11,7 +11,11 @@
  * @package AccessPress Ray
  */
 
-get_header(); ?>
+get_header(); 
+	global $accesspress_ray_options;
+	$accesspress_ray_settings = get_option( 'accesspress_ray_options', $accesspress_ray_options );
+	$accesspress_ray_template_design = $accesspress_ray_settings['accesspress_ray_template_design'];
+?>
 <section class="ak-container" id="ak-blog-post">
 	<div id="primary" class="content-area">
 		<main id="main" class="site-main" role="main">
@@ -44,4 +48,10 @@ get_header(); ?>
 
 <?php get_sidebar('right'); ?>
 </section>
-<?php get_footer(); ?>
+<?php 
+	if( $accesspress_ray_template_design == 'style1_template' ) {
+		get_footer('two');
+	}else{
+		get_footer();
+	}
+?>

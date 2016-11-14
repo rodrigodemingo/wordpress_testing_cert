@@ -67,10 +67,12 @@ jQuery(document).ready(function($) {
 		$('#section-sticky_header').show();
 	}
 
-	$( "#section-parallax_section .controls" ).sortable();
+	$( "#section-parallax_section .controls" ).sortable({
+		axis: "y"
+	});
 	$( "#sub-option-inner" ).disableSelection();
 
-	$( '#section-parallax_section .section-toggle').on('click', function(){
+	$(document).on('click', '.section-toggle', function(){
 		$(this).parent('.title').next('.sub-option-inner').slideToggle();
 	});
 
@@ -86,8 +88,26 @@ jQuery(document).ready(function($) {
       	$this.parents('.sub-option').remove();
 		},750 );
 	});
-    
-    $('.ap-popup-bg, .ap-popup-close').click(function(){
-		$('.ap-popup-bg, .ap-popup-wrapper').fadeOut();
-	});
+
+	$('#section-parallax_section .of-section-layout').each(function() {
+        var IntlayoutValue = $(this).val();
+        if (IntlayoutValue == 'service_template' || IntlayoutValue == 'team_template' || IntlayoutValue == 'testimonial_template' || IntlayoutValue == 'blog_template' || IntlayoutValue == 'portfolio_template') {
+            $(this).parents('.sub-option-inner').find('.toggle-category').show();
+        } else {
+            $(this).parents('.sub-option-inner').find('.toggle-category').hide();
+        }
+    });
+
+    $(document).on('change', '.of-section-layout', function() {
+        var layoutValue = $(this).val();
+        if (layoutValue == 'service_template' || layoutValue == 'team_template' || layoutValue == 'testimonial_template' || layoutValue == 'blog_template' || layoutValue == 'portfolio_template') {
+            $(this).parents('.sub-option-inner').find('.toggle-category').fadeIn();
+        } else {
+            $(this).parents('.sub-option-inner').find('.toggle-category').fadeOut();
+        }
+    });
+
+	$('.pro-feature-title').click(function(){
+        $('.feature-img').slideToggle();
+    });
 });

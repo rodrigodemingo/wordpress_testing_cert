@@ -10,6 +10,7 @@ global $accesspress_ray_options, $post;
 $accesspress_ray_settings = get_option( 'accesspress_ray_options', $accesspress_ray_options );
 $cat_blog = $accesspress_ray_settings['blog_cat'];
 $post_class = get_post_meta( $post -> ID, 'accesspress_ray_sidebar_layout', true );
+$accesspress_ray_template_design = $accesspress_ray_settings['accesspress_ray_template_design'];
 ?>
 
 <div class="ak-container">
@@ -49,4 +50,10 @@ $post_class = get_post_meta( $post -> ID, 'accesspress_ray_sidebar_layout', true
 	get_sidebar('right'); ?>
 </div>
 
-<?php get_footer(); ?>
+<?php 
+	if( $accesspress_ray_template_design == 'style1_template' ) {
+		get_footer('two');
+	}else{
+		get_footer();
+	}
+?>

@@ -6,12 +6,12 @@
  *
  * @package accesspress_parallax
  */
-?><!DOCTYPE html>
+?>
+<!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 <head>
 <meta charset="<?php bloginfo( 'charset' ); ?>">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title><?php wp_title( '|', true, 'right' ); ?></title>
 <link rel="profile" href="http://gmpg.org/xfn/11">
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
 <!--[if lt IE 9]>
@@ -37,33 +37,45 @@
 		</div>
 
 		<nav id="site-navigation" class="main-navigation">
-		<div class="menu-toggle"><?php _e( 'Menu', 'accesspress_parallax' ); ?></div>
+		<div class="menu-toggle"><?php _e( 'Menu', 'accesspress-parallax' ); ?></div>
 					
 			<?php 
 			$sections = of_get_option('parallax_section');
-			if(of_get_option('enable_parallax')==1 && !empty($sections) && ('page' != get_option( 'show_on_front'))): ?>
-			<ul class="nav">
-			<?php
-				if(of_get_option('show_slider')== "yes") : ?>
-					<li class="current"><a href="<?php echo esc_url( home_url( '/' ) ); ?>#main-slider">Home</a></li>
+			if((of_get_option('enable_parallax') == 1 && of_get_option('enable_parallax_nav') == 1) || (is_page_template('home-page.php') && of_get_option('enable_parallax_nav') == 1)):
+			?>
+			<ul class="nav single-page-nav">
+				<?php
+				$home_text = of_get_option('home_text');
+				if(of_get_option('show_slider')== "yes" && !empty($home_text)) : 
+					if(function_exists('pll__')){
+						$home_text = pll__($home_text);
+					}
+					?>
+					<li class="current"><a href="<?php echo esc_url( home_url( '/' ) ); ?>#main-slider"><?php echo esc_html($home_text); ?></a></li>
 				<?php endif;
 				
+				if(!empty($sections)):
 				foreach ($sections as $single_sections): 
 					if($single_sections['layout'] != "action_template" && $single_sections['layout'] != "blank_template" && $single_sections['layout'] != "googlemap_template" && !empty($single_sections['page'])) :
-					$title = get_the_title($single_sections['page']); ?>
-					<li><a href="<?php echo esc_url( home_url( '/' ) ); ?>#section-<?php echo $single_sections['page']; ?>"><?php echo $title; ?></a></li>
+						if(function_exists('pll_get_post')){
+							$title_id = pll_get_post($single_sections['page']);
+							$title = empty($title_id) ? get_the_title($single_sections['page']) : get_the_title($title_id);
+						}else{
+							$title = get_the_title($single_sections['page']); 
+						}	
+						?>
+						<li><a href="<?php echo esc_url( home_url( '/' ) ); ?>#section-<?php echo $single_sections['page']; ?>"><?php echo esc_html($title); ?></a></li>
 					<?php 
 					endif;
-				endforeach; ?>
+				endforeach; 
+				endif; ?>
 			</ul>
-
-			<?php else: 
+			<?php	
+			else: 
 				wp_nav_menu( array( 
-					'theme_location' => 'primary' , 
-					'container'      => '',
-					'menu_class'      => 'nav',
-					'fallback_cb'     => 'wp_page_menu',
-					) );
+				'theme_location' => 'primary' , 
+				'container'      => false
+				) );
 			endif; ?>
 		
 		</nav><!-- #site-navigation -->
@@ -83,7 +95,7 @@
 		$content_class = "no-slider";
 	endif;
 	?>
-	<div id="content" class="site-content <?php echo $content_class; ?>">
+	<div id="content" class="site-content <?php echo esc_attr($content_class); ?>">
 	<?php 
 	if(is_home() || is_front_page()) :
 		do_action('accesspress_bxslider'); 

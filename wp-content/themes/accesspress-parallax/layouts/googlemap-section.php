@@ -7,27 +7,21 @@
 ?>
 
 	<div class="content-area googlemap-section">
-	<script type="text/javascript">
-		    var map;
-		    function initialize() {
-		      var mapOptions = {
-		        zoom: 18,
-		        center: new google.maps.LatLng(<?php echo of_get_option('map_latitude') ?>, <?php echo of_get_option('map_longitude') ?> ),
-		        mapTypeId: google.maps.MapTypeId.ROADMAP,
-		        scrollwheel: false,
-		        mapTypeControlOptions: {
-		            style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
-		        },
-		      };
-		      map = new google.maps.Map(document.getElementById('ap-map-canvas'),
-		          mapOptions);
-		    }
-	</script>
-	<div class="googlemap-toggle">Map</div>
-	<div class="googlemap-content">
-		<?php echo $page->post_content; ?>
-		<div id="ap-map-canvas"></div>
-	</div>
+	<div class="googlemap-toggle"><?php _e('Map','accesspress-parallax'); ?></div>
+
+		<?php  
+            $query = new WP_Query( 'page_id='.$section['page'] );
+            while ( $query->have_posts() ) : $query->the_post();
+        ?>
+		
+		<div class="googlemap-content">
+			<?php the_content(); ?>
+		</div>
+
+		<?php 
+	        endwhile;    
+	        wp_reset_postdata();
+        ?>
 	</div><!-- #primary -->
 
 

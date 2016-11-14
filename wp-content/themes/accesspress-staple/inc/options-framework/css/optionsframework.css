@@ -1,25 +1,23 @@
 /* Options Framework Admin Styles */
-/* clearfix css */
-.clear{
-	clear:both;
-}
 
-.clearfix:after {
-    content: ".";
-    clear: both;
-    visibility: hidden;
-    line-height: 0;
-    height: 0;
-    display: block;
-}
 #optionsframework {
-    max-width:892px;
+    max-width:840px;
     background:#fff;
 }
-#optionsframework h3 {
+#optionsframework-wrap .optionsframework-holder{
+	padding: 0 230px 0 240px; 
+	margin-top: 20px;
+}
+#optionsframework h3,
+.promo-banner h3 {
 	cursor: default;
-	background-color: #f1f1f1;
-	border-bottom: 1px solid #ddd;
+	background-color: #333;
+	padding:15px 12px;
+	color: #F6F6F6;
+	font-weight: normal;
+	font-size: 15px;
+	margin: 0;
+	line-height: 1.2;
 }
 #optionsframework p {
 	margin-bottom:0;
@@ -44,7 +42,6 @@
 	line-height:16px;
 	color: #777;
 }
-
 #optionsframework .section-checkbox .controls {
 	width: 98%;
 }
@@ -225,7 +222,8 @@
 	border-top: 1px solid #ddd;
 	background-color: #f1f1f1;
 }
-#optionsframework .button-primary {
+#optionsframework-submit .button-primary,
+#optionsframework .float-right {
 	float:right;
 }
 #optionsframework .section:after {
@@ -235,15 +233,10 @@
 #optionsframework .section:after {
 	clear: both;
 }
-.section.section-info {
-    background: none repeat scroll 0 0 #dedede;
-    border: 1px solid;
-    margin: 10px;
-}
 
+/** Additional CSS for THEME **/
 .header-group > h3 {
     color: #000;
-    text-align: center;
 }
 .header-group > h3:hover {
     cursor: pointer!important ;
@@ -258,10 +251,10 @@
     padding: 0 !important;
 }
 
+
 .theme-header {
-  background: none repeat scroll 0 0 #4C4A4A;
+  background: #333;
   border-bottom: 4px solid #f0563d;
-  border-radius: 20px 20px 0 0;
   color: #ffffff;
   padding: 20px;
 }
@@ -274,20 +267,47 @@
 
 .theme-header .accesspresslite-logo {
     float: left;
-    margin-top: 20px;
     width: 25%;
 }
 
 .theme-header.clearfix .big-title {
   color: #ffffff;
   float: left;
-  font-size: 35px;
-  margin-top: 10px;
+  font-size: 22px;
   width: 25%;
-  font-weight: 700;
   text-align: right;
   padding-right: 0;
-  line-height:40px;
+  line-height:1.5;
 }
-
-
+.view-features h3{
+	cursor: pointer;
+}
+a:focus{
+	box-shadow: none;
+}
+.associate-logo {
+  position: relative;
+  border-bottom: 1px dashed #CCC;
+  margin-bottom: 10px;
+}
+.associate-logo .logo-remove{
+	position: absolute;
+	background: #FF0000;
+	color:#FFF;
+	border-radius: 50%;
+	height: 20px;
+	width: 20px;
+	text-align: center;
+	line-height: 20px;
+	cursor: pointer;
+	right: -30px;
+	top: 0;
+	font-size: 16px;
+}
+#optionsframework #add-logo{
+	float: left;
+}
+.about-accesspress .seperator-gap{
+	display: block;
+	height: 15px;
+}

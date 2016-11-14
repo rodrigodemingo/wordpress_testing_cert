@@ -89,6 +89,147 @@ Images
 ---------------------------------------------
 
 == Changelog ==
+Version 1.26.2
+ * Fixed some escapting value
+ * Updated .pot file
+ 
+Version 1.26.1
+* Translation Bug fixed
+
+Version 1.26.0
+* Fixed escaping security error
+* Core WordPress Function used of pagination/navigaion for post and archive page
+
+Version 1.25.9
+* TGMPA Updated with the latest version
+
+Version 1.25.8
+* Logo alignment bug fixed for centered logo in Responsive Layout
+* Responsive bug fixed for the footer
+* Header Menu Bug fixed for home page template
+* PolyLang support for Theme Option Panel Text
+
+Version 1.25.7
+* Section Files Compatibility with Child Theme
+* CSS bug on bottom margin of the Google Map Section fixed
+
+Version 1.25.6
+* Woocommerce Compatible bug fixed
+
+Version 1.25.5
+* Woocommerce Compatible
+
+Version 1.25.4
+* Plugin Recommended via TGM
+* Screenshot changed
+
+Version 1.25.3
+* Indonesian Translation Added
+Contributer - Rio Bermano <riobermano92@gmail.com>
+
+Version 1.25.2
+* Added the theme support for title tag and removed the hardcoded title tag
+
+Version 1.25.1
+* Fixes for the compatibility with Polylang Plugin
+* Post Navigation in the single post shows the post with same term only
+
+Version 1.25.0
+* CSS fixes to make compaltible with the latest release of WordPress 4.4
+* Auto Transition Bug in main slider fixed
+
+Version 1.24.9
+* Minor bug on Slider fixed for RTL
+* Google Map Section content not displaying issue fixed
+
+Version 1.24.8
+* Additional CSS added for RTL Support
+
+Version 1.24.7
+* More Theme Page added
+
+Version 1.24.6
+* Menu Center alignment Bug fixed for the header 2 layout
+* New Plugin Suggested Via TGM Plugin Activation
+
+Version 1.24.5
+* Main navigation bug fixed
+* Missing Translation ready fixed
+* Minor bug in accesspress_letter_count function fixed
+
+Version 1.24.4
+* FontAwesome updated to latest version
+* Translation pot file updated 
+* Minor Bug fixed in Home Page
+
+Version 1.24.3
+* Polylang Plugin translation bug for Call to action section fixed
+* Minor CSS fix in the admin Panel
+
+Version 1.24.2
+* Option name mismatch for the child theme fixed
+* Issue of bxslider not working for RTL Website fixed
+
+Version 1.24.0
+* Theme Demo Url Changed
+* Changed Author url from http to https
+* Jquery bug in Team Section fixed
+* Text Domain Issue fixed
+
+Version 1.23.9
+* Demo Slider Content Removed
+* Demo and Documentation Link added in Theme Option Panel
+* Minor change in theme option panel
+
+Version 1.23.5
+* TGM Plugin Class Updated to latest version
+* Content bug for the parallax section fixed
+* Jquery bug fixed for multiple team section added
+* Slider caption overlapping the menu issue fixed
+
+Version 1.23.4
+* Loop Issue fixed in Parallax Section.
+* Missing Translation text fixed.
+* Plugins recomemded via TGM Plugin Activation
+
+Version 1.23.3
+* Compatibility issues with multilingual plugin (polylang) fixed.
+* Issue with Google Map Section fixed.
+* Removed the unused script from the demo content.
+
+Version 1.23
+* Main Navigation Bug fixed
+
+Version 1.22
+* Team section slides bug fixed
+* Background Image bug in Mobile device fixed
+
+Version 1.21
+* Main Navigation Bug fixed
+* Minor Changes in Theme Option Panel
+* New pot file generated for translation
+* Jquery bug fixed while adding multiple team section
+
+Version 1.20
+* Archive page Title link fixed
+* ScreenShot Changed
+* Few adjustment in Theme Option Panel
+* Added Theme support for title tag
+* Added callback for custom TinyMCE editor stylesheets
+
+Version 1.19
+* Navigation not clickalbe in innpages issue solved.
+* Minor CSS bugs fixed.
+* Text translation added.
+* New Options Added in Theme Options Panel
+* Option to change the home text added in menu
+
+Version 1.18
+* Nav unclickable issue solved.
+* Minor CSS bugs fixed.
+* Text translation added.
+* Remove emails from Theme Options due to spams. 
+
 Version 1.17
 * Fixed the link on the Scroll down arrow over the banner.
 * Added New Translation language (Russian).

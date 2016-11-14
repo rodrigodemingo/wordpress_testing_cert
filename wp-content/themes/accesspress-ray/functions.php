@@ -29,9 +29,9 @@ function accesspress_ray_setup() {
 	 * Make theme available for translation.
 	 * Translations can be filed in the /languages/ directory.
 	 * If you're building a theme based on AccessPress Ray, use a find and replace
-	 * to change 'accesspress_ray' to the name of your theme in all the template files
+	 * to change 'accesspress-ray' to the name of your theme in all the template files
 	 */
-	load_theme_textdomain( 'accesspress_ray', get_template_directory() . '/languages' );
+	load_theme_textdomain( 'accesspress-ray', get_template_directory() . '/languages' );
 
 	/**
 	 * Add callback for custom TinyMCE editor stylesheets. (editor-style.css)
@@ -41,6 +41,15 @@ function accesspress_ray_setup() {
 
 	// Add default posts and comments RSS feed links to head.
 	add_theme_support( 'automatic-feed-links' );
+
+	/*
+	 * Let WordPress manage the document title.
+	 * By adding theme support, we declare that this theme does not use a
+	 * hard-coded <title> tag in the document head, and expect WordPress to
+	 * provide it for us.
+	 */
+	add_theme_support( 'title-tag' );	
+
 	add_theme_support( 'html5', array( 'gallery', 'caption' ) );
 	/*
 	 * Enable support for Post Thumbnails on posts and pages.
@@ -50,14 +59,15 @@ function accesspress_ray_setup() {
 	add_theme_support( 'post-thumbnails' );
 	add_theme_support( 'woocommerce' );
 
-	add_image_size( 'event-thumbnail', 135, 100, true); //Latest News Events Small Image
-	add_image_size( 'featured-thumbnail', 350, 245, true); //Featured Image
-	add_image_size( 'portfolio-thumbnail', 400, 450, true); //Portfolio Image		
+	add_image_size( 'accesspress-ray-event-thumbnail', 135, 100, true); //Latest News Events Small Image
+	add_image_size( 'accesspress-ray-featured-thumbnail', 350, 245, true); //Featured Image
+	add_image_size( 'accesspress-ray-portfolio-thumbnail', 400, 450, true); //Portfolio Image
+	add_image_size( 'accesspress-ray-slider', 1920, 860, true ); //Slider image
 
 	// This theme uses wp_nav_menu() in one location.
 	register_nav_menus( array(
-		'primary' => __( 'Primary Menu', 'accesspress_ray' ),
-		'secondary' => __( 'Secondary Menu', 'accesspress_ray' ),
+		'primary' => __( 'Primary Menu', 'accesspress-ray' ),
+		'secondary' => __( 'Secondary Menu', 'accesspress-ray' ),
 	) );
 
 	// Setup the WordPress core custom background feature.
@@ -99,3 +109,14 @@ require get_template_directory() . '/inc/accesspressray-custom-metabox.php';
  * Load Jetpack compatibility file.
  */
 require get_template_directory() . '/inc/jetpack.php';
+
+/**
+ * Load TGM_Plugin_Activation class.
+ */
+require get_template_directory() . '/inc/class-tgm-plugin-activation.php';
+
+
+/**
+ * Load More Theme Page
+ */
+require get_template_directory() . '/inc/more-themes.php';

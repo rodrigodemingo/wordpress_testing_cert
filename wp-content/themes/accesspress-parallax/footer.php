@@ -50,7 +50,9 @@
 					&copy; <?php echo date('Y')." "; bloginfo('name'); ?>  
 				</div><!-- .copy-right -->
 				<div class="site-info">
-					<?php _e('AccessPress Parallax by','accesspress_parallax'); ?> <a href="<?php echo esc_url('http://accesspressthemes.com/','accesspress_parallax'); ?>" title="AccessPress Themes" target="_blank">AccessPress Themes</a>
+				WordPress Theme:
+				<a href="<?php echo esc_url('https://accesspressthemes.com/wordpress-themes/accesspress-parallax'); ?>" title="WordPress Free Themes" target="_blank">AccessPress Parallax</a>
+					<?php _e('by','accesspress-parallax'); ?> AccessPress Themes
 				</div><!-- .site-info -->
 			</div>
 		</div>

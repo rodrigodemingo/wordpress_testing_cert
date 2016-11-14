@@ -24,19 +24,18 @@ $cat_portfolio = $accesspresslite_settings['portfolio_cat'];
 			$image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'featured-thumbnail', false ); 
 		?>
 		<div class="cat-event-image">
-		<img src="<?php echo $image[0]; ?>" alt="<?php the_title(); ?>">
+		<img src="<?php echo esc_url($image[0]); ?>" alt="<?php the_title(); ?>">
 		</div>
 		<?php } ?>
 		<div class="cat-event-excerpt <?php if(! has_post_thumbnail() ) { echo "full-width"; }?>">
-		<?php 
-		$accesspresslite_event_day = get_post_meta( $post->ID, 'accesspresslite_event_day', true );
-		$accesspresslite_event_month = get_post_meta( $post->ID, 'accesspresslite_event_month', true );
-		$accesspresslite_event_year = get_post_meta( $post->ID, 'accesspresslite_event_year', true );
-		?>
-		<div class="event-date-archive"><?php echo get_cat_name( $cat_event )?> on <?php echo $accesspresslite_event_day." ".$accesspresslite_event_month." , ".$accesspresslite_event_year ?></div>
-		    <div><?php echo accesspresslite_excerpt( get_the_content() , 400 ) ?></div>
+
+		<div class="event-date-archive">
+			<?php accesspresslite_posted_on(); ?>
 		</div>
-		<a href="<?php the_permalink(); ?>" class="cat-event-more bttn"><?php _e('More','accesspresslite');?></a>
+		
+		<div><?php echo accesspresslite_excerpt( get_the_content() , 400 ) ?></div>
+		</div>
+		<a href="<?php the_permalink(); ?>" class="cat-event-more bttn"><?php _e('More','accesspress-lite');?></a>
 	</div><!-- .entry-content -->
 </article>
 
@@ -49,9 +48,9 @@ $cat_portfolio = $accesspresslite_settings['portfolio_cat'];
 		if( has_post_thumbnail() ){
 			$image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'featured-thumbnail', false ); 
 		?>
-		<img src="<?php echo $image[0]; ?>" alt="<?php the_title(); ?>">
+		<img src="<?php echo esc_url($image[0]); ?>" alt="<?php the_title(); ?>">
 		<?php }else {?>	
-		<img src="<?php echo get_template_directory_uri(); ?>/images/testimonial-fallback.png" alt="<?php the_title(); ?>">
+		<img src="<?php echo get_template_directory_uri(); ?>/images/testimonial-fallback.jpg" alt="<?php the_title(); ?>">
 		<?php }?>
 	</div>
 		
@@ -72,7 +71,7 @@ $cat_portfolio = $accesspresslite_settings['portfolio_cat'];
 $image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'portfolio-thumbnail', false ); 
 $full_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'large', false ); 
 ?>
-	<a class="fancybox-gallery" href="<?php echo $full_image[0]; ?>" data-lightbox-gallery="gallery">
+	<a class="fancybox-gallery" href="<?php echo esc_url($full_image[0]); ?>" data-lightbox-gallery="gallery">
     <div class="cat-portfolio-image">
 		<img src="<?php echo $image[0]; ?>" alt="<?php the_title(); ?>">
     </div>
@@ -110,12 +109,12 @@ $full_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), '
 		</div>
 		<?php } ?>
 		<div class="short-content">
-		<?php echo accesspresslite_excerpt( get_the_content() , 600 ) ?>
+		<?php echo accesspresslite_excerpt( get_the_content() , 500 ) ?>
 		</div>
-		<a href="<?php the_permalink(); ?>" class="bttn"><?php _e('More','accesspresslite')?></a>
+		<a href="<?php the_permalink(); ?>" class="bttn"><?php _e('More','accesspress-lite')?></a>
 		<?php
 			wp_link_pages( array(
-				'before' => '<div class="page-links">' . __( 'Pages:', 'accesspresslite' ),
+				'before' => '<div class="page-links">' . __( 'Pages:', 'accesspress-lite' ),
 				'after'  => '</div>',
 			) );
 		?>
@@ -126,26 +125,25 @@ $full_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), '
 		<?php if ( 'post' == get_post_type() ) : // Hide category and tag text for pages on Search ?>
 			<?php
 				/* translators: used between list items, there is a space after the comma */
-				$categories_list = get_the_category_list( __( ', ', 'accesspresslite' ) );
+				$categories_list = get_the_category_list( __( ', ', 'accesspress-lite' ) );
 				if ( $categories_list && accesspresslite_categorized_blog() ) :
 			?>
 			<span class="cat-links">
-				<?php printf( __( 'Posted in %1$s', 'accesspresslite' ), $categories_list ); ?>
+				<?php printf( __( 'Posted in %1$s', 'accesspress-lite' ), $categories_list ); ?>
 			</span>
 			<?php endif; // End if categories ?>
 
 			<?php
 				/* translators: used between list items, there is a space after the comma */
-				$tags_list = get_the_tag_list( '', __( ', ', 'accesspresslite' ) );
+				$tags_list = get_the_tag_list( '', __( ', ', 'accesspress-lite' ) );
 				if ( $tags_list ) :
 			?>
 			<span class="tags-links">
-				<?php printf( __( 'Tagged %1$s', 'accesspresslite' ), $tags_list ); ?>
+				<?php printf( __( 'Tagged %1$s', 'accesspress-lite' ), $tags_list ); ?>
 			</span>
 			<?php endif; // End if $tags_list ?>
 		<?php endif; // End if 'post' == get_post_type() ?>
 
-		<?php //edit_post_link( __( 'Edit', 'accesspresslite' ), '<span class="edit-link">', '</span>' ); ?>
 	</footer><!-- .entry-footer -->
 </article><!-- #post-## -->
 <?php endif; ?>

@@ -22,6 +22,11 @@ add_filter( 'of_sanitize_text', 'sanitize_text_field' );
 add_filter( 'of_sanitize_password', 'sanitize_text_field' );
 
 /**
+ * Sanitization for switch
+ */
+add_filter( 'of_sanitize_switch', 'sanitize_text_field' );
+
+/**
  * Sanitization for select input
  *
  * Validates that the selected option is a valid option.
@@ -53,19 +58,6 @@ function of_sanitize_textarea( $input ) {
 	$output = wp_kses( $input, $allowedposttags);
 	return $output;
 }
-
-function of_sanitize_backup( $input ) {
-	global $allowedposttags;
-	$output = wp_kses( $input, $allowedposttags);
-	return $output;
-}
-
-function of_sanitize_restore( $input ) {
-	global $allowedposttags;
-	$output = wp_kses( $input, $allowedposttags);
-	return $output;
-}
-
 add_filter( 'of_sanitize_textarea', 'of_sanitize_textarea' );
 
 /**
@@ -106,26 +98,6 @@ function of_sanitize_multicheck( $input, $option ) {
 }
 add_filter( 'of_sanitize_multicheck', 'of_sanitize_multicheck', 10, 2 );
 
-
-/**
- * Sanitization for partner-logo
- */
-function of_sanitize_parter_logo( $input ) {
-if ( is_array( $input ) ) {
-foreach( $input as $key => $value ) {
-$output[$key] = wp_parse_args( $input[$key], array(
-'link' => '',
-'image' => '',
-) );
-$output[$key]['link'] = apply_filters( 'of_sanitize_url', $input[$key]['link'] );
-$output[$key]['image'] = apply_filters( 'of_sanitize_upload', $input[$key]['image'] );
-}
-}
-return $output;
-}
-add_filter( 'of_sanitize_parter_logo', 'of_sanitize_parter_logo' );
-
-
 /**
  * File upload sanitization.
  *
@@ -144,18 +116,11 @@ function of_sanitize_upload( $input ) {
 }
 add_filter( 'of_sanitize_upload', 'of_sanitize_upload' );
 
-/**
- * Sanitization for url field
- *
- * @param $input string
- * @return $output sanitized string
- */
 function of_sanitize_url( $input ) {
-	$output = esc_url_raw( $input );
+		$output = esc_url( $input );
 	return $output;
 }
 add_filter( 'of_sanitize_url', 'of_sanitize_url' );
-
 
 /**
  * Sanitization for editor input.
@@ -359,13 +324,31 @@ add_filter( 'of_font_face', 'of_sanitize_font_face' );
  */
 function of_recognized_background_repeat() {
 	$default = array(
-		'no-repeat' => __( 'No Repeat', 'options-framework' ),
-		'repeat-x'  => __( 'Repeat Horizontally', 'options-framework' ),
-		'repeat-y'  => __( 'Repeat Vertically', 'options-framework' ),
-		'repeat'    => __( 'Repeat All', 'options-framework' ),
+		'no-repeat' => __( 'No Repeat', 'accesspress-staple' ),
+		'repeat-x'  => __( 'Repeat Horizontally', 'accesspress-staple' ),
+		'repeat-y'  => __( 'Repeat Vertically', 'accesspress-staple' ),
+		'repeat'    => __( 'Repeat All', 'accesspress-staple' ),
 		);
 	return apply_filters( 'of_recognized_background_repeat', $default );
 }
+
+/**
+ * Sanitization for partner-logo
+ */
+function of_sanitize_parter_logo( $input ) {
+if ( is_array( $input ) ) {
+foreach( $input as $key => $value ) {
+$output[$key] = wp_parse_args( $input[$key], array(
+'link' => '',
+'image' => '',
+) );
+$output[$key]['link'] = apply_filters( 'of_sanitize_url', $input[$key]['link'] );
+$output[$key]['image'] = apply_filters( 'of_sanitize_upload', $input[$key]['image'] );
+}
+}
+return $output;
+}
+add_filter( 'of_sanitize_parter_logo', 'of_sanitize_parter_logo' );
 
 /**
  * Get recognized background positions
@@ -374,15 +357,15 @@ function of_recognized_background_repeat() {
  */
 function of_recognized_background_position() {
 	$default = array(
-		'top left'      => __( 'Top Left', 'options-framework' ),
-		'top center'    => __( 'Top Center', 'options-framework' ),
-		'top right'     => __( 'Top Right', 'options-framework' ),
-		'center left'   => __( 'Middle Left', 'options-framework' ),
-		'center center' => __( 'Middle Center', 'options-framework' ),
-		'center right'  => __( 'Middle Right', 'options-framework' ),
-		'bottom left'   => __( 'Bottom Left', 'options-framework' ),
-		'bottom center' => __( 'Bottom Center', 'options-framework' ),
-		'bottom right'  => __( 'Bottom Right', 'options-framework')
+		'top left'      => __( 'Top Left', 'accesspress-staple' ),
+		'top center'    => __( 'Top Center', 'accesspress-staple' ),
+		'top right'     => __( 'Top Right', 'accesspress-staple' ),
+		'center left'   => __( 'Middle Left', 'accesspress-staple' ),
+		'center center' => __( 'Middle Center', 'accesspress-staple' ),
+		'center right'  => __( 'Middle Right', 'accesspress-staple' ),
+		'bottom left'   => __( 'Bottom Left', 'accesspress-staple' ),
+		'bottom center' => __( 'Bottom Center', 'accesspress-staple' ),
+		'bottom right'  => __( 'Bottom Right', 'accesspress-staple')
 		);
 	return apply_filters( 'of_recognized_background_position', $default );
 }
@@ -394,8 +377,8 @@ function of_recognized_background_position() {
  */
 function of_recognized_background_attachment() {
 	$default = array(
-		'scroll' => __( 'Scroll Normally', 'options-framework' ),
-		'fixed'  => __( 'Fixed in Place', 'options-framework')
+		'scroll' => __( 'Scroll Normally', 'accesspress-staple' ),
+		'fixed'  => __( 'Fixed in Place', 'accesspress-staple')
 		);
 	return apply_filters( 'of_recognized_background_attachment', $default );
 }
@@ -467,10 +450,10 @@ function of_recognized_font_faces() {
  */
 function of_recognized_font_styles() {
 	$default = array(
-		'normal'      => __( 'Normal', 'options-framework' ),
-		'italic'      => __( 'Italic', 'options-framework' ),
-		'bold'        => __( 'Bold', 'options-framework' ),
-		'bold italic' => __( 'Bold Italic', 'options-framework' )
+		'normal'      => __( 'Normal', 'accesspress-staple' ),
+		'italic'      => __( 'Italic', 'accesspress-staple' ),
+		'bold'        => __( 'Bold', 'accesspress-staple' ),
+		'bold italic' => __( 'Bold Italic', 'accesspress-staple' )
 		);
 	return apply_filters( 'of_recognized_font_styles', $default );
 }

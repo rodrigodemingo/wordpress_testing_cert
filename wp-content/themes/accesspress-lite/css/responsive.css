@@ -192,7 +192,9 @@
 		text-indent: -9999px;
 		margin: 0;
 	}
-
+	.main-navigation.menu-right {
+		text-align: left;
+	}
 	.main-navigation .menu {
 		display: none;
 	}
@@ -228,6 +230,16 @@
 		float: none;
 		line-height: 38px;
 		border-bottom:1px solid #0383BF;
+	}
+
+ 	.main-navigation.menu-right .menu li {
+ 		text-align:right;
+ 		margin-left:0;
+ 	}
+
+	.main-navigation.menu-center .menu li {
+		margin-left:0;
+		margin-right:0;
 	}
 
 	.main-navigation ul ul{
@@ -302,6 +314,12 @@
     .wpcf7-form textarea{
         width:100%;
     }
+
+    .span1, .span2, .span3, .span4, .span5, .span6{
+	    width: 100%;
+	    float: none;
+	    margin-left: 0;
+	}
 }
 
 @media screen and (max-width: 580px) {
