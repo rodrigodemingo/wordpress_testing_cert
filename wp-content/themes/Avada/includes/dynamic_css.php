@@ -201,6 +201,7 @@ function avada_dynamic_css_array() {
 		$css['global'][ avada_implode( $elements ) ]['display'] = 'none';
 
 		if ( 'clean' == Avada()->settings->get( 'woocommerce_product_box_design' ) ) {
+			$css['global']['.fusion-woo-product-design-clean .products .fusion-price-rating']['display'] = 'block';
 			$css['global']['.fusion-woo-product-design-clean .products .fusion-rollover .star-rating span:before, .fusion-woo-product-design-clean .products .fusion-rollover .star-rating:before']['color'] = Avada_Sanitize::color( Avada()->settings->get( 'image_rollover_icon_color' ) );
 			$css['global']['.fusion-woo-product-design-clean .products .fusion-rollover-content .fusion-product-buttons, .fusion-woo-slider .fusion-product-buttons']['color'] = Avada_Sanitize::color( Avada()->settings->get( 'image_rollover_text_color' ) );
 			$css['global']['.fusion-woo-product-design-clean .products .fusion-rollover-content .fusion-product-buttons a, .fusion-woo-slider .fusion-product-buttons a']['color'] = Avada_Sanitize::color( Avada()->settings->get( 'image_rollover_text_color' ) );

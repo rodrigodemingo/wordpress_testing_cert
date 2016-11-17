@@ -111,15 +111,6 @@ class Avada_Patcher_Admin_Screen {
 		// Get an array of patches that failed to be applied.
 		$failed_patches = get_site_option( 'avada_failed_patches', array() );
 
-		// Check if the server is adequate to handle the patcher.
-		$time_limit = ini_get( 'max_execution_time' );
-		if ( ( Avada_Helper::let_to_num( WP_MEMORY_LIMIT ) < 128000000 ) || ( 180 > $time_limit && 0 != $time_limit ) ) {
-			new Avada_Patcher_Admin_Notices( 'server-status-notice', sprintf(
-				esc_attr__( 'Avada checked the PHP configurations on your server and one or more low values were found that could cause the patches install to fail. You can see them in red on our %s tab. There are links to show you how to adjust them or you can contact your host for assistance.', 'Avada' ),
-				'<a href="?page=avada-system-status">' . esc_attr__( 'System Status', 'Avada' ) . '</a>'
-			) );
-		}
-
 		// Get the array of messages to display.
 		$messages = Avada_Patcher_Admin_Notices::get_messages();
 		?>

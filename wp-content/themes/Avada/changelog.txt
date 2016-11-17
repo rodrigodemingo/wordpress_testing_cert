@@ -6,6 +6,45 @@ http://theme-fusion.com/avada-doc/install-update/important-update-information/
 
 
 -----------------------------------------------------------------------------------------
+Version 5.0.4 - November 14th, 2016
+-----------------------------------------------------------------------------------------
+
+
+- NEW: Updated LayerSlider to 6.0.5
+- NEW: added new filters for single portfolio prev/next navigation link args
+- IMPROVED: The limit for custom fonts in Theme Options has been raised to 50
+- IMPROVED: Gravity Forms "Add Form" button is again available in the text editors inside of Fusion Builder
+- IMPROVED: "Add New" titles for portfolio items and FAQ items have post type name added now
+- IMPROVED: Avada autoloader transients are reset on theme update now
+- IMPROVED: address layout for Events Calendar list view
+- IMPROVED: Some dependent setting in Theme Options
+- IMPROVED: refactored Avada's custom excerpt function for better performance
+- UPDATED: a few demo pages for Fusion Builder import
+- FIXED: column background image issue for IE11 and Edge
+- FIXED: Avada skin for LayerSlider not working with LayerSlider v6
+- FIXED: LayerSlider demo imports for LayerSlider v6
+- FIXED: recent posts strip HTML option not being working
+- FIXED: Fusion Builder demo download and extraction problems, leading to page loading issues
+- FIXED: Issue with Polylang when selecting “All Languages” and saving Theme Options
+- FIXED: Compatibility issues on multilingual sites using the Polylang plugin when English is used but other than en_US
+- FIXED: Infinite scroll and Load more button for portfolio elements when used on pages with sidebars
+- FIXED: additional top padding on Custom Menu widget in footer and slidingbar
+- FIXED: Manual per patch zip download not working
+- FIXED: video autoplay parameter being used for all videos in lightbox gallery for portfolio items
+- FIXED: compatibility issue with easywplocalhost when loading Theme Options
+- FIXED: compatibility issue with WP Super Cache when loading Theme Options
+- FIXED: PHP notice thrown when using WPML and WooCommerce and a product is added to the cart
+- FIXED: shortcode generator not always working for WooCommerce product short description
+- FIXED: WooCommerce Carousel Element not working correctly, when more than one category is chosen
+- FIXED: WooCommerce popularity sorting causing recent posts loading to fail
+- FIXED: WooCommerce star rating being misaligned
+- FIXED: PHP notice when FS_METHOD constant was not defined
+- FIXED: alt attribute missing from testimonial element images
+- FIXED: issues with pricing table element editor and insertion
+- FIXED: design tab not working for tooltip element inside of tabs
+
+
+-----------------------------------------------------------------------------------------
 Version 5.0.3 - November 2nd, 2016
 -----------------------------------------------------------------------------------------
 

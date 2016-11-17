@@ -27416,6 +27416,7 @@ function handler(event) {
 						var $reg_exp =  /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
 						var $match = obj.URL.match( $reg_exp );
 
+						$query_string += '&enablejsapi=1';
 						if ( $match ) {
 							var $movie = '//www.youtube.com/embed/' + $match[7] + $query_string;
 						} else {
@@ -27427,6 +27428,7 @@ function handler(event) {
 					// End Edit
 
 					el = $('<iframe />').attr({
+						"id": 'lightboxvideo' + jQuery( 'iframe' ).length,
 						"width": (typeof obj.options.width == 'number' && obj.options.width && iL.options.minScale == '1' && iL.options.maxScale == '1') ? obj.options.width : "100%",
 						"height": (typeof obj.options.height == 'number' && obj.options.height && iL.options.minScale == '1' && iL.options.maxScale == '1') ? obj.options.height : "100%",
 						src: $movie,
@@ -28597,7 +28599,28 @@ window.avadaLightBox.prepare_options = function( $linkID, $gallery ) {
 			show: '',
 			hide: ''
 		},
-		isMobile: true
+		isMobile: true,
+		 callback: {
+		    onShow: function( api, position ) {
+				var iFrame = jQuery( api.currentElement ).find( 'iframe[src*="youtube.com"]' );
+
+				jQuery( '.ilightbox-container iframe[src*="youtube.com"]' ).not( iFrame ).each( function( i ) {
+					this.contentWindow.postMessage( '{"event":"command","func":"pauseVideo","args":""}', '*' );
+				});
+			},
+			onAfterChange: function( api ) {
+				var iFrame = jQuery( api.currentElement ).find( 'iframe[src*="youtube.com"]' ),
+				    iFrameSrc = ( iFrame.length ) ? iFrame.attr( 'src' ) : '';
+
+				jQuery( '.ilightbox-container iframe[src*="youtube.com"]' ).not( iFrame ).each( function( i ) {
+					this.contentWindow.postMessage( '{"event":"command","func":"pauseVideo","args":""}', '*' );
+				});
+
+				if ( iFrame.length && -1 !== iFrameSrc.indexOf( 'autoplay=1' ) ) {
+					iFrame[0].contentWindow.postMessage( '{"event":"command","func":"playVideo","args":""}', '*' );
+				}
+			}
+		}
 	};
 
 	// For social sharing
@@ -33889,7 +33912,7 @@ function avadaAddQuantityBoxes( $quantitySelector ) {
 			this.each( function() {
 				jQuery( this ).css( 'min-height', '0' );
 				jQuery( this ).css( 'height', 'auto' );
-				jQuery( this ).find( '.fusion-column-content-centered' ).css( 'height', 'auto' );
+				jQuery( this ).find( '.fusion-column-content-centered' ).css( 'min-height', 'none' );
 
 				if ( jQuery( this ).outerHeight() > $tallest ) {
 					$tallest = jQuery( this ).outerHeight();
@@ -33914,12 +33937,12 @@ function avadaAddQuantityBoxes( $quantitySelector ) {
 				}
 
 				jQuery( this ).css( 'min-height', $newHeight );
-				jQuery( this ).find( '.fusion-column-content-centered' ).height( $newHeight );
+				jQuery( this ).find( '.fusion-column-content-centered' ).css( 'min-height', $newHeight );
 			});
 		} else {
 			return this.each( function() {
 				jQuery( this ).css( 'min-height', '' );
-				jQuery( this ).find( '.fusion-column-content-centered' ).css( 'height', '' );
+				jQuery( this ).find( '.fusion-column-content-centered' ).css( 'min-height', 'none' );
 			});
 		}
 	};
@@ -33973,6 +33996,10 @@ function avadaAddQuantityBoxes( $quantitySelector ) {
 					$calculatedContainerHeight = $imageHeight * $widthRatio;
 
 					jQuery( this ).height( $calculatedContainerHeight );
+
+					if ( jQuery( 'html' ).hasClass( 'ua-edge' ) ||  jQuery( 'html' ).hasClass( 'ua-ie' ) ) {
+						jQuery( this ).parent().height( $calculatedContainerHeight );
+					}
 				}
 			}
 		});
@@ -38212,7 +38239,7 @@ jQuery( window ).load( function() {
 	 */
 	jQuery( '.fusion-portfolio-paging-infinite, .fusion-portfolio-paging-load-more-button' ).each( function() {
 		var $portfolioInfiniteScrollContainer        = jQuery( this ),
-		    $portfolioInfiniteScrollContainerClasses = '.' + $portfolioInfiniteScrollContainer.attr( 'class' ).replace( /\ /g, '.' ) + ' ';
+		    $portfolioInfiniteScrollContainerClasses = '.' + $portfolioInfiniteScrollContainer.attr( 'class' ).replace( /\ /g, '.' ).replace( /.fusion\-portfolio\-[a-zA-Z]+\-sidebar/g, '' ) + ' ';
 
 		// Initialize the infinite scroll object
 		$portfolioInfiniteScrollContainer.children( '.fusion-portfolio-wrapper' ).infinitescroll({

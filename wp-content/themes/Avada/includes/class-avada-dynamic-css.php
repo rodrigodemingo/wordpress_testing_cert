@@ -163,7 +163,7 @@ class Avada_Dynamic_CSS {
 
 		// Since we've already checked if the file is writable in the can_write() method (called by the mode() method)
 		// it's safe to continue without any additional checks as to the validity of the file.
-		if ( ! $wp_filesystem->put_contents( self::file( 'path' ), $content, FS_CHMOD_FILE ) ) {
+		if ( ! $wp_filesystem->put_contents( self::file( 'path' ), $content ) ) {
 			// Writing to the file failed.
 			return false;
 		} else {

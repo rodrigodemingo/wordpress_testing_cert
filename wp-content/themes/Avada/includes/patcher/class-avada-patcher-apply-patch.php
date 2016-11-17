@@ -170,7 +170,7 @@ class Avada_Patcher_Apply_Patch {
 		$patches = Avada_Patcher_Client::get_patches();
 		if ( isset( $patches[ $key ] ) ) {
 			foreach ( $patches[ $key ]['patch'] as $patch ) {
-				$message_id = 'write-permissions-' . $patch;
+				$message_id = 'write-permissions-' . $patch['context'];
 				if ( isset( $messages_option[ $message_id ] ) ) {
 					unset( $messages_option[ $message_id ] );
 					update_site_option( Avada_Patcher_Admin_Notices::$option_name, $messages_option );

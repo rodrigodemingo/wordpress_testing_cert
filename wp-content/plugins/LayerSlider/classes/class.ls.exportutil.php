@@ -125,12 +125,19 @@ class LS_ExportUtil {
 		// Array to hold image URLs
 		$images = array();
 
+		// Slider Preview
+		if( ! empty($data['meta'] ) && ! empty( $data['meta']['preview'] )) {
+			$images[] = $data['meta']['preview'];
+		}
+
 		// Slider settings
 		if(!empty($data['properties']['backgroundimage'])) {
-			$images[] = $data['properties']['backgroundimage']; }
+			$images[] = $data['properties']['backgroundimage'];
+		}
 
 		if(!empty($data['properties']['yourlogo'])) {
-			$images[] = $data['properties']['yourlogo']; }
+			$images[] = $data['properties']['yourlogo'];
+		}
 
 
 		// Slides
@@ -155,6 +162,58 @@ class LS_ExportUtil {
 		}
 
 		return $images;
+	}
+
+
+
+	public function fontsForSlider( $data ) {
+
+		$ret = array();
+		$usedFonts = array();
+		$googleFonts = get_option('ls-google-fonts', array());
+
+		if( !empty($data['layers']) && is_array($data['layers'])) {
+			foreach($data['layers'] as $slide) {
+
+				if( !empty($slide['sublayers']) && is_array($data['layers'])) {
+					foreach($slide['sublayers'] as $layer) {
+
+						if( !empty($layer['styles']) ) {
+
+							// Ensure that magic quotes will not mess with JSON data
+							if(function_exists('get_magic_quotes_gpc') && get_magic_quotes_gpc()) {
+								$layer['styles'] = stripslashes($layer['styles']);
+							}
+
+							$styles = !empty($layer['styles']) ? json_decode(stripslashes($layer['styles']), true) : new stdClass;
+
+							if( !empty($styles['font-family']) ) {
+								$families = explode(',', $styles['font-family']);
+								foreach( $families as $family ) {
+									$family = trim( $family, " \"'\t\n\r\0\x0B");
+
+									if( !empty($family) ) {
+										$usedFonts[] = strtolower($family);
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		foreach( $googleFonts as $font ) {
+			list($family, $weights) = explode(':', $font['param']);
+			$family = strtolower( str_replace('+', ' ', $family) );
+
+			if( array_search($family, $usedFonts) !== false) {
+				$font['admin'] = false;
+				$ret[] = $font;
+			}
+		}
+
+		return $ret;
 	}
 
 

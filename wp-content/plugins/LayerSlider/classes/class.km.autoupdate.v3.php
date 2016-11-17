@@ -142,6 +142,35 @@ class KM_UpdatesV3 {
 
 
 
+	/**
+	 * Check and handle activation before downloading the update file.
+	 *
+	 * @since 6.0.0
+	 * @access public
+	 * @param bool $reply Whether to bail without returning the package. Default false.
+	 * @param string $package The package file name.
+	 * @param WP_Upgrader $this The WP_Upgrader instance.
+	 * @return mixed $result void or WP_error on failure
+	 */
+	public function pre_download_filter($reply, $package, $updater) {
+
+		$skin = $updater->skin;
+
+		// Filter out 3rd party items
+		if( ( isset( $skin->plugin ) && $skin->plugin === $this->config['base'] ) ||
+			( isset( $skin->plugin_info ) && $skin->plugin_info['Name'] === $this->config['name'] ) ) {
+
+				// Check validity
+				if( $GLOBALS['lsAutoUpdateBox'] && ! get_option( $this->config['authKey'], false ) ) {
+					return new WP_Error('ls_update_error', __('License activation is required to receive updates. Please read our <a href="https://support.kreaturamedia.com/docs/layersliderwp/documentation.html#activation" target="_blank">online documentation</a> to learn more.', 'LayerSlider'));
+				}
+		}
+
+		return $reply;
+	}
+
+
+
 
 	/**
 	 * Check for update info.
@@ -178,7 +207,7 @@ class KM_UpdatesV3 {
 
 
 			// Store version number of the latest release
-			// to notify unauthorized sites owners
+			// to notify unauthorized site owners
 			if(!empty($this->data->_latest_version)) {
 				update_option('ls-latest-version', $this->data->_latest_version);
 			}
@@ -198,15 +227,18 @@ class KM_UpdatesV3 {
 	 * @param string $url API URL to be called
 	 * @return string API response
 	 */
-	protected function sendApiRequest($url) {
+	public function sendApiRequest($url) {
 
 		if(empty($url)) { return false; }
 
 		// Build request
 		$request = wp_remote_post($url, array(
+			'method' => 'POST',
+			'timeout' => 60,
 			'user-agent' => 'WordPress/'.$GLOBALS['wp_version'].'; '.get_bloginfo('url'),
 			'body' => array(
 				'slug' => $this->config['slug'],
+				'base' => $this->config['base'],
 				'version' => $this->config['version'],
 				'channel' => $this->config['channel'],
 				'license' => $this->config['license'],
@@ -239,7 +271,7 @@ class KM_UpdatesV3 {
 		// ERR: Unexpected error
 		if(empty($json)) {
 			die(json_encode(array(
-				'message' => 'An unexpected error occurred. Please try again later.',
+				'message' => 'An unexpected error occurred. Please try again later. If this error persist, it\'s most likely a web server configuration issue. Please contact your web host and ask them to allow external connection to the following domain: repository.kreaturamedia.com. If you need further assistance in resolving this issue, please email us from our CodeCanyon profile page.',
 				'errCode' => 'ERR_UNEXPECTED_ERROR')
 			));
 		}
@@ -277,7 +309,7 @@ class KM_UpdatesV3 {
 		// Only update release channel?
 		if(get_option($this->config['authKey'], false)) {
 			if( strpos($_POST['purchase_code'], '●') === 0 || $this->config['license'] == $_POST['purchase_code']) {
-				die(json_encode(array('status' => __('Your settings were successfully saved.', 'LayerSlider'))));
+				die(json_encode(array('message' => __('Your settings were successfully saved.', 'LayerSlider'))));
 			}
 		}
 
@@ -293,11 +325,12 @@ class KM_UpdatesV3 {
 
 		// Successful authorization
 		} else {
+			$json->code = base64_encode($_POST['purchase_code']);
 			update_option($this->config['authKey'], 1);
 			update_option($this->config['codeKey'], $_POST['purchase_code']);
 		}
 
-		die($response);
+		die(json_encode($json));
 	}
 
 

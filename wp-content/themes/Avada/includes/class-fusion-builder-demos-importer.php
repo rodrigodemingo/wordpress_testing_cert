@@ -157,8 +157,12 @@ class Fusion_Builder_Demos_Importer {
 	 */
 	public static function get_number_of_demo_files() {
 		$demo_folder_path = self::get_demo_folder_path();
-		$filesystem_iterator = new FilesystemIterator( $demo_folder_path, FilesystemIterator::SKIP_DOTS );
-		$number_of_files = iterator_count( $filesystem_iterator );
+		$number_of_files = 0;
+
+		if ( file_exists( $demo_folder_path ) ) {
+			$filesystem_iterator = new FilesystemIterator( $demo_folder_path, FilesystemIterator::SKIP_DOTS );
+			$number_of_files = iterator_count( $filesystem_iterator );
+		}
 
 		return $number_of_files;
 	}

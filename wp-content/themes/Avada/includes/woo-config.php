@@ -373,7 +373,7 @@ if ( ! class_exists( 'Avada_Woocommerce' ) ) {
 		public function product_title() {
 			?>
 			<h3 class="product-title"><a href="<?php echo get_the_permalink(); ?>"><?php echo get_the_title(); ?></a></h3>
-			<div class="clearfix">
+			<div class="fusion-price-rating">
 			<?php
 		}
 
@@ -711,7 +711,7 @@ if ( ! class_exists( 'Avada_Woocommerce' ) ) {
 		 */
 		public function set_cart_cookies( $set ) {
 
-			if ( $set && $wc_cart ) {
+			if ( $set ) {
 				$wc = WC();
 				$wc_cart = $wc->cart;
 				$cart = $wc_cart->get_cart_for_session();
@@ -743,10 +743,29 @@ function avada_product_search_form( $form ) {
 remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20 );
 remove_action( 'woocommerce_before_shop_loop', 'woocommerce_result_count', 20 );
 
-if ( Avada()->settings->get( 'woocommerce_avada_ordering' ) ) {
-	remove_action( 'woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30 );
 
-	add_action( 'woocommerce_before_shop_loop', 'avada_woocommerce_catalog_ordering', 30 );
+add_action( 'pre_get_posts', 'avada_woocommerce_ordering', 5 );
+/**
+ * Controls the actions adding the ordering boxes.
+ *
+ * @since 5.0.4
+ * @param object $query The main query.
+ * @return void
+ */
+function avada_woocommerce_ordering( $query ) {
+	// We only want to affect the main query.
+	if ( ! $query->is_main_query() ) {
+		return;
+	}
+
+	if ( absint( $query->get( 'page_id' ) ) === wc_get_page_id( 'shop' ) || $query->is_post_type_archive( 'product' ) || $query->is_tax( get_object_taxonomies( 'product' ) ) ) {
+		if ( Avada()->settings->get( 'woocommerce_avada_ordering' ) ) {
+			remove_action( 'woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30 );
+			add_action( 'woocommerce_before_shop_loop', 'avada_woocommerce_catalog_ordering', 30 );
+
+			add_action( 'woocommerce_get_catalog_ordering_args', 'avada_woocommerce_get_catalog_ordering_args', 20 );
+		}
+	}
 }
 
 /**
@@ -906,10 +925,6 @@ function avada_woocommerce_catalog_ordering() {
 	<?php
 }
 
-if ( Avada()->settings->get( 'woocommerce_avada_ordering' ) ) {
-	add_action( 'woocommerce_get_catalog_ordering_args', 'avada_woocommerce_get_catalog_ordering_args', 20 );
-}
-
 /**
  * Gets the catalogue ordering arguments.
  *
@@ -999,6 +1014,7 @@ function avada_woocommerce_get_catalog_ordering_args( $args ) {
 
 	if ( 'popularity' == $pob ) {
 		add_filter( 'posts_clauses', 'fusion_order_by_popularity_post_clauses' );
+		add_action( 'wp', 'remove_fusion_remove_ordering_args_filters' );
 	}
 
 	if ( 'rating' == $pob ) {
@@ -1008,6 +1024,7 @@ function avada_woocommerce_get_catalog_ordering_args( $args ) {
 		$args['meta_key'] = '';
 
 		add_filter( 'posts_clauses', 'fusion_order_by_rating_post_clauses' );
+		add_action( 'wp', 'remove_fusion_remove_ordering_args_filters' );
 	}
 	return $args;
 }
@@ -1025,9 +1042,20 @@ function fusion_order_by_popularity_post_clauses( $args ) {
 	if ( isset( $_SERVER['QUERY_STRING'] ) ) {
 		parse_str( $_SERVER['QUERY_STRING'], $params );
 	}
+
 	$order = empty( $params['product_order'] ) ? 'DESC' : strtoupper( $params['product_order'] );
 	$args['orderby'] = "$wpdb->postmeta.meta_value+0 {$order}, $wpdb->posts.post_date {$order}";
 	return $args;
+}
+
+/**
+ * Removes the fusion_order_by_popularity_post_clauses filter.
+ *
+ * @since 5.0.4
+ */
+function remove_fusion_remove_ordering_args_filters() {
+	remove_filter( 'posts_clauses', 'fusion_order_by_popularity_post_clauses' );
+	remove_filter( 'posts_clauses', 'fusion_order_by_rating_post_clauses' );
 }
 
 /**
@@ -1063,7 +1091,6 @@ function fusion_order_by_rating_post_clauses( $args ) {
 }
 
 add_filter( 'loop_shop_per_page', 'avada_loop_shop_per_page' );
-
 /**
  * Determine how many products we want to show per page.
  *

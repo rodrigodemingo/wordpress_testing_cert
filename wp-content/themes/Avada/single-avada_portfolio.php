@@ -18,24 +18,25 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="single-navigation clearfix">
 			<?php
 			if ( $nav_categories ) {
-				$previous_post_link = fusion_previous_post_link_plus( array(
+				$prev_args = array(
 					'format'      => '%link',
 					'link'        => esc_html__( 'Previous', 'Avada' ),
 					'in_same_tax' => 'portfolio_category',
 					'in_cats'     => $nav_categories,
 					'return'      => 'href',
-				) );
+				);
 			} else {
-				$previous_post_link = fusion_previous_post_link_plus( array(
+				$prev_args = array(
 					'format' => '%link',
 					'link'   => esc_html__( 'Previous', 'Avada' ),
 					'return' => 'href',
-				) );
+				);
 				// PolyLang tweak.
 				if ( function_exists( 'pll_default_language' ) ) {
-					$previous_post_link['in_same_tax'] = 'language';
+					$prev_args['in_same_tax'] = 'language';
 				}
 			}
+			$previous_post_link = fusion_previous_post_link_plus( apply_filters( 'fusion_builder_portfolio_prev_args', $prev_args ) );
 			?>
 
 			<?php if ( $previous_post_link ) : ?>
@@ -47,24 +48,25 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 			<?php
 			if ( $nav_categories ) {
-				$next_post_link = fusion_next_post_link_plus( array(
+				$next_args = array(
 					'format'      => '%link',
 					'link'        => esc_html__( 'Next', 'Avada' ),
 					'in_same_tax' => 'portfolio_category',
 					'in_cats'     => $nav_categories,
 					'return'      => 'href',
-				) );
+				);
 			} else {
-				$next_post_link = fusion_next_post_link_plus( array(
+				$next_args = array(
 					'format' => '%link',
 					'link'   => esc_html__( 'Next', 'Avada' ),
 					'return' => 'href',
-				) );
+				);
 				// PolyLang tweak.
 				if ( function_exists( 'pll_default_language' ) ) {
-					$next_post_link['in_same_tax'] = 'language';
+					$next_args['in_same_tax'] = 'language';
 				}
 			}
+			$next_post_link = fusion_next_post_link_plus( apply_filters( 'fusion_builder_portfolio_next_args', $next_args ) );
 			?>
 
 			<?php if ( $next_post_link ) : ?>

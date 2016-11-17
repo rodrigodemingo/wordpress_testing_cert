@@ -12,12 +12,6 @@
     0% { -o-transform: rotate(0deg); }
     100% { -o-transform: rotate(359deg); }
 }
-
-@-ms-keyframes spin {
-    0% { -ms-transform: rotate(0deg); }
-    100% { -ms-transform: rotate(359deg); }
-}
-
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(359deg); }
@@ -713,6 +707,7 @@ span.avada-loader {
 }
 .avada-patcher-table > tbody tr .patch-apply .button {
 	float: right;
+    margin: 0;
 }
 .avada-patcher-table > thead > tr > th {
   vertical-align: baseline;

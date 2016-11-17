@@ -473,11 +473,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<td data-export-label="MySQL Version"><?php _e( 'MySQL Version:', 'Avada' ); ?></td>
 					<td class="help"><?php echo '<a href="#" class="help_tip" data-tip="' . esc_attr__( 'The version of MySQL installed on your hosting server.', 'Avada' ) . '">[?]</a>'; ?></td>
 					<td>
-						<?php
-						/** @global wpdb $wpdb */
-						global $wpdb;
-						echo $wpdb->db_version();
-						?>
+						<?php global $wpdb; ?>
+						<?php echo $wpdb->db_version(); ?>
 					</td>
 				</tr>
 				<tr>

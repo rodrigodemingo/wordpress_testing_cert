@@ -131,6 +131,23 @@ function avada_handle_deprecated_faq_all_filter_name_filter( $filter_name_defaul
 	}
 }
 
+add_filter( 'avada_breadcrumbs_defaults', 'avada_handle_deprecated_fusion_breadcrumbs_defaults_filter' );
+/**
+ * Keep Backwards-compatibility.
+ *
+ * @since 5.0.4
+ */
+function avada_handle_deprecated_fusion_breadcrumbs_defaults_filter( $defaults ) {
+	$fusion_breadcrumbs = apply_filters( 'fusion_breadcrumbs_defaults', '' );
+
+	if ( $fusion_breadcrumbs ) {
+		return $fusion_breadcrumbs;
+	} else {
+		return $defaults;
+	}
+}
+
+
 add_action( 'avada_before_main_container', 'avada_handle_deprecated_before_main_action' );
 /**
  * Keep Backwards-compatibility.

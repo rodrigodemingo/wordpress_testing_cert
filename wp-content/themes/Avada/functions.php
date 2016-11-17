@@ -60,7 +60,6 @@ require_once( Avada::$template_dir_path . '/includes/ajax-functions.php' );
 /**
  * Include the main Avada class.
  */
-require_once( Avada::$template_dir_path . '/includes/main-avada.php' );
 require_once( Avada::$template_dir_path . '/includes/class-avada.php' );
 
 /**

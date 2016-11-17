@@ -140,10 +140,6 @@ if ( ! class_exists( 'Avada_Envato_API' ) ) :
 			// Make an API request.
 			$response = wp_remote_get( esc_url_raw( $url ), $args );
 
-			// Check the response code.
-			$response_code    = wp_remote_retrieve_response_code( $response );
-			$response_message = wp_remote_retrieve_response_message( $response );
-
 			if ( 200 !== $response_code && ! empty( $response_message ) ) {
 				return new WP_Error( $response_code, $response_message );
 			} elseif ( 200 !== $response_code ) {

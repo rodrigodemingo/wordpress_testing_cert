@@ -1146,7 +1146,7 @@ function avadaAddQuantityBoxes( $quantitySelector ) {
 			this.each( function() {
 				jQuery( this ).css( 'min-height', '0' );
 				jQuery( this ).css( 'height', 'auto' );
-				jQuery( this ).find( '.fusion-column-content-centered' ).css( 'height', 'auto' );
+				jQuery( this ).find( '.fusion-column-content-centered' ).css( 'min-height', 'none' );
 
 				if ( jQuery( this ).outerHeight() > $tallest ) {
 					$tallest = jQuery( this ).outerHeight();
@@ -1171,12 +1171,12 @@ function avadaAddQuantityBoxes( $quantitySelector ) {
 				}
 
 				jQuery( this ).css( 'min-height', $newHeight );
-				jQuery( this ).find( '.fusion-column-content-centered' ).height( $newHeight );
+				jQuery( this ).find( '.fusion-column-content-centered' ).css( 'min-height', $newHeight );
 			});
 		} else {
 			return this.each( function() {
 				jQuery( this ).css( 'min-height', '' );
-				jQuery( this ).find( '.fusion-column-content-centered' ).css( 'height', '' );
+				jQuery( this ).find( '.fusion-column-content-centered' ).css( 'min-height', 'none' );
 			});
 		}
 	};
@@ -1230,6 +1230,10 @@ function avadaAddQuantityBoxes( $quantitySelector ) {
 					$calculatedContainerHeight = $imageHeight * $widthRatio;
 
 					jQuery( this ).height( $calculatedContainerHeight );
+
+					if ( jQuery( 'html' ).hasClass( 'ua-edge' ) ||  jQuery( 'html' ).hasClass( 'ua-ie' ) ) {
+						jQuery( this ).parent().height( $calculatedContainerHeight );
+					}
 				}
 			}
 		});
@@ -5469,7 +5473,7 @@ jQuery( window ).load( function() {
 	 */
 	jQuery( '.fusion-portfolio-paging-infinite, .fusion-portfolio-paging-load-more-button' ).each( function() {
 		var $portfolioInfiniteScrollContainer        = jQuery( this ),
-		    $portfolioInfiniteScrollContainerClasses = '.' + $portfolioInfiniteScrollContainer.attr( 'class' ).replace( /\ /g, '.' ) + ' ';
+		    $portfolioInfiniteScrollContainerClasses = '.' + $portfolioInfiniteScrollContainer.attr( 'class' ).replace( /\ /g, '.' ).replace( /.fusion\-portfolio\-[a-zA-Z]+\-sidebar/g, '' ) + ' ';
 
 		// Initialize the infinite scroll object
 		$portfolioInfiniteScrollContainer.children( '.fusion-portfolio-wrapper' ).infinitescroll({

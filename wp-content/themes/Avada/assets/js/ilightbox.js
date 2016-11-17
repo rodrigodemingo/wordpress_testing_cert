@@ -2380,6 +2380,7 @@
 						var $reg_exp =  /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
 						var $match = obj.URL.match( $reg_exp );
 
+						$query_string += '&enablejsapi=1';
 						if ( $match ) {
 							var $movie = '//www.youtube.com/embed/' + $match[7] + $query_string;
 						} else {
@@ -2391,6 +2392,7 @@
 					// End Edit
 
 					el = $('<iframe />').attr({
+						"id": 'lightboxvideo' + jQuery( 'iframe' ).length,
 						"width": (typeof obj.options.width == 'number' && obj.options.width && iL.options.minScale == '1' && iL.options.maxScale == '1') ? obj.options.width : "100%",
 						"height": (typeof obj.options.height == 'number' && obj.options.height && iL.options.minScale == '1' && iL.options.maxScale == '1') ? obj.options.height : "100%",
 						src: $movie,

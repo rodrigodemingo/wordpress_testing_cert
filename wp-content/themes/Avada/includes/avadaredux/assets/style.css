@@ -1826,6 +1826,10 @@
 .rtl .avadaredux-container #avadaredux-form-wrapper .avadaredux-main .sticky-save-warn .avadaredux-save-warn {
   right: 433px;
 }
+.rtl .avadaredux-container #avadaredux-form-wrapper .avadaredux-main .avadaredux-field[data-id="header_layout"] .avadaredux_field_th {
+  padding-left: 60px !important;
+  padding-right: 0 !important;
+}
 .rtl .avadaredux-container #avadaredux-form-wrapper .avadaredux-main .avadaredux-field[data-id="header_layout"] ul.avadaredux-image-select li {
   float: left;
 }

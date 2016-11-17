@@ -61,6 +61,15 @@ class Avada_Autoload {
 		// Update caches.
 		add_action( 'shutdown', array( $this, 'update_cached_paths' ) );
 
+		// Make sure caches are reset when needed.
+		$database_version = get_option( 'avada_version', false );
+		$current_version  = Avada::get_theme_version();
+		if ( ! $database_version || version_compare( $database_version, $current_version, '<' ) ) {
+			$this->reset_cached_paths();
+		}
+		add_action( 'after_switch_theme', array( $this, 'reset_cached_paths' ) );
+		add_action( 'switch_theme', array( $this, 'reset_cached_paths' ) );
+
 	}
 
 	/**
@@ -164,8 +173,21 @@ class Avada_Autoload {
 			return;
 		}
 
-		// Cache for an hour using transients.
-		set_site_transient( self::$transient_name, self::$cached_paths, 300 );
+		// Cache for 30 seconds using transients.
+		set_site_transient( self::$transient_name, self::$cached_paths, 30 );
+
+	}
+
+	/**
+	 * Reset caches.
+	 *
+	 * @access public
+	 * @since 5.0.4
+	 * @return void
+	 */
+	public function reset_cached_paths() {
+
+		delete_site_transient( self::$transient_name );
 
 	}
 }

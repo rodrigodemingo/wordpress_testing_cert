@@ -261,7 +261,7 @@ function fusion_importer() {
 			}
 
 			// Import Layerslider.
-			if ( function_exists( 'layerslider_import_sample_slider' ) && false != $importer_files->get_layerslider() ) { // if layerslider is activated
+			if ( file_exists( WP_PLUGIN_DIR . '/LayerSlider/classes/class.ls.importutil.php' ) && false !== $importer_files->get_layerslider() ) {
 				// Get importUtil.
 				include WP_PLUGIN_DIR . '/LayerSlider/classes/class.ls.importutil.php';
 

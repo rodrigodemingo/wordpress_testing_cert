@@ -68,6 +68,13 @@ function avada_options_section_extra( $sections ) {
 						'id'          => 'link_read_more',
 						'default'     => '0',
 						'type'        => 'switch',
+						'required'    => array(
+							array(
+								'setting'  => 'disable_excerpts',
+								'operator' => '==',
+								'value'    => '1',
+							),
+						),
 					),
 					'comments_pages' => array(
 						'label'       => esc_html__( 'Comments on Pages', 'Avada' ),

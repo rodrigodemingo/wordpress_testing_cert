@@ -270,6 +270,7 @@ function avada_options_section_typography( $sections ) {
 						'default'     => array(),
 						'type'        => 'repeater',
 						'bind_title'  => 'name',
+						'limit'       => 50,
 						'fields'      => array(
 							'name' => array(
 								'label'       => esc_html__( 'Font Name (this will be used in the font-family dropdown)', 'Avada' ),

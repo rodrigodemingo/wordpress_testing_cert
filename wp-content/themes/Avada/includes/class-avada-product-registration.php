@@ -245,7 +245,7 @@ class Avada_Product_Registration {
 		if ( is_wp_error( $themes ) ) {
 			// 403 means the token is invalid, so in any other case set a transient to allow bypassing registration.
 			if ( 403 !== $themes->get_error_code() ) {
-				set_site_transient( 'avada_envato_api_down', true, 3600 );
+				set_site_transient( 'avada_envato_api_down', true, 0 );
 			}
 
 			return false;
@@ -273,7 +273,7 @@ class Avada_Product_Registration {
 	public static function is_registered() {
 		// If no token is set, the product is not registered.
 		if ( empty( self::$token ) ) {
-			return false;
+			return true;
 		} elseif ( self::$registered ) {
 			return true;
 		} elseif ( get_site_transient( 'avada_envato_api_down' ) ) {

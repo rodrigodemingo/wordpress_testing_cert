@@ -129,6 +129,10 @@ class Avada_Upgrade {
 		if ( true === $upgraded ) {
 			update_option( 'avada_dynamic_css_posts', array() );
 		}
+		// If we updated Avada, reset the fusion-builder demo pages.
+		if ( true === $upgraded ) {
+			$this->delete_fusion_builder_demos();
+		}
 
 		/**
 		 * Don't do anything when in the Customizer.
@@ -426,6 +430,24 @@ class Avada_Upgrade {
 		}
 
 		return;
+	}
+
+	/**
+	 * Delete FB demos.
+	 * They will be re-downloaded the next time they're needed.
+	 *
+	 * @access public
+	 * @since 5.0.4
+	 */
+	public function delete_fusion_builder_demos() {
+		$wp_upload_dir = wp_upload_dir();
+		$basedir       = $wp_upload_dir['basedir'];
+		$dir           = wp_normalize_path( $basedir . '/fusion-builder-avada-pages' );
+
+		// initialize the WordPress Filesystem.
+		$filesystem = Avada_Helper::init_filesystem();
+		// Recursively delete the folder.
+		return $filesystem->delete( $dir, true );
 	}
 }
 

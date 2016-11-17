@@ -87,10 +87,10 @@ class Avada_Patcher_Filesystem {
 	 * @return false|string The contents of the remote URL, or false if we can't get it.
 	 */
 	public function get_remote( $url ) {
-		$args = wp_parse_args( $args, array(
+		$args = array(
 			'timeout'    => 30,
 			'user-agent' => 'avada-user-agent',
-		) );
+		);
 
 		$response = wp_remote_get( $url, $args );
 		if ( is_array( $response ) ) {

@@ -527,6 +527,7 @@
   margin: 0 15px;
 }
 .star-rating {
+  display: inline-block;
   overflow: hidden;
   position: relative;
   height: 1em;
@@ -583,7 +584,7 @@
 .product-details-container {
   min-height: 50px;
 }
-.product-details-container .clearfix {
+.product-details-container .fusion-price-rating {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
@@ -597,13 +598,16 @@
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
 }
-.product-details-container .clearfix .star-rating {
+.product-details-container .fusion-price-rating .star-rating {
   -webkit-order: 2;
       -ms-flex-order: 2;
           order: 2;
 }
-.product-details-container .clearfix .price {
+.product-details-container .fusion-price-rating .price {
   -webkit-order: 0;
       -ms-flex-order: 0;
           order: 0;
@@ -2238,6 +2242,7 @@ p.demo_store {
   z-index: 99997;
 }
 .product .entry-summary .price {
+  display: inline-block;
   margin-top: 10px;
 }
 .entry-summary .summary-container .avada-availability {
@@ -2837,6 +2842,9 @@ p.order-info mark {
   content: "\f110" !important;
   -webkit-animation: mask 3s infinite alternate;
           animation: mask 3s infinite alternate;
+}
+.wc-layered-nav-rating .star-rating {
+  margin-right: 5px;
 }
 /* Woocommerce Plugins
 ================================================================================================= */

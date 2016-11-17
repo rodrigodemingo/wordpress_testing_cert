@@ -232,7 +232,28 @@ window.avadaLightBox.prepare_options = function( $linkID, $gallery ) {
 			show: '',
 			hide: ''
 		},
-		isMobile: true
+		isMobile: true,
+		 callback: {
+		    onShow: function( api, position ) {
+				var iFrame = jQuery( api.currentElement ).find( 'iframe[src*="youtube.com"]' );
+
+				jQuery( '.ilightbox-container iframe[src*="youtube.com"]' ).not( iFrame ).each( function( i ) {
+					this.contentWindow.postMessage( '{"event":"command","func":"pauseVideo","args":""}', '*' );
+				});
+			},
+			onAfterChange: function( api ) {
+				var iFrame = jQuery( api.currentElement ).find( 'iframe[src*="youtube.com"]' ),
+				    iFrameSrc = ( iFrame.length ) ? iFrame.attr( 'src' ) : '';
+
+				jQuery( '.ilightbox-container iframe[src*="youtube.com"]' ).not( iFrame ).each( function( i ) {
+					this.contentWindow.postMessage( '{"event":"command","func":"pauseVideo","args":""}', '*' );
+				});
+
+				if ( iFrame.length && -1 !== iFrameSrc.indexOf( 'autoplay=1' ) ) {
+					iFrame[0].contentWindow.postMessage( '{"event":"command","func":"playVideo","args":""}', '*' );
+				}
+			}
+		}
 	};
 
 	// For social sharing

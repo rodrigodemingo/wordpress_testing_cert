@@ -133,6 +133,18 @@ class Avada_Multilingual {
 						self::$active_language = pll_default_language( 'slug' );
 					}
 				}
+			} else {
+				if ( function_exists( 'PLL' ) ) {
+					$pll_obj = PLL();
+					if ( is_object( $pll_obj ) && property_exists( $pll_obj, 'curlang' ) ) {
+						if ( is_object( $pll_obj->curlang ) && property_exists( $pll_obj->curlang, 'slug' ) ) {
+							self::$active_language = $pll_obj->curlang->slug;
+						} elseif ( false === $pll_obj->curlang ) {
+							self::$active_language = 'all';
+							Avada::set_language_is_all( true );
+						}
+					}
+				}
 			}
 		}
 	}

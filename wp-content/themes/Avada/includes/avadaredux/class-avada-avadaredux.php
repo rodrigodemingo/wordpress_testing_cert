@@ -1180,6 +1180,9 @@ class Avada_AvadaRedux {
 
 			// Check the HTTP referrer to determine if the language is set to "all".
 			if ( isset( $_SERVER['HTTP_REFERER'] ) ) {
+				if ( ! function_exists( 'wp_parse_url' ) ) {
+					require_once( ABSPATH . '/wp-includes/http.php' );
+				}
 				$parsed_url = wp_parse_url( $_SERVER['HTTP_REFERER'] );
 				if ( isset( $parsed_url['query'] ) ) {
 					parse_str( $parsed_url['query'] );

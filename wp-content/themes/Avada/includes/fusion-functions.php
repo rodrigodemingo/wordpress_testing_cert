@@ -218,7 +218,7 @@ if ( ! function_exists( 'fusion_breadcrumbs' ) ) {
 	 * @return void
 	 */
 	function fusion_breadcrumbs() {
-		$breadcrumbs = Fusion_Breadcrumbs::get_instance();
+		$breadcrumbs = Avada_Breadcrumbs::get_instance();
 		$breadcrumbs->get_breadcrumbs();
 	}
 }
@@ -264,6 +264,25 @@ if ( ! function_exists( 'fusion_feed_link' ) ) {
 		}
 
 		return $output;
+	}
+}
+
+
+add_filter( 'the_excerpt_rss', 'fusion_feed_excerpt' );
+if ( ! function_exists( 'fusion_feed_excerpt' ) ) {
+	/**
+	 * Modifies feed description, by extracting shortcode contents.
+	 *
+	 * @since  5.0.4
+	 * @param  string $excerpt The post excerpt.
+	 * @return string The modified post excerpt.
+	 */
+	function fusion_feed_excerpt( $excerpt ) {
+
+		$excerpt = wp_strip_all_tags( fusion_get_post_content_excerpt( 55, true ) );
+
+		return $excerpt;
+
 	}
 }
 
@@ -685,7 +704,7 @@ if ( ! function_exists( 'fusion_get_post_content' ) ) {
 		$content_excerpted = false;
 
 		// Main blog page.
-		if ( 'blog' == $excerpt ) {
+		if ( 'blog' === $excerpt ) {
 
 			// Check if the content should be excerpted.
 			if ( strtolower( Avada()->settings->get( 'content_length' ) ) === 'excerpt' ) {
@@ -701,7 +720,7 @@ if ( ! function_exists( 'fusion_get_post_content' ) ) {
 			}
 
 			// Portfolio page templates.
-		} elseif ( 'portfolio' == $excerpt ) {
+		} elseif ( 'portfolio' === $excerpt ) {
 			// Check if the content should be excerpted.
 			$portfolio_excerpt_length = avada_get_portfolio_excerpt_length( $page_id );
 			if ( false !== $portfolio_excerpt_length ) {
@@ -714,7 +733,7 @@ if ( ! function_exists( 'fusion_get_post_content' ) ) {
 				$strip_html = true;
 			}
 			// Shortcodes.
-		} elseif ( 'yes' == $excerpt ) {
+		} elseif ( 'yes' === $excerpt ) {
 			$content_excerpted = true;
 		}
 
@@ -744,136 +763,103 @@ if ( ! function_exists( 'fusion_get_post_content_excerpt' ) ) {
 	 * @param  boolean $strip_html Set to TRUE to strip HTML tags from excerpt.
 	 * @return string 				The custom excerpt.
 	 **/
-	function fusion_get_post_content_excerpt( $limit, $strip_html ) {
+	function fusion_get_post_content_excerpt( $limit = 285, $strip_html ) {
 		global $more;
 
+		// Init variables, cast to correct types.
 		$content = '';
-
+		$read_more = '';
+		$custom_excerpt = false;
 		$limit = intval( $limit );
+		$strip_html = filter_var( $strip_html, FILTER_VALIDATE_BOOLEAN );
 
 		// If excerpt length is set to 0, return empty.
 		if ( 0 === $limit ) {
 			return $content;
 		}
 
-		// Set a default excerpt limit if none is set.
-		if ( ! $limit && 0 != $limit ) {
-			$limit = 285;
-		}
-
-		// Make sure $strip_html is a boolean.
-		if ( 'true' == $strip_html || true == $strip_html ) {
-			$strip_html = true;
-		} else {
-			$strip_html = false;
-		}
-
-		$custom_excerpt = false;
-
 		$post = get_post( get_the_ID() );
 
-		// Check if the more tag is used in the post.
-		$pos = strpos( $post->post_content, '<!--more-->' );
-
-		// Check if the read more [...] should link to single post.
+		// Filter to set the default [...] read more to something arbritary.
 		$read_more_text = apply_filters( 'avada_blog_read_more_excerpt', '&#91;...&#93;' );
 
-		if ( Avada()->settings->get( 'link_read_more' ) ) {
-			$read_more = ' <a href="' . get_permalink( get_the_ID() ) . '">' . $read_more_text . '</a>';
-		} else {
-			$read_more = ' ' . $read_more_text;
-		}
-
-		if ( ! Avada()->settings->get( 'disable_excerpts' ) ) {
-			$read_more = '';
-		}
-
-		// HTML tags should be stripped.
-		if ( $strip_html ) {
-			$more = 0;
-			$raw_content = wp_strip_all_tags( get_the_content( '{{read_more_placeholder}}' ), '<p>' );
-
-			// Strip out all attributes.
-			$raw_content = preg_replace( '/<(\w+)[^>]*>/', '<$1>', $raw_content );
-			$raw_content = str_replace( '{{read_more_placeholder}}', $read_more, $raw_content );
-
-			if ( $post->post_excerpt || false !== $pos ) {
-				$more = 0;
-				if ( ! $pos ) {
-					if ( strlen( get_the_excerpt() ) === strpos( get_the_excerpt(), '[...]' ) + 5 ) {
-						$raw_content = substr( $raw_content, 0, -5 );
-					}
-					$raw_content = wp_strip_all_tags( get_the_excerpt(), '<p>' ) . $read_more;
-				}
-
-				$custom_excerpt = true;
-			}
-			// HTML tags remain in excerpt.
-		} else {
-			$more = 0;
-			$raw_content = get_the_content( $read_more );
-			if ( $post->post_excerpt || false !== $pos ) {
-				$more = 0;
-				if ( ! $pos ) {
-					if ( strlen( get_the_excerpt() ) === strpos( get_the_excerpt(), '[...]' ) + 5 ) {
-						$raw_content = substr( $raw_content, 0, -5 );
-					}
-					$raw_content = wp_strip_all_tags( get_the_excerpt(), '<p>' ) . $read_more;
-				}
-				$custom_excerpt = true;
-			}
-		}
-
-		// We have our raw post content and need to cut it down to the excerpt limit.
-		if ( ( $raw_content && false === $custom_excerpt ) || 'product' == $post->post_type ) {
-			$pattern = get_shortcode_regex();
-			$content = preg_replace_callback( "/$pattern/s", 'avada_extract_shortcode_contents', $raw_content );
-
-			// Check if the excerpting should be char or word based.
-			if ( Avada()->settings->get( 'excerpt_base' ) == 'Characters' ) {
-				$content = mb_substr( $content, 0, $limit );
-				if ( 0 != $limit && Avada()->settings->get( 'disable_excerpts' ) ) {
-					$content .= $read_more;
-				}
-				// Excerpting is word based.
+		// If read more for excerpts is not disabled.
+		if ( Avada()->settings->get( 'disable_excerpts' ) ) {
+			// Check if the read more [...] should link to single post.
+			if ( Avada()->settings->get( 'link_read_more' ) ) {
+				$read_more = ' <a href="' . get_permalink( get_the_ID() ) . '">' . $read_more_text . '</a>';
 			} else {
+				$read_more = ' ' . $read_more_text;
+			}
+		}
 
-				if ( 0 != $limit ) {
-					$content = wp_trim_words( $content, $limit, $read_more );
-				} else {
-					$content = wp_trim_words( $content, $limit, '' );
+		// Construct the content.
+		// Posts having a custom excerpt.
+		if ( has_excerpt() ) {
+			// WooCommerce products should use short description field, which is a custom excerpt.
+			if ( 'product' === $post->post_type ) {
+				$content = do_shortcode( $post->post_excerpt );
+
+				// Strip tags, if needed.
+				if ( $strip_html ) {
+					$content = wp_strip_all_tags( $content, '<p>' );
 				}
+			} else { // All other posts with custom excerpt.
+				$content = '<p>' . do_shortcode( get_the_excerpt() ) . '</p>';
+			}
+		} else { // All other posts (with and without <!--more--> tag in the contents).
+			// HTML tags should be stripped.
+			if ( $strip_html ) {
+				$content = wp_strip_all_tags( get_the_content( '{{read_more_placeholder}}' ), '<p>' );
+
+				// Strip out all attributes.
+				$content = preg_replace( '/<(\w+)[^>]*>/', '<$1>', $content );
+				$content = str_replace( '{{read_more_placeholder}}', $read_more, $content );
+
+			} else { // HTML tags remain in excerpt.
+				$content = get_the_content( $read_more );
 			}
 
-			if ( 0 != $limit && ! $strip_html ) {
+			$pattern = get_shortcode_regex();
+			$content = preg_replace_callback( "/$pattern/s", 'avada_extract_shortcode_contents', $content );
+
+			// <!--more--> tag is used in the post.
+			if ( false !== strpos( $post->post_content, '<!--more-->' ) ) {
 				$content = apply_filters( 'the_content', $content );
 				$content = str_replace( ']]>', ']]&gt;', $content );
-			} else {
+
+				if ( $strip_html ) {
+					$content = do_shortcode( $content );
+				}
+			}
+		}
+
+		// Limit the contents to the $limit length.
+		if ( ! has_excerpt() || 'product' === $post->post_type ) {
+			// Check if the excerpting should be char or word based.
+			if ( 'Characters' === Avada()->settings->get( 'excerpt_base' ) ) {
+				$content = mb_substr( $content, 0, $limit );
+				$content .= $read_more;
+			} else { // Excerpting is word based.
+				$content = explode( ' ', $content, $limit + 1 );
+				if ( count( $content ) > $limit ) {
+					array_pop( $content );
+					$content = implode( ' ', $content );
+					$content .= $read_more;
+
+				} else {
+					$content = implode( ' ', $content );
+				}
+			}
+
+			if ( $strip_html ) {
 				$content = '<p>' . $content . '</p>';
+			} else {
+				$content = apply_filters( 'the_content', $content );
+				$content = str_replace( ']]>', ']]&gt;', $content );
 			}
 
 			$content = do_shortcode( $content );
-
-			return $content;
-		}
-
-		// If we have a custom excerpt, e.g. using the <!--more--> tag.
-		if ( true == $custom_excerpt ) {
-			$pattern = get_shortcode_regex();
-			$content = preg_replace_callback( "/$pattern/s", 'avada_extract_shortcode_contents', $raw_content );
-			if ( true == $strip_html ) {
-				$content = apply_filters( 'the_content', $content );
-				$content = str_replace( ']]>', ']]&gt;', $content );
-				$content = do_shortcode( $content );
-			} else {
-				$content = apply_filters( 'the_content', $content );
-				$content = str_replace( ']]>', ']]&gt;', $content );
-			}
-		}
-
-		// If the custom excerpt field is used, just use that contents.
-		if ( has_excerpt() && 'product' != $post->post_type ) {
-			$content = '<p>' . do_shortcode( get_the_excerpt() ) . '</p>';
 		}
 
 		return $content;

@@ -1073,9 +1073,9 @@ function avada_wp_get_http( $url = false, $file_path = false, $args = array() ) 
 	}
 
 	// If all went well, then return the headers of the request.
-	if ( isset( $request['headers'] ) ) {
-		$request['headers']['response'] = $request['response']['code'];
-		return $request['headers'];
+	if ( isset( $response['headers'] ) ) {
+		$response['headers']['response'] = $response['response']['code'];
+		return $response['headers'];
 	}
 
 	// If all else fails, then return false.
@@ -1207,6 +1207,14 @@ function avada_ajax_avada_slider_preview() {
  */
 function avada_user_agent() {
 	return 'avada-user-agent';
+}
+
+if ( function_exists( 'wp_cache_clean_cache' ) && ! function_exists( 'wp_cache_debug' ) ) {
+	/**
+	 * This is an additional function to avoid PHP Fatal issues with WP Super Cache
+	 */
+	function wp_cache_debug() {
+	}
 }
 
 /* Omit closing PHP tag to avoid "Headers already sent" issues. */
